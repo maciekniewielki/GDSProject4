@@ -47,6 +47,7 @@ public class PitchManager : MonoBehaviour
 	private bool gameEnded;
 	private bool gameStarted;
 	private bool dontFightNextTurn;
+	private Text timer;
 	//Debug
 	private int playerPassing;
 	private int playerTackling;
@@ -56,6 +57,7 @@ public class PitchManager : MonoBehaviour
 
 	void Awake()
 	{
+		timer=GameObject.Find("Time").GetComponent<Text>();
 		buttonManager=GameObject.Find("ButtonManager").GetComponent<ButtonManager>();
 	}
 
@@ -117,6 +119,7 @@ public class PitchManager : MonoBehaviour
         logs[0].text = "Logs:\n";
         logs[1].text = "\n";
         logs[2].text = "\n";
+		logs[3].text = "\n";
         board.numberOfTurns = 0;
         board.playerTeamGoals = 0;
         board.enemyTeamGoals = 0;
@@ -231,12 +234,20 @@ public class PitchManager : MonoBehaviour
 
     void AddText(string what)
     {
-        if (board.numberOfTurns < 30)
-            logs[0].text = logs[0].text + what + "\n";
-        else if(board.numberOfTurns < 60)
-            logs[1].text = logs[1].text + what + "\n";
-        else
-            logs[2].text = logs[2].text + what + "\n";
+		if(board.numberOfTurns>90)
+		{
+			logs[3].text = logs[3].text + what + "\n";
+			return;
+		}
+
+        if (board.numberOfTurns < 23)
+			logs[0].text = logs[0].text + board.numberOfTurns+"':"+ what + "\n";
+        else if(board.numberOfTurns < 46)
+			logs[1].text = logs[1].text + board.numberOfTurns+"':" + what + "\n";
+		else if(board.numberOfTurns<69)
+			logs[2].text = logs[2].text + board.numberOfTurns+"':" + what + "\n";
+		else
+			logs[3].text = logs[3].text + board.numberOfTurns+"':" + what + "\n";
     }
 
     void ChangePossession()
@@ -336,6 +347,7 @@ public class PitchManager : MonoBehaviour
 	void NewTurn()
     {
 		isTurnInProgress=true;
+		UpdateTime();
         UpdateStatistics();
 
 		if(IsPlayerStandingOnBall()&&!dontFightNextTurn)
@@ -694,5 +706,10 @@ public class PitchManager : MonoBehaviour
 		}
 		Refresh();
 		waitingForPlayerInput=false;
+	}
+
+	void UpdateTime()
+	{
+		timer.text=board.numberOfTurns+"'";
 	}
 }
