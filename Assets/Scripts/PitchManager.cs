@@ -21,7 +21,7 @@ public class PitchManager : MonoBehaviour
         public Vector2 currentBallPosition { get; set; }
 		public Vector2 currentPlayerPosition { get; set; }
         public Side currentBallPossession { get; set; }
-        public int numberOfTurns { get; set; }
+        public int numberOfTurns {get; set;}
         public int playerTeamGoals { get; set; }
         public int enemyTeamGoals { get; set; }
         public int playerTeamShots { get; set; }
@@ -40,6 +40,7 @@ public class PitchManager : MonoBehaviour
 	public Vector2 moveDestination;
 	public string selectedMove;
 	public bool waitingForPlayerInput;
+	public bool paused;
 
     private MatchStatistics stats;
 	private ButtonManager buttonManager;
@@ -81,7 +82,7 @@ public class PitchManager : MonoBehaviour
 			gameStarted=true;
 		}
 
-		if(waitingForPlayerInput)
+		if(waitingForPlayerInput||paused)
 		{
 			return;
 		}
@@ -114,6 +115,7 @@ public class PitchManager : MonoBehaviour
 		gameSpeed=(int)GameObject.Find("Speed").GetComponent<Slider>().value;
 		waitingForPlayerInput=false;
 		gameStarted=false;
+		paused=false;
 		isTurnInProgress=false;
 		gameEnded=false;
         logs[0].text = "Logs:\n";
@@ -128,6 +130,8 @@ public class PitchManager : MonoBehaviour
 		SetCurrentBallPosition(new Vector2(0,0));
         stats = new MatchStatistics();
 
+
+		buttonManager.InitButtons();
 		UnHighlightEverything();
 		HighlightSpecific(board.currentPlayerPosition, "Player");
     }
@@ -184,6 +188,15 @@ public class PitchManager : MonoBehaviour
 	public Vector2[] GetCrossingPositions()
 	{
 		return new Vector2[]{new Vector2(1,0)};
+	}
+
+	void IncrementTurnCounter()
+	{
+		board.numberOfTurns++;
+		if(board.numberOfTurns==46)
+			HalfTime();
+		if(paused)
+			board.numberOfTurns--;
 	}
 
 	public Vector2[] GetPassingPositions()
@@ -368,7 +381,8 @@ public class PitchManager : MonoBehaviour
 
 
         UpdateScore();
-        board.numberOfTurns++;
+		IncrementTurnCounter();
+
        
 		if(board.numberOfTurns>90)
 		{
@@ -378,6 +392,13 @@ public class PitchManager : MonoBehaviour
 			gameStarted=false;
 		}
     }
+
+	void HalfTime()
+	{
+		paused=true;
+		buttonManager.SetButtonText("startButton", "2nd half");
+
+	}
 
     int RollTheDice()
     {
@@ -409,7 +430,7 @@ public class PitchManager : MonoBehaviour
 
         if (playerScore==enemyScore)
         {
-            board.numberOfTurns++;
+			IncrementTurnCounter();
             FightForBall();
         }
         else
