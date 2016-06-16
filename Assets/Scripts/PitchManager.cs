@@ -41,12 +41,13 @@ public class PitchManager : MonoBehaviour
 	public string selectedMove;
 	public bool waitingForPlayerInput;
 	public bool paused;
+	public bool gameEnded;
+	public bool gameStarted;
+	public bool secondHalfStarted;
 
     private MatchStatistics stats;
 	private ButtonManager buttonManager;
 	private bool isTurnInProgress;
-	private bool gameEnded;
-	private bool gameStarted;
 	private bool dontFightNextTurn;
 	private Text timer;
 	//Debug
@@ -76,12 +77,6 @@ public class PitchManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if (Input.GetKeyDown("r"))
-		{
-			InitBoard();
-			gameStarted=true;
-		}
-
 		if(waitingForPlayerInput||paused)
 		{
 			return;
@@ -92,6 +87,12 @@ public class PitchManager : MonoBehaviour
 		else
 			NewTurn();
     }
+
+	public void StartTheMatch()
+	{
+		InitBoard();
+		gameStarted=true;
+	}
 
     void UpdateStatistics(string phase="")
     {
@@ -118,6 +119,7 @@ public class PitchManager : MonoBehaviour
 		paused=false;
 		isTurnInProgress=false;
 		gameEnded=false;
+		secondHalfStarted=false;
         logs[0].text = "Logs:\n";
         logs[1].text = "\n";
         logs[2].text = "\n";
@@ -193,10 +195,11 @@ public class PitchManager : MonoBehaviour
 	void IncrementTurnCounter()
 	{
 		board.numberOfTurns++;
-		if(board.numberOfTurns==46)
+		if(board.numberOfTurns==46&&!secondHalfStarted)
+		{
 			HalfTime();
-		if(paused)
-			board.numberOfTurns--;
+			secondHalfStarted=true;
+		}
 	}
 
 	public Vector2[] GetPassingPositions()
@@ -397,7 +400,14 @@ public class PitchManager : MonoBehaviour
 	{
 		paused=true;
 		buttonManager.SetButtonText("startButton", "2nd half");
+		buttonManager.SetInteractable("startButton", true);
+		SetPlayerPosition(new Vector2(0,0));
 
+	}
+
+	public void Unpause()
+	{
+		paused=false;
 	}
 
     int RollTheDice()

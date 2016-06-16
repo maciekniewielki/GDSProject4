@@ -1034,6 +1034,9 @@ MonoBehaviour:
   selectedMove: 
   waitingForPlayerInput: 0
   paused: 0
+  gameEnded: 0
+  gameStarted: 0
+  secondHalfStarted: 0
 --- !u!4 &327051282
 Transform:
   m_ObjectHideFlags: 0
@@ -3658,7 +3661,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: passButton
+          m_StringArgument: startButton
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,

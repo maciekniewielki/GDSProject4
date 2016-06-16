@@ -75,7 +75,10 @@ public class ButtonManager : MonoBehaviour
 	{
 		if(which.Equals("startButton"))
 		{
-			pitch.paused=false;
+			if(!pitch.gameStarted)
+				pitch.StartTheMatch();
+			else
+				pitch.Unpause();
 		}
 
 		SetCurrentlyAvailable();
