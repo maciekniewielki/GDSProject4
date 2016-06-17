@@ -393,6 +393,8 @@ public class PitchManager : MonoBehaviour
 	        AddText(stats.ToString());
 			gameEnded=true;
 			gameStarted=false;
+			buttonManager.SetButtonText("startButton", "Play Match");
+			buttonManager.SetInteractable("startButton", true);
 		}
     }
 
@@ -401,7 +403,7 @@ public class PitchManager : MonoBehaviour
 		paused=true;
 		buttonManager.SetButtonText("startButton", "2nd half");
 		buttonManager.SetInteractable("startButton", true);
-		SetPlayerPosition(new Vector2(0,0));
+		SetCurrentBallPosition(new Vector2(0,0));
 
 	}
 

@@ -61,6 +61,8 @@ public class ButtonManager : MonoBehaviour
 		SetInteractableToAll(false);
 		if(!pitch.waitingForPlayerInput)
 			return;
+		if(pitch.gameEnded)
+			SetInteractable("startButton", true);
 
 		SetInteractable("passButton", true);
 		Vector2 pos=pitch.board.currentPlayerPosition;
