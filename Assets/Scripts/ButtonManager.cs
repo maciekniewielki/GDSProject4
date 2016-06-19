@@ -27,7 +27,7 @@ public class ButtonManager : MonoBehaviour
 
 	public void InitButtons()
 	{
-		SetButtonText("shootButton", "Play match");
+		SetButtonText("startButton", "Play match");
 	}
 
 
