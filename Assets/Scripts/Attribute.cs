@@ -1,7 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Attribute : MonoBehaviour {
+[System.Serializable]
+public class Attribute
+{
+	public string name;
+	public int value;
+	public int maxValue;
+	public int minValue;
 
-    public PlayerInfo.Attribute attribute;
+	override
+	public string ToString()
+	{
+		return "name: " + name.ToString() + "\n" + "value: " + value.ToString() + "\n";
+	}
 }

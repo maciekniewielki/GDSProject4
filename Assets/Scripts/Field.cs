@@ -4,6 +4,8 @@ using System.Collections;
 [RequireComponent (typeof(SpriteRenderer))]
 public class Field : MonoBehaviour 
 {
+	//TODO make it work
+	/*
 	public Sprite passHighlight;
 	public Sprite notHighlighted;
 	public GameObject playerHighlight;
@@ -65,5 +67,5 @@ public class Field : MonoBehaviour
 		else
 			y=-1;
 		return new Vector2((number-1)%3-1, y);
-	}
+	}*/
 }

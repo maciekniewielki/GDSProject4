@@ -1,35 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
-public class PlayerInfo : MonoBehaviour
+public class PlayerInfo
 {
-
-    [System.Serializable]
-    public class Attribute
-    {
-        public string name;
-        public int value;
-        public int maxValue;
-        public int minValue;
-
-        override
-        public string ToString()
-        {
-            return "name: " + name.ToString() + "\n" + "value: " + value.ToString() + "\n";
-        }
-    }
+	//TODO add some more functionality
 
     public string playerName { get; set; }
     public string playerSurname { get; set; }
     public string playerNationality { get; set; }
-    public Attribute[] playerAttributes;
+	public Dictionary<string, Attribute> playerAttributes;
 
-    public Attribute[] GetPlayerAttributes()
+	public Dictionary<string, Attribute> GetPlayerAttributes()
     {
         return playerAttributes;
     }
-    public void SetPlayerAttributes(Attribute[] a)
+	public void SetPlayerAttributes(Dictionary<string, Attribute> a)
     {
         playerAttributes = a;
     }

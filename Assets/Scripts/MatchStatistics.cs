@@ -15,8 +15,12 @@ public class MatchStatistics
 	public int passesUnsuccessfull {get; set;}
 	public int crossesSuccessful {get; set;}
 	public int crossesUnsuccessfull {get; set;}
+	public Team playerTeam {get; set;}
+	public Team enemyTeam {get; set;}
+	public int currentMinute {get; set;}
+	public Team currentPossession {get; set;}
 
-    public MatchStatistics()
+	public MatchStatistics(Team playerTeam, Team enemyTeam)
     {
         this.fieldBallCount = new Dictionary<Vector2, int>();
         this.playerTeamGoals = 0;
@@ -29,6 +33,10 @@ public class MatchStatistics
 		this.tacklesUnsuccessfull=0;
 		this.crossesSuccessful=0;
 		this.crossesUnsuccessfull=0;
+		this.playerTeam=playerTeam;
+		this.enemyTeam=enemyTeam;
+		this.currentMinute=1;
+		currentPossession=playerTeam;
     }
 
     override
@@ -48,4 +56,9 @@ public class MatchStatistics
         return s;
     }
 
+}
+
+public enum Side
+{
+	PLAYER, ENEMY
 }

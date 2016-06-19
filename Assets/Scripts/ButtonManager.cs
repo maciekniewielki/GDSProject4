@@ -5,7 +5,8 @@ using System.Linq;
 
 public class ButtonManager : MonoBehaviour 
 {
-
+	//TODO make it work
+	/*
 	public GameObject buttonParent;
 
 	private Dictionary<string, Button> buttons;
@@ -102,6 +103,6 @@ public class ButtonManager : MonoBehaviour
 			pitch.HighlightSelected(pitch.GetPositions("Cross"));
 		}
 		
-	}
+	}*/
 
 }

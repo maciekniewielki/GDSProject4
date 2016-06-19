@@ -4,17 +4,11 @@ using UnityEngine.UI;
 
 public class PitchManager : MonoBehaviour 
 {
-
+	//TODO clean it up and remove some methods
+	/*
     // Use this for initialization
-    public enum Position
-    {
-        LEFT,RIGHT,MIDDLE,DEFENCE,ATTACK,MIDFIELD
-    }
 
-    public enum Side
-    {
-        PLAYER, ENEMY
-    }
+   
     [System.Serializable]
     public class Board
     {
@@ -138,59 +132,8 @@ public class PitchManager : MonoBehaviour
 		HighlightSpecific(board.currentPlayerPosition, "Player");
     }
 
-    Vector2 GetRandomAttackingPosition()
-    {
-		/*
-        Vector2 pos = board.currentBallPosition;
-        pos.x *= board.currentBallPossession == Side.PLAYER ? 1 : -1;
-        if (pos.x == 1)
-            pos.y = 0;
-        else
-        {
-            pos.x++;
-            if (pos.y == 1)
-                pos.y = Random.Range(0, 2) == 1 ? 1 : 0;
-            else if (pos.y == -1)
-                pos.y = Random.Range(0, 2) == 1 ? -1 : 0;
-            else
-                pos.y = GetRandPos();
-        }
-        pos.x *= board.currentBallPossession == Side.PLAYER ? 1 : -1;
-        return pos;
-        */
-		Vector2 pos=board.currentBallPosition;
-		pos.x *= board.currentBallPossession == Side.PLAYER ? 1 : -1;
+    
 
-		if (pos.x== 1)
-			return new Vector2(board.currentBallPosition.x, 0);
-
-		Vector2[] passingPositions=GetPassingPositions();
-		
-
-		while(true)
-		{
-			int randIndex=Random.Range(0,passingPositions.Length);
-			if(passingPositions[randIndex].x>board.currentBallPosition.x&&board.currentBallPossession==Side.PLAYER)
-				return passingPositions[randIndex];
-			else if(passingPositions[randIndex].x<board.currentBallPosition.x&&board.currentBallPossession==Side.ENEMY)
-				return passingPositions[randIndex];
-			
-		}
-
-    }
-
-	public Vector2[] GetPositions(string which)
-	{
-		if(which.Equals("Pass"))
-			return GetPassingPositions();
-		else
-			return GetCrossingPositions();
-	}
-
-	public Vector2[] GetCrossingPositions()
-	{
-		return new Vector2[]{new Vector2(1,0)};
-	}
 
 	void IncrementTurnCounter()
 	{
@@ -201,52 +144,7 @@ public class PitchManager : MonoBehaviour
 			secondHalfStarted=true;
 		}
 	}
-
-	public Vector2[] GetPassingPositions()
-	{
-		Vector2 pos = board.currentBallPosition;
-		Vector2[] positions;
-
-		if(pos.x==-1 && pos.y==1)
-			positions=new Vector2[]{new Vector2(0, 1), new Vector2(0, 0), new Vector2(-1, 0)};
-		else if(pos.x==0 && pos.y==1)
-			positions=new Vector2[]{new Vector2(-1, 1), new Vector2(0, 0), new Vector2(1, 1)};
-		else if(pos.x==1 & pos.y==1)
-			positions=new Vector2[]{new Vector2(0, 1), new Vector2(0, 0), new Vector2(1, 0)};
-		else if(pos.x==-1 && pos.y==0)
-			positions=new Vector2[]{new Vector2(-1, 1), new Vector2(0, 0), new Vector2(-1, -1)};
-		else if(pos.x==0 && pos.y==0)
-			positions=new Vector2[]{new Vector2(-1, 1), new Vector2(0, 1), new Vector2(1, 1), new Vector2(-1, 0), new Vector2(1, 0), new Vector2(-1, -1), new Vector2(0, -1), new Vector2(1, -1)};
-		else if(pos.x==1 && pos.y==0)
-			positions=new Vector2[]{new Vector2(1, 1), new Vector2(0, 0), new Vector2(1, -1)};
-		else if(pos.x==-1 && pos.y==-1)
-			positions=new Vector2[]{new Vector2(-1, 0), new Vector2(0, 0), new Vector2(0, -1)};
-		else if(pos.x==0 && pos.y==-1)
-			positions=new Vector2[]{new Vector2(-1, -1), new Vector2(0, 0), new Vector2(1, -1)};
-		else
-			positions=new Vector2[]{new Vector2(1, 0), new Vector2(0, 0), new Vector2(0, -1)};
-
-		return positions;
-	}
-
-	public Vector2[] GetAttackingPositions()
-	{
-		Vector2 pos = board.currentPlayerPosition;
-		Vector2[] positions;
-		if (pos.x == 1)
-			return null;
-		else
-		{
-			pos.x++;
-			if (pos.y == 1)
-				positions=new Vector2[]{new Vector2(pos.x, pos.y), new Vector2(pos.x, 0)};
-			else if (pos.y == -1)
-				positions=new Vector2[]{new Vector2(pos.x, pos.y), new Vector2(pos.x, 0)};
-			else
-				positions=new Vector2[]{new Vector2(pos.x, 1), new Vector2(pos.x, 0), new Vector2(pos.x, -1)};
-		}
-		return positions;
-	}
+		
 
     void AddText(string what)
     {
@@ -542,22 +440,7 @@ public class PitchManager : MonoBehaviour
 		UnHighlightEverything();
 		HighlightSpecific(board.currentPlayerPosition, "Player");
 	}
-
-    void SetCurrentBallPosition(Position pos1, Position pos2)
-    {
-        int x = 0;
-        int y = 0;
-        if (pos1 == Position.LEFT||pos2==Position.LEFT)
-            y++;
-        if (pos1 == Position.RIGHT || pos2 == Position.RIGHT)
-            y--;
-        if (pos1 == Position.DEFENCE || pos2 == Position.DEFENCE)
-            x--;
-        if (pos1 == Position.ATTACK || pos2 == Position.ATTACK)
-            x++;
-
-        SetCurrentBallPosition(x, y);
-    }
+		
 
     void SetCurrentBallPosition(int x, int y)
     {
@@ -627,25 +510,7 @@ public class PitchManager : MonoBehaviour
 		return gameStarted;
 	}
 
-	int GetEnemyFormationPointsInPosition(Vector2 pos)
-	{
-		if(pos.x==-1)
-			return enemyTeam.attack;
-		else if(pos.x==0)
-			return enemyTeam.midfield;
-		else
-			return enemyTeam.defence;
-	}
 
-	int GetAllyFormationPointsInPosition(Vector2 pos)
-	{
-		if(pos.x==-1)
-			return playerTeam.defence;
-		else if(pos.x==0)
-			return playerTeam.midfield;
-		else
-			return playerTeam.attack;
-	}
 
 	public void makeMove(string which)
 	{
@@ -665,84 +530,9 @@ public class PitchManager : MonoBehaviour
 
 	}
 		
-	void Pass()
-	{
-		Vector2[] possibleMoves=GetPassingPositions();
-		bool found=false;
-		foreach(Vector2 w in possibleMoves)
-			if(w.Equals(moveDestination))
-				found=true;
-
-		if(!found)
-			return;
-
-		int yourPercent=playerPassing*5+RollTheDice()*6;
-		int enemyPercent=GetEnemyFormationPointsInPosition(moveDestination)*20;
-		SetCurrentBallPosition(moveDestination);
-		if(yourPercent>=enemyPercent)
-		{
-			AddText("Pass successful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.passesSuccessful++;
-		}
-		else
-		{
-			AddText("Pass unsuccessful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.passesUnsuccessfull++;
-			ChangePossession();
-		}
-		Refresh();
-		waitingForPlayerInput=false;
-	}
-
-	bool Tackle()
-	{
-		int yourPercent=playerTackling*5+RollTheDice()*6;
-		int enemyPercent=GetEnemyFormationPointsInPosition(board.currentPlayerPosition)*20;
-
-		if(yourPercent>=enemyPercent)
-		{
-			AddText("Tackle successful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.tacklesSuccessful++;
-			ChangePossession();
-			return true;
-		}
-		else
-		{
-			AddText("Tackle unsuccessful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.tacklesUnsuccessfull++;
-			return false;
-		}
-	}
-
-	void Cross()
-	{
-		bool found=false;
-		if(new Vector2(1,0).Equals(moveDestination))
-				found=true;
-
-		if(!found)
-			return;
-
-		int yourPercent=playerCrossing*5+RollTheDice()*6;
-		int enemyPercent=GetEnemyFormationPointsInPosition(moveDestination)*20;
-		SetCurrentBallPosition(moveDestination);
-		if(yourPercent>=enemyPercent)
-		{
-			AddText("Cross successful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.crossesSuccessful++;
-		}
-		else
-		{
-			AddText("Cross unsuccessful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.crossesUnsuccessfull++;
-			ChangePossession();
-		}
-		Refresh();
-		waitingForPlayerInput=false;
-	}
 
 	void UpdateTime()
 	{
 		timer.text=board.numberOfTurns+"'";
-	}
+	}*/
 }
