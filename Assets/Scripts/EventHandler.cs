@@ -12,15 +12,35 @@ public class EventHandler : MonoBehaviour {
 
 	void Start ()
     {
-        playerAttributes = player.playerInfo.GetPlayerAttributes();
-		foreach (KeyValuePair<string, Attribute> pair in playerAttributes)
+		playerAttributes=new Dictionary<string, Attribute>();
+		foreach (Transform transform in attributesParent.GetComponentsInChildren<Transform>())
         {
-			Attribute a=pair.Value;
-            Text text = attributesParent.transform.FindChild(a.name).GetComponent<Text>();
-            text.text= a.name + ": " + a.value;
+			GameObject attribute=transform.gameObject;
+			Text text = attribute.GetComponent<Text>();
+			if(text==null)
+				continue;
+			SetAttribute(attribute.name, 5);
+			Debug.Log(attribute.name);
+            text.text= attribute.name + ": " + 5;
         }
             
     }
+
+	public void SetAttribute(string name, int value)
+	{
+		if(playerAttributes.ContainsKey(name))
+		{
+			if(playerAttributes[name].maxValue>=value&&value>=playerAttributes[name].minValue)
+				playerAttributes[name].value=value;
+		}
+		else
+		{
+			playerAttributes.Add(name, new Attribute(name, 5));
+			SetAttribute(name, value);
+
+		}
+
+	}
 
 
     public void IncrementAttribute(Text which)

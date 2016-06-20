@@ -17,8 +17,6 @@ public class MatchStatistics
 	public int crossesUnsuccessfull {get; set;}
 	public Team playerTeam {get; set;}
 	public Team enemyTeam {get; set;}
-	public int currentMinute {get; set;}
-	public Team currentPossession {get; set;}
 
 	public MatchStatistics(Team playerTeam, Team enemyTeam)
     {
@@ -35,8 +33,6 @@ public class MatchStatistics
 		this.crossesUnsuccessfull=0;
 		this.playerTeam=playerTeam;
 		this.enemyTeam=enemyTeam;
-		this.currentMinute=1;
-		currentPossession=playerTeam;
     }
 
     override

@@ -5,20 +5,17 @@ using System.Collections;
 public class Field : MonoBehaviour 
 {
 	//TODO make it work
-	/*
+
 	public Sprite passHighlight;
 	public Sprite notHighlighted;
-	public GameObject playerHighlight;
 
 	private SpriteRenderer sRenderer;
-	private PitchManager manager;
 	private bool highlighted;
 
-	void Awake()
+	void Start()
 	{
 		sRenderer=GetComponent<SpriteRenderer>();
 		sRenderer.sprite=notHighlighted;
-		manager=GameObject.Find("Pitch").GetComponent<PitchManager>();
 		highlighted=false;
 	}
 	public void Highlight()
@@ -35,24 +32,10 @@ public class Field : MonoBehaviour
 	}
 		
 
-	public void Highlight(string what)
-	{
-		if(what.Equals("Player"))
-		{
-			playerHighlight.transform.position=transform.position;
-		}
-	}
-
 	void OnMouseDown()
 	{
-		if(!manager.HasTheGameStarted())
-			manager.SetPlayerPosition(NameToVector(name));
-
-		if(highlighted)
-		{
-			manager.SetMoveDestination(NameToVector(name));
-			manager.makeMove();
-		}
+		if(GameManager.instance.GetSelectedMove()!=null&&highlighted)
+			GameManager.instance.MakeSelectedMove(NameToVector(name));
 	}
 
 	Vector2 NameToVector(string name)
@@ -67,5 +50,5 @@ public class Field : MonoBehaviour
 		else
 			y=-1;
 		return new Vector2((number-1)%3-1, y);
-	}*/
+	}
 }

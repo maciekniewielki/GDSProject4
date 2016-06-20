@@ -4,8 +4,9 @@ using System.Collections;
 public class CalculationsManager: MonoBehaviour
 {
 	//TODO make it work
-	/*
+
 	private MatchStatistics stats;
+	private Player player;
 	private PlayerInfo playerInfo;
 
 	void Start()
@@ -14,7 +15,7 @@ public class CalculationsManager: MonoBehaviour
 		stats=GameManager.stats;
 	}
 
-	public Vector2[] GetPositions(string which)
+	public static Vector2[] GetPositions(string which)
 	{
 		if(which.Equals("Pass"))
 			return GetPassingPositions();
@@ -22,13 +23,13 @@ public class CalculationsManager: MonoBehaviour
 			return GetCrossingPositions();
 	}
 
-	public Vector2[] GetCrossingPositions()
+	public static Vector2[] GetCrossingPositions()
 	{
 		return new Vector2[]{new Vector2(1,0)};
 	}
 		
 
-	public Vector2[] GetPassingPositions(Vector2 source)
+	public static Vector2[] GetPassingPositions(Vector2 source)
 	{
 		Vector2 pos = source;
 		Vector2[] positions;
@@ -55,7 +56,7 @@ public class CalculationsManager: MonoBehaviour
 		return positions;
 	}
 
-	public Vector2[] GetAttackingPositions(Vector2 source)
+	public static Vector2[] GetAttackingPositions(Vector2 source)
 	{
 		Vector2 pos = source;
 		Vector2[] positions;
@@ -74,7 +75,7 @@ public class CalculationsManager: MonoBehaviour
 		return positions;
 	}
 
-	public Vector2 GetRandomAttackingPosition(Vector2 source, Side currentPossession)
+	public static Vector2 GetRandomAttackingPosition(Vector2 source, Side currentPossession)
 	{
 		source.x *= currentPossession == Side.PLAYER ? 1 : -1;
 
@@ -96,7 +97,7 @@ public class CalculationsManager: MonoBehaviour
 
 	}
 
-	public int GetFormationPointsInPosition(Vector2 pos, Side side)
+	public static int GetFormationPointsInPosition(Vector2 pos, Side side)
 	{
 		if(side==Side.ENEMY)
 		{
@@ -119,28 +120,89 @@ public class CalculationsManager: MonoBehaviour
 		}
 	}
 
-	public bool IsMoveSuccessful(string name, int value, Vector2 source, Vector2 destination)
+	public static bool IsMoveSuccessful(int value, Vector2 source, Vector2 destination)
 	{
-		
-	}
-
-	public int CalculatePassingScoreOnField(Vector2 source, Vector2 destination)
-	{
-		int yourPercent=playerPassing*5+RollTheDice()*6;
-		int enemyPercent=GetEnemyFormationPointsInPosition(moveDestination)*20;
-		SetCurrentBallPosition(moveDestination);
-		if(yourPercent>=enemyPercent)
-		{
-			AddText("Pass successful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.passesSuccessful++;
-		}
+		int score=CalculateScoreOnField(value, source, destination);
+		if(score>0)
+			return true;
 		else
-		{
-			AddText("Pass unsuccessful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.passesUnsuccessfull++;
-			ChangePossession();
-		}
+			return false;
 	}
 
-*/
+	public static int CalculateScoreOnField(int value,Vector2 source, Vector2 destination)
+	{
+		int yourPercent=value*5+RollTheDice()*6;
+		int enemyPercent=GetFormationPointsInPosition(destination, Side.ENEMY)*20;
+		return yourPercent-enemyPercent;
+
+	}
+
+	public static bool IsComputerShootSuccessful(Side shooterSide, Side defenderSide)
+	{
+		Vector2 field;
+		if(shooterSide==Side.PLAYER)
+			field=Vector2.right;
+		else
+			field=Vector2.left;
+		int attackerPoints=GetFormationPointsInPosition(field, shooterSide)+RollTheDice();
+		int defenderPoints=GetFormationPointsInPosition(field, defenderSide)+RollTheDice();
+
+		if(attackerPoints>defenderPoints)
+			return true;
+		else
+			return false;
+	}
+
+	public static bool CanPlayerStart()
+	{
+		if(IsPlayerStandingOnBall()&&GameManager.instance.possession==Side.PLAYER)
+			return true;
+		else
+			return false;
+	}
+
+	public static bool CanPlayerTackle()
+	{
+		if(IsPlayerStandingOnBall()&&GameManager.instance.possession==Side.ENEMY)
+			return true;
+		else
+			return false;
+	}
+		
+	public static bool IsPlayerStandingOnBall()
+	{
+		if(player.position==GameManager.instance.ballPosition)
+			return true;
+		else
+			return false;
+	}
+
+	public static bool IsPlayerOnPenaltyArea()
+	{
+		if(player.position==Vector2.right)
+			return true;
+		else
+			return false;
+	}
+
+	public static int RollTheDice()
+	{
+		return Random.Range(1, 6);
+	}
+
+	public static bool IsBallOnPenaltyArea()
+	{
+		if(GameManager.instance.ballPosition==Vector2.right||GameManager.instance.ballPosition==Vector2.left)
+			return true;
+		else
+			return false;
+	}
+
+	public static bool CanComputerShootOnPenaltyArea()
+	{
+		if(GameManager.instance.ballPosition==Vector2.right&&GameManager.instance.possession==Side.PLAYER||GameManager.instance.ballPosition==Vector2.left&GameManager.instance.possession==Side.ENEMY)
+			return true;
+		else
+			return false;
+	}
 }

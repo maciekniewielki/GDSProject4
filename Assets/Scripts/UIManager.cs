@@ -6,13 +6,14 @@ public class UIManager : MonoBehaviour {
 
 	public Text goalsTextDisplay;
 	public Text timerDisplay;
-	public MatchStatistics stats;
 
 
 	void Start () 
 	{
 		GameManager.instance.onGoal+=UpdateUI;
 		GameManager.instance.onTurnStart+=UpdateUI;
+		GameManager.instance.onPlayerTeamGoal+=Update;
+		GameManager.instance.onEnemyTeamGoal+=UpdateUI;
 	}
 	
 	// Update is called once per frame
@@ -22,8 +23,8 @@ public class UIManager : MonoBehaviour {
 
 	void UpdateUI()
 	{
-		goalsTextDisplay.text=stats.playerTeam.name+" "+stats.playerTeamGoals+":"+stats.enemyTeamGoals+" "+stats.enemyTeam.name;
-		timerDisplay.text=stats.currentMinute+"'";
+		goalsTextDisplay.text=GameManager.stats.playerTeam.name+" "+GameManager.stats.playerTeamGoals+":"+GameManager.stats.enemyTeamGoals+" "+GameManager.stats.enemyTeam.name;
+		timerDisplay.text=GameManager.currentMinute+"'";
 	}
 		
 }

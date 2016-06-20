@@ -1,66 +1,60 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
+[System.Serializable]
 public class Player : MonoBehaviour 
 {
 	//TODO make it work
+	//TODO add finishshoot implementation
 	public Vector2 position;
 	public PlayerInfo playerInfo;
-	/*
-	void Pass(Vector2 destination)
+
+	private PitchManager pitch;
+
+	void Start()
 	{
+		pitch=GameObject.Find("Pitch").GetComponent<PitchManager>();
+	}
 		
-
-
-		Refresh();
-		waitingForPlayerInput=false;
+	public void Pass(Vector2 destination)
+	{
+		GameManager.instance.SetBallPosition(destination);
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetPlayerAttributes()["Passing"],position, destination))
+			GameManager.instance.ChangeBallPossession(Side.ENEMY);
+		
+		GameManager.instance.noFightNextTurn=true;
+		GameManager.instance.EndPlayerTurn();
 	}
 
-	bool Tackle()
+	public bool Tackle()
 	{
-		int yourPercent=playerTackling*5+RollTheDice()*6;
-		int enemyPercent=GetEnemyFormationPointsInPosition(board.currentPlayerPosition)*20;
-
-		if(yourPercent>=enemyPercent)
-		{
-			AddText("Tackle successful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.tacklesSuccessful++;
-			ChangePossession();
+		if(CalculationsManager.IsMoveSuccessful(playerInfo.GetPlayerAttributes()["Tackling"],position, position))
 			return true;
-		}
 		else
-		{
-			AddText("Tackle unsuccessful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.tacklesUnsuccessfull++;
 			return false;
-		}
 	}
 
-	void Cross()
+	public void Cross(Vector2 destination)
 	{
-		bool found=false;
-		if(new Vector2(1,0).Equals(moveDestination))
-			found=true;
+		GameManager.instance.SetBallPosition(destination);
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetPlayerAttributes()["Crossing"],position, destination))
+			GameManager.instance.ChangeBallPossession(Side.ENEMY);
 
-		if(!found)
-			return;
+		GameManager.instance.noFightNextTurn=true;
+		GameManager.instance.EndPlayerTurn();
+	}
 
-		int yourPercent=playerCrossing*5+RollTheDice()*6;
-		int enemyPercent=GetEnemyFormationPointsInPosition(moveDestination)*20;
-		SetCurrentBallPosition(moveDestination);
-		if(yourPercent>=enemyPercent)
-		{
-			AddText("Cross successful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.crossesSuccessful++;
-		}
-		else
-		{
-			AddText("Cross unsuccessful("+ yourPercent + "to " + enemyPercent + ")");
-			stats.crossesUnsuccessfull++;
-			ChangePossession();
-		}
-		Refresh();
-		waitingForPlayerInput=false;
-	}*/
+	public static Vector2 GetPlayerPosition()
+	{
+		return position;
+	}
 		
+	public void MoveYourself(Vector2 destination)
+	{
+		position=destination;
+
+		if(GameManager.instance.onPlayerMove!=null)
+			GameManager.instance.onPlayerMove();
+	}
 }

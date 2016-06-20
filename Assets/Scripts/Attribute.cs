@@ -14,4 +14,20 @@ public class Attribute
 	{
 		return "name: " + name.ToString() + "\n" + "value: " + value.ToString() + "\n";
 	}
+
+	public Attribute(string name, int value, int minValue, int maxValue)
+	{
+		this.name=name;
+		this.value=value;
+		this.minValue=minValue;
+		this.maxValue=maxValue;
+	}
+		
+	public Attribute(string name, int value)
+	{
+		this.name=name;
+		this.value=value;
+		this.minValue=5;
+		this.maxValue=20;
+	}
 }

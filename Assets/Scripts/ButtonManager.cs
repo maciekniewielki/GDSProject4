@@ -5,8 +5,8 @@ using System.Linq;
 
 public class ButtonManager : MonoBehaviour 
 {
-	//TODO make it work
-	/*
+	//TODO add finishshoot implementation
+
 	public GameObject buttonParent;
 
 	private Dictionary<string, Button> buttons;
@@ -15,6 +15,8 @@ public class ButtonManager : MonoBehaviour
 
 	void Awake () 
 	{
+		GameManager.instance.onPlayerTurnStart+=SetCurrentlyAvailable;
+		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
 		pitch=GameObject.Find("Pitch").GetComponent<PitchManager>();
 		buttons=new Dictionary<string, Button>();
 		foreach(Button g in buttonParent.transform.GetComponentsInChildren<Button>() )
@@ -50,59 +52,43 @@ public class ButtonManager : MonoBehaviour
 
 	public void SetCurrentlyAvailable()
 	{
-		if(pitch.paused)
-		{
-			SetInteractableToAll(false);
-			SetInteractable("startButton", true);
-			return;
-		}
-
-		SetInteractable("startButton", false);
-
 		SetInteractableToAll(false);
-		if(!pitch.waitingForPlayerInput)
+		if(!GameManager.instance.playerTurn)
 			return;
-		if(pitch.gameEnded)
-			SetInteractable("startButton", true);
 
-		SetInteractable("passButton", true);
-		Vector2 pos=pitch.board.currentPlayerPosition;
-		if(pos!=new Vector2(1,0))
-			SetInteractable("crossButton", true);
-
-		if(pos==new Vector2(1,0))
-			SetInteractable("shootButton", true);
+		if(GameManager.instance.playerHasBall)
+		{
+			SetInteractable("passButton", true);
+			if(CalculationsManager.IsPlayerOnPenaltyArea())
+				SetInteractable("shootButton", false);
+			else
+				SetInteractable("crossButton", false);
+		}
 	}
 
 	public void Click(string which)
 	{
-		if(which.Equals("startButton"))
-		{
-			if(!pitch.gameStarted)
-				pitch.StartTheMatch();
-			else
-				pitch.Unpause();
-		}
 
-		SetCurrentlyAvailable();
-		if(stageButtons.Contains(which))
+		if(!stageButtons.Contains(which))
+		{
+			if(which.Equals("startButton"))
+				GameManager.instance.StartTheMatch();
+			else if(which.Equals("shootButton"))
+				pitch.makeMove("FinishShoot");
+		}
+		else
+		{
+			SetCurrentlyAvailable();
 			SetInteractable(which, false);
+			string move=(which.First().ToString().ToUpper()+which.Substring(1)).Remove(which.Length-6);
+			Debug.Log("Selected move: "+move);
 
-		if(which.Equals("shootButton"))
-			pitch.makeMove("FinishShoot");
-		else if(which.Equals("passButton"))
-		{
-			pitch.selectedMove="Pass";
-			pitch.Refresh();
-			pitch.HighlightSelected(pitch.GetPositions("Pass"));
-		}
-		else if(which.Equals("crossButton"))
-		{
-			pitch.selectedMove="Cross";
-			pitch.Refresh();
-			pitch.HighlightSelected(pitch.GetPositions("Cross"));
+
+			GameManager.instance.SetSelectedMove(move);
+			pitch.HighlightSelected(CalculationsManager.GetPositions(move));
+
 		}
 		
-	}*/
+	}
 
 }

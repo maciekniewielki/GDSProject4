@@ -546,9 +546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88311b69fd710478566ae079e05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passHighlight: {fileID: 21300000, guid: ff92015cf86853947bf74502d564fe7e, type: 3}
-  notHighlighted: {fileID: 21300000, guid: 4e804aebdfe96b74286f394eec51afda, type: 3}
-  playerHighlight: {fileID: 1774639949}
 --- !u!61 &114845131
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -701,9 +698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88311b69fd710478566ae079e05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passHighlight: {fileID: 21300000, guid: c28ef944452eded4fa36bca404eef905, type: 3}
-  notHighlighted: {fileID: 21300000, guid: 5c5a902008fef6f4d9517dbd805620ba, type: 3}
-  playerHighlight: {fileID: 1774639949}
 --- !u!61 &144291177
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1012,31 +1006,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fe73ae6ae944964fa78d3cfe2a5074d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fields:
-  - {fileID: 1722486466}
-  - {fileID: 545513185}
-  - {fileID: 144291173}
-  - {fileID: 791161642}
-  - {fileID: 1710519561}
-  - {fileID: 1720099812}
-  - {fileID: 114845127}
-  - {fileID: 1942608639}
-  - {fileID: 913991594}
-  ball: {fileID: 1956475340}
-  playerScore: {fileID: 1883688013}
-  enemyScore: {fileID: 106875652}
-  logs:
-  - {fileID: 1456903743}
-  - {fileID: 86777030}
-  - {fileID: 1035673208}
-  - {fileID: 519145572}
-  moveDestination: {x: 0, y: 0}
-  selectedMove: 
-  waitingForPlayerInput: 0
-  paused: 0
-  gameEnded: 0
-  gameStarted: 0
-  secondHalfStarted: 0
 --- !u!4 &327051282
 Transform:
   m_ObjectHideFlags: 0
@@ -1800,9 +1769,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88311b69fd710478566ae079e05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passHighlight: {fileID: 21300000, guid: 551245d4daebb044a94186a589f118b7, type: 3}
-  notHighlighted: {fileID: 21300000, guid: bc96c4dd563e89b439bd9fdf83647823, type: 3}
-  playerHighlight: {fileID: 1774639949}
 --- !u!61 &545513189
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2444,9 +2410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88311b69fd710478566ae079e05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passHighlight: {fileID: 21300000, guid: baf7c4841ba215f4e92f2702cb54dbd8, type: 3}
-  notHighlighted: {fileID: 21300000, guid: be474bbb5aa04a9419ad3bcf531d5665, type: 3}
-  playerHighlight: {fileID: 1774639949}
 --- !u!61 &791161646
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2928,9 +2891,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88311b69fd710478566ae079e05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passHighlight: {fileID: 21300000, guid: df2f8e1cd6c1c5346b944a783b8ab2c5, type: 3}
-  notHighlighted: {fileID: 21300000, guid: f25bd68b8a747e642bb3c26f0ffe075c, type: 3}
-  playerHighlight: {fileID: 1774639949}
 --- !u!61 &913991598
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5383,6 +5343,33 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1528338875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1528338876}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1528338876
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1528338875}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 326, y: 183.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1626583907
 GameObject:
   m_ObjectHideFlags: 0
@@ -5878,9 +5865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88311b69fd710478566ae079e05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passHighlight: {fileID: 21300000, guid: 89e216cd2c0194d4c8083153aa639915, type: 3}
-  notHighlighted: {fileID: 21300000, guid: b3c8e14a4f6088c409b5adcdc973d001, type: 3}
-  playerHighlight: {fileID: 1774639949}
 --- !u!61 &1710519565
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6033,9 +6017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88311b69fd710478566ae079e05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passHighlight: {fileID: 21300000, guid: e77e85a49921b6a4ea6c86bd5649f143, type: 3}
-  notHighlighted: {fileID: 21300000, guid: 847b3ac4ea513be45a7fa0c52557cdc0, type: 3}
-  playerHighlight: {fileID: 1774639949}
 --- !u!61 &1720099816
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6121,9 +6102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88311b69fd710478566ae079e05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passHighlight: {fileID: 21300000, guid: 8d75f85cfaa82ed4a96dc48d51808b8d, type: 3}
-  notHighlighted: {fileID: 21300000, guid: 9a98b4a8c2bd5be40aae46c1ac87c4ca, type: 3}
-  playerHighlight: {fileID: 1774639949}
 --- !u!61 &1722486470
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6749,9 +6727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88311b69fd710478566ae079e05a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passHighlight: {fileID: 21300000, guid: 182ef3185ab243c4caab72102be9f8ab, type: 3}
-  notHighlighted: {fileID: 21300000, guid: 3fcc3f62753ad314e9f6e66a9ac75f04, type: 3}
-  playerHighlight: {fileID: 1774639949}
 --- !u!61 &1942608643
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7410,7 +7385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05b955bd162ba2459cfd575a9defa12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonParent: {fileID: 241272906}
 --- !u!4 &2021492835
 Transform:
   m_ObjectHideFlags: 0
