@@ -16,7 +16,7 @@ public class Field : MonoBehaviour
 	{
 		sRenderer=GetComponent<SpriteRenderer>();
 		sRenderer.sprite=notHighlighted;
-		highlighted=false;
+		UnHighlight();
 	}
 	public void Highlight()
 	{
@@ -34,6 +34,9 @@ public class Field : MonoBehaviour
 
 	void OnMouseDown()
 	{
+		if(!GameManager.instance.gameStarted)
+			GameManager.instance.player.MoveYourself(NameToVector(name));
+
 		if(GameManager.instance.GetSelectedMove()!=null&&highlighted)
 			GameManager.instance.MakeSelectedMove(NameToVector(name));
 	}

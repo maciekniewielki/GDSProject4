@@ -14,9 +14,11 @@ public class GameManager : MonoBehaviour
 	public bool playerHasBall;
 	public bool noFightNextTurn;
 	public int currentMinute;
+	public MatchStatistics stats;
+	public Player player;
 
 	public static GameManager instance;
-	public static MatchStatistics stats;
+
 	public event Action onGoal;
 	public event Action onPlayerMove;
 	public event Action onTurnStart;
@@ -31,25 +33,27 @@ public class GameManager : MonoBehaviour
 	public event Action onPlayerMiss;
 	public event Action onPlayerTeamMiss;
 	public event Action onEnemyTeamMiss;
+	public event Action onComputerAttack;
 
 
-	private Player player;
 	private bool initEnded;
 	private string selectedMove;
 
 	void Awake()
-	{
-		onMatchStart+=InitVariables;
-		onPlayerTurnEnd+=EndTurn;
-	}
-
-	void Start () 
 	{
 		if(instance==null)
 			instance=this;
 		else if(instance!=this)
 			Destroy(this);
 
+		onMatchStart+=InitVariables;
+		onPlayerTurnEnd+=EndTurn;
+		onPlayerGoal+=onPlayerTeamGoal;
+		onPlayerMiss+=onPlayerTeamMiss;
+	}
+
+	void Start () 
+	{
 		player=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 	}
 
@@ -63,7 +67,7 @@ public class GameManager : MonoBehaviour
 		noFightNextTurn=false;
 		//gameSpeed=(int)GameObject.Find("Speed").GetComponent<Slider>().value;
 		SetBallPosition(new Vector2(0,0));
-		stats = new MatchStatistics();
+		stats = new MatchStatistics(new Team("PlayerTeam", 1, 1, 1), new Team("EnemyTeam", 1, 1, 1));
 
 	}
 
@@ -71,6 +75,7 @@ public class GameManager : MonoBehaviour
 	{
 		if(gameStarted)
 			return;
+		gameStarted=true;
 		if(onMatchStart!=null)
 			onMatchStart();
 
@@ -104,11 +109,13 @@ public class GameManager : MonoBehaviour
 		else
 			BeginComputerTurn();
 	}
-	
-	// Update is called once per frame
+
 	void Update () 
 	{
-	
+		if(gameStarted&&!turnStarted)
+			StartTurn();
+		if(Input.GetKeyDown(KeyCode.Space))
+			EndPlayerTurn();
 	}
 
 	public bool HasTheGameStarted()
@@ -155,17 +162,22 @@ public class GameManager : MonoBehaviour
 
 	void ComputerAttack()
 	{
-		
+		Vector2 destination=CalculationsManager.GetRandomAttackingPosition(ballPosition, possession);
+		SetBallPosition(destination);
+		if(onComputerAttack!=null)
+			onComputerAttack();
+
+		EndComputerTurn();
 	}
 
 	void EndComputerTurn()
 	{
-		
+		BeginPlayerTurn();
 	}
 
 	void ComputerShoot()
 	{
-		if(CalculationsManager.IsComputerShootSuccessful())
+		if(CalculationsManager.IsComputerShootSuccessful(possession))
 		{
 			if(possession==Side.PLAYER&&onPlayerTeamGoal!=null)
 				onPlayerTeamGoal();
@@ -179,7 +191,7 @@ public class GameManager : MonoBehaviour
 			else if(possession==Side.ENEMY&&onEnemyTeamMiss!=null)
 				onEnemyTeamMiss();
 		}
-
+		EndComputerTurn();
 	}
 
 	public void SetSelectedMove(string move)
@@ -187,7 +199,7 @@ public class GameManager : MonoBehaviour
 		selectedMove=move;
 	}
 
-	public void GetSelectedMove()
+	public string GetSelectedMove()
 	{
 		return selectedMove;
 	}
@@ -228,5 +240,59 @@ public class GameManager : MonoBehaviour
 		else
 			ChangeBallPossession(playerScore > enemyScore ? Side.PLAYER : Side.ENEMY);
 
+	}
+
+	public Vector2 GetPlayerPosition()
+	{
+		return player.position;
+	}
+
+	public static GameManager GetInstanceOf()
+	{
+		return instance;
+	}
+
+	public void Goal(bool playerGoal, Side side)
+	{
+		if(playerGoal)
+		{
+			if(onPlayerGoal!=null)
+				onPlayerGoal();
+		}
+		else if(side==Side.PLAYER)
+		{
+			if(onPlayerTeamGoal!=null)
+				onPlayerTeamGoal();
+		}
+		else
+		{
+			if(onEnemyTeamGoal!=null)
+				onEnemyTeamGoal();
+		}
+	}
+
+	public void Miss(bool playerMiss, Side side)
+	{
+		if(playerMiss)
+		{
+			if(onPlayerMiss!=null)
+				onPlayerMiss();
+		}
+		else if(side==Side.PLAYER)
+		{
+			if(onPlayerTeamMiss!=null)
+				onPlayerTeamMiss();
+		}
+		else
+		{
+			if(onEnemyTeamMiss!=null)
+				onEnemyTeamMiss();
+		}
+	}
+
+	public void PlayerMoved()
+	{
+		if(onPlayerMove!=null)
+			onPlayerMove();
 	}
 }

@@ -12,18 +12,17 @@ public class CalculationsManager: MonoBehaviour
 	void Start()
 	{
 		playerInfo=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().playerInfo;
-		stats=GameManager.stats;
 	}
 
-	public static Vector2[] GetPositions(string which)
+	public static Vector2[] GetPositions(string which, Vector2 where)
 	{
 		if(which.Equals("Pass"))
-			return GetPassingPositions();
+			return GetPassingPositions(where);
 		else
-			return GetCrossingPositions();
+			return GetCrossingPositions(where);
 	}
 
-	public static Vector2[] GetCrossingPositions()
+	public static Vector2[] GetCrossingPositions(Vector2 where)
 	{
 		return new Vector2[]{new Vector2(1,0)};
 	}
@@ -56,21 +55,39 @@ public class CalculationsManager: MonoBehaviour
 		return positions;
 	}
 
-	public static Vector2[] GetAttackingPositions(Vector2 source)
+	public static Vector2[] GetAttackingPositions(Vector2 source, Side side)
 	{
 		Vector2 pos = source;
 		Vector2[] positions;
-		if (pos.x == 1)
-			return null;
+
+		source.x *= side == Side.PLAYER ? 1 : -1;
+		if(pos.x==-1 && pos.y==1)
+			positions=new Vector2[]{new Vector2(0, 1), new Vector2(0, 0)};
+		else if(pos.x==0 && pos.y==1)
+			positions=new Vector2[]{new Vector2(0, 0), new Vector2(1, 1)};
+		else if(pos.x==1 & pos.y==1)
+			positions=new Vector2[]{new Vector2(1, 0)};
+		else if(pos.x==-1 && pos.y==0)
+			positions=new Vector2[]{new Vector2(0, 0)};
+		else if(pos.x==0 && pos.y==0)
+			positions=new Vector2[]{ new Vector2(1, 1), new Vector2(1, 0), new Vector2(1, -1)};
+		else if(pos.x==1 && pos.y==0)
+			positions=null;
+		else if(pos.x==-1 && pos.y==-1)
+			positions=new Vector2[]{new Vector2(0, 0), new Vector2(0, -1)};
+		else if(pos.x==0 && pos.y==-1)
+			positions=new Vector2[]{new Vector2(0, 0), new Vector2(1, -1)};
 		else
+			positions=new Vector2[]{new Vector2(1, 0)};
+
+		Vector2[] normalized=new Vector2[positions.Length];
+		if(side==Side.ENEMY)
 		{
-			pos.x++;
-			if (pos.y == 1)
-				positions=new Vector2[]{new Vector2(pos.x, pos.y), new Vector2(pos.x, 0)};
-			else if (pos.y == -1)
-				positions=new Vector2[]{new Vector2(pos.x, pos.y), new Vector2(pos.x, 0)};
-			else
-				positions=new Vector2[]{new Vector2(pos.x, 1), new Vector2(pos.x, 0), new Vector2(pos.x, -1)};
+			for(int ii=0; ii<positions.Length;ii++)
+			{
+				normalized[ii]=new Vector2(positions[ii].x*-1, positions[ii].y);
+			}
+			return normalized;
 		}
 		return positions;
 	}
@@ -79,21 +96,10 @@ public class CalculationsManager: MonoBehaviour
 	{
 		source.x *= currentPossession == Side.PLAYER ? 1 : -1;
 
-		if (source.x== 1)
-			return new Vector2(currentPossession, 0);
+		Vector2[] attackingPositions=GetAttackingPositions(source, currentPossession);
 
-		Vector2[] passingPositions=GetPassingPositions();
-
-
-		while(true)
-		{
-			int randIndex=Random.Range(0,passingPositions.Length);
-			if(passingPositions[randIndex].x>source.x&&currentPossession==Side.PLAYER)
-				return passingPositions[randIndex];
-			else if(passingPositions[randIndex].x<source.x&&currentPossession==Side.ENEMY)
-				return passingPositions[randIndex];
-
-		}
+		int randIndex=Random.Range(0,attackingPositions.Length);
+		return attackingPositions[randIndex];
 
 	}
 
@@ -102,21 +108,21 @@ public class CalculationsManager: MonoBehaviour
 		if(side==Side.ENEMY)
 		{
 			if(pos.x==-1)
-				return stats.enemyTeam.attack;
+				return GameManager.instance.stats.enemyTeam.attack;
 			else if(pos.x==0)
-				return stats.enemyTeam.midfield;
+				return GameManager.instance.stats.enemyTeam.midfield;
 			else
-				return stats.enemyTeam.defence;
+				return GameManager.instance.stats.enemyTeam.defence;
 		}
 
 		else
 		{
 			if(pos.x==-1)
-				return stats.playerTeam.defence;
+				return GameManager.instance.stats.playerTeam.defence;
 			else if(pos.x==0)
-				return stats.playerTeam.midfield;
+				return GameManager.instance.stats.playerTeam.midfield;
 			else
-				return stats.playerTeam.attack;
+				return GameManager.instance.stats.playerTeam.attack;
 		}
 	}
 
@@ -137,13 +143,20 @@ public class CalculationsManager: MonoBehaviour
 
 	}
 
-	public static bool IsComputerShootSuccessful(Side shooterSide, Side defenderSide)
+	public static bool IsComputerShootSuccessful(Side shooterSide)
 	{
 		Vector2 field;
+		Side defenderSide;
 		if(shooterSide==Side.PLAYER)
+		{
 			field=Vector2.right;
+			defenderSide=Side.ENEMY;
+		}
 		else
+		{
 			field=Vector2.left;
+			defenderSide=Side.PLAYER;
+		}
 		int attackerPoints=GetFormationPointsInPosition(field, shooterSide)+RollTheDice();
 		int defenderPoints=GetFormationPointsInPosition(field, defenderSide)+RollTheDice();
 
@@ -171,7 +184,7 @@ public class CalculationsManager: MonoBehaviour
 		
 	public static bool IsPlayerStandingOnBall()
 	{
-		if(player.position==GameManager.instance.ballPosition)
+		if(GameManager.instance.player.position==GameManager.instance.ballPosition)
 			return true;
 		else
 			return false;
@@ -179,7 +192,7 @@ public class CalculationsManager: MonoBehaviour
 
 	public static bool IsPlayerOnPenaltyArea()
 	{
-		if(player.position==Vector2.right)
+		if(GameManager.instance.player.position==Vector2.right)
 			return true;
 		else
 			return false;

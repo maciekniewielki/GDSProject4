@@ -26,6 +26,11 @@ public class PlayerInfo
     {
         playerAttributes = a;
     }
+
+	public Attribute GetAttribute(string name)
+	{
+		return playerAttributes[name];
+	}
 		
 
 }

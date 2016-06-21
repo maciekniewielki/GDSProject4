@@ -13,7 +13,7 @@ public class ButtonManager : MonoBehaviour
 	private string[] stageButtons={"passButton", "crossButton"};
 	private PitchManager pitch;
 
-	void Awake () 
+	void Start () 
 	{
 		GameManager.instance.onPlayerTurnStart+=SetCurrentlyAvailable;
 		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
@@ -21,12 +21,10 @@ public class ButtonManager : MonoBehaviour
 		buttons=new Dictionary<string, Button>();
 		foreach(Button g in buttonParent.transform.GetComponentsInChildren<Button>() )
 			buttons.Add(g.name, g);
-	}
 
-	void Start()
-	{
 		InitButtons();
 	}
+		
 
 	public void InitButtons()
 	{
@@ -72,9 +70,12 @@ public class ButtonManager : MonoBehaviour
 		if(!stageButtons.Contains(which))
 		{
 			if(which.Equals("startButton"))
+			{
 				GameManager.instance.StartTheMatch();
+				SetInteractable("startButton", false);
+			}
 			else if(which.Equals("shootButton"))
-				pitch.makeMove("FinishShoot");
+				return;
 		}
 		else
 		{
@@ -85,7 +86,7 @@ public class ButtonManager : MonoBehaviour
 
 
 			GameManager.instance.SetSelectedMove(move);
-			pitch.HighlightSelected(CalculationsManager.GetPositions(move));
+			pitch.HighlightSelected(CalculationsManager.GetPositions(move, GameManager.instance.GetPlayerPosition()));
 
 		}
 		

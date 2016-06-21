@@ -18,13 +18,13 @@ public class UIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 	void UpdateUI()
 	{
-		goalsTextDisplay.text=GameManager.stats.playerTeam.name+" "+GameManager.stats.playerTeamGoals+":"+GameManager.stats.enemyTeamGoals+" "+GameManager.stats.enemyTeam.name;
-		timerDisplay.text=GameManager.currentMinute+"'";
+		goalsTextDisplay.text=GameManager.instance.stats.playerTeam.name+" "+GameManager.instance.stats.playerTeamGoals+":"+GameManager.instance.stats.enemyTeamGoals+" "+GameManager.instance.stats.enemyTeam.name;
+		timerDisplay.text=GameManager.instance.currentMinute+"'";
 	}
 		
 }

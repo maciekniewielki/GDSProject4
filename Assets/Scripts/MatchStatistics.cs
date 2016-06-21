@@ -15,8 +15,8 @@ public class MatchStatistics
 	public int passesUnsuccessfull {get; set;}
 	public int crossesSuccessful {get; set;}
 	public int crossesUnsuccessfull {get; set;}
-	public Team playerTeam {get; set;}
-	public Team enemyTeam {get; set;}
+	public Team playerTeam;
+	public Team enemyTeam;
 
 	public MatchStatistics(Team playerTeam, Team enemyTeam)
     {
