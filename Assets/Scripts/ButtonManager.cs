@@ -58,9 +58,9 @@ public class ButtonManager : MonoBehaviour
 		{
 			SetInteractable("passButton", true);
 			if(CalculationsManager.IsPlayerOnPenaltyArea())
-				SetInteractable("shootButton", false);
+				SetInteractable("shootButton", true);
 			else
-				SetInteractable("crossButton", false);
+				SetInteractable("crossButton", true);
 		}
 	}
 
@@ -75,7 +75,7 @@ public class ButtonManager : MonoBehaviour
 				SetInteractable("startButton", false);
 			}
 			else if(which.Equals("shootButton"))
-				return;
+				GameManager.instance.MakeMove("Shoot", Vector2.right);
 		}
 		else
 		{

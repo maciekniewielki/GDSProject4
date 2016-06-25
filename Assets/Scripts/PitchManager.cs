@@ -59,6 +59,7 @@ public class PitchManager : MonoBehaviour
     void SetBallGraphicalPosition()
     {
 		int index = Flatten(GameManager.instance.ballPosition);
+		Debug.Log("Set graphical to: "+index);
         ball.transform.position = fields[index].transform.position;
     }
 

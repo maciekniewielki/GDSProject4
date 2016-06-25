@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour {
 	{
 		GameManager.instance.onGoal+=UpdateUI;
 		GameManager.instance.onTurnStart+=UpdateUI;
+		GameManager.instance.onTurnEnd+=UpdateUI;
 		GameManager.instance.onPlayerTeamGoal+=Update;
 		GameManager.instance.onEnemyTeamGoal+=UpdateUI;
 	}

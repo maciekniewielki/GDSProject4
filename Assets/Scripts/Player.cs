@@ -16,10 +16,10 @@ public class Player : MonoBehaviour
 	{
 		playerInfo=new PlayerInfo();
 		Dictionary<string, Attribute> d=new Dictionary<string, Attribute>();
-		d.Add("Passing", new Attribute("Passing", 15));
-		d.Add("Crossing", new Attribute("Crossing", 15));
-		d.Add("Finishing", new Attribute("Finishing", 15));
-		d.Add("Tackling", new Attribute("Tackling", 15));
+		d.Add("Passing", new Attribute("Passing", 0));
+		d.Add("Crossing", new Attribute("Crossing", 0));
+		d.Add("Finishing", new Attribute("Finishing",9));
+		d.Add("Tackling", new Attribute("Tackling", 0));
 		playerInfo.SetPlayerAttributes(d);
 	}
 
@@ -35,15 +35,23 @@ public class Player : MonoBehaviour
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
 		
 		GameManager.instance.noFightNextTurn=true;
+		GameManager.instance.playerHasBall=false;
 		GameManager.instance.EndPlayerTurn();
 	}
 
 	public bool Tackle()
 	{
+		
 		if(CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Tackling").value,position, position))
+		{
+			Debug.Log("Tackling... successful " + playerInfo.GetAttribute("Tackling"));
 			return true;
+		}
 		else
+		{
+			Debug.Log("Tackling... unsuccessful");
 			return false;
+		}
 	}
 
 	public void FinishShoot()
@@ -52,14 +60,16 @@ public class Player : MonoBehaviour
 		int percent=playerInfo.GetAttribute("Finishing").value*5;
 		if(UnityEngine.Random.Range(1,101)<=percent)
 		{
-			GameManager.instance.SetBallPosition(new Vector2(0,0));
+			Debug.Log("Goal with "+ percent +" percent chance");
 			GameManager.instance.Goal(true, Side.PLAYER);
 		}
 		else
 		{
+			Debug.Log("Miss with "+ percent +" percent chance");
 			GameManager.instance.Miss(true, Side.ENEMY);	
 		}
 		GameManager.instance.noFightNextTurn=true;
+		GameManager.instance.playerHasBall=false;
 		GameManager.instance.EndPlayerTurn();
 	}
 
@@ -70,6 +80,7 @@ public class Player : MonoBehaviour
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
 
 		GameManager.instance.noFightNextTurn=true;
+		GameManager.instance.playerHasBall=false;
 		GameManager.instance.EndPlayerTurn();
 	}
 

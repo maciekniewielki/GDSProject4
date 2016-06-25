@@ -37,6 +37,8 @@ public class Field : MonoBehaviour
 		if(!GameManager.instance.gameStarted)
 			GameManager.instance.player.MoveYourself(NameToVector(name));
 
+		Debug.Log("Clicked field: "+ NameToVector(name));
+
 		if(GameManager.instance.GetSelectedMove()!=null&&highlighted)
 			GameManager.instance.MakeSelectedMove(NameToVector(name));
 	}

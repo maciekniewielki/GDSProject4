@@ -1,10 +1,11 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class MatchStatistics
 {
     public Dictionary<Vector2,int> fieldBallCount { get; set; }
+	public int playerGoals {get; set;}
     public int playerTeamGoals { get; set; }
     public int enemyTeamGoals { get; set; }
     public int playerTeamShots { get; set; }
@@ -51,6 +52,22 @@ public class MatchStatistics
 		s += "Crosses: successful- " + crossesSuccessful + ". Unsuccessful- " + crossesUnsuccessfull +"\n";
         return s;
     }
+
+	public void AddGoal(Side side, bool playerGoal)
+	{
+		if(side==Side.PLAYER)
+		{
+			if(playerGoal)
+				playerGoals++;
+			playerTeamShots++;
+			playerTeamGoals++;
+		}
+		else
+		{
+			enemyTeamGoals++;
+			enemyTeamShots++;
+		}
+	}
 
 }
 

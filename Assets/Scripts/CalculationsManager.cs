@@ -7,11 +7,10 @@ public class CalculationsManager: MonoBehaviour
 
 	private MatchStatistics stats;
 	private Player player;
-	private PlayerInfo playerInfo;
 
 	void Start()
 	{
-		playerInfo=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().playerInfo;
+
 	}
 
 	public static Vector2[] GetPositions(string which, Vector2 where)
@@ -217,5 +216,13 @@ public class CalculationsManager: MonoBehaviour
 			return true;
 		else
 			return false;
+	}
+
+	public static Side OtherSide(Side side)
+	{
+		if(side==Side.PLAYER)
+			return Side.ENEMY;
+		else
+			return Side.PLAYER;
 	}
 }
