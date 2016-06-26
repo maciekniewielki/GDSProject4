@@ -128,6 +128,7 @@ public class CalculationsManager: MonoBehaviour
 	public static bool IsMoveSuccessful(int value, Vector2 source, Vector2 destination)
 	{
 		int score=CalculateScoreOnField(value, source, destination);
+		Debug.Log("Action score: "+ score);
 		if(score>0)
 			return true;
 		else

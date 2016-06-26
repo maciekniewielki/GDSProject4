@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 	//TODO make it work
 	public Vector2 position;
 	public PlayerInfo playerInfo;
+	public event Action onActionFail;
+	public event Action onActionSuccess;
 
 	private PitchManager pitch;
 
@@ -16,10 +18,10 @@ public class Player : MonoBehaviour
 	{
 		playerInfo=new PlayerInfo();
 		Dictionary<string, Attribute> d=new Dictionary<string, Attribute>();
-		d.Add("Passing", new Attribute("Passing", 0));
-		d.Add("Crossing", new Attribute("Crossing", 0));
-		d.Add("Finishing", new Attribute("Finishing",9));
-		d.Add("Tackling", new Attribute("Tackling", 0));
+		d.Add("Passing", new Attribute("Passing", 1));
+		d.Add("Crossing", new Attribute("Crossing", 1));
+		d.Add("Finishing", new Attribute("Finishing",1));
+		d.Add("Tackling", new Attribute("Tackling", 1));
 		playerInfo.SetPlayerAttributes(d);
 	}
 
@@ -32,7 +34,16 @@ public class Player : MonoBehaviour
 	{
 		GameManager.instance.SetBallPosition(destination);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Passing").value, position, destination))
+		{
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
+			if(onActionFail!=null)
+				onActionFail();
+		}
+		else
+		{
+			if(onActionSuccess!=null)
+				onActionSuccess();
+		}
 		
 		GameManager.instance.noFightNextTurn=true;
 		GameManager.instance.playerHasBall=false;
@@ -44,12 +55,14 @@ public class Player : MonoBehaviour
 		
 		if(CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Tackling").value,position, position))
 		{
-			Debug.Log("Tackling... successful " + playerInfo.GetAttribute("Tackling"));
+			if(onActionSuccess!=null)
+				onActionSuccess();
 			return true;
 		}
 		else
 		{
-			Debug.Log("Tackling... unsuccessful");
+			if(onActionFail!=null)
+				onActionFail();
 			return false;
 		}
 	}
@@ -60,12 +73,14 @@ public class Player : MonoBehaviour
 		int percent=playerInfo.GetAttribute("Finishing").value*5;
 		if(UnityEngine.Random.Range(1,101)<=percent)
 		{
-			Debug.Log("Goal with "+ percent +" percent chance");
+			if(onActionSuccess!=null)
+				onActionSuccess();
 			GameManager.instance.Goal(true, Side.PLAYER);
 		}
 		else
 		{
-			Debug.Log("Miss with "+ percent +" percent chance");
+			if(onActionFail!=null)
+				onActionFail();
 			GameManager.instance.Miss(true, Side.ENEMY);	
 		}
 		GameManager.instance.noFightNextTurn=true;
@@ -77,7 +92,16 @@ public class Player : MonoBehaviour
 	{
 		GameManager.instance.SetBallPosition(destination);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Crossing").value ,position, destination))
+		{
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
+			if(onActionFail!=null)
+				onActionFail();
+		}
+		else
+		{
+			if(onActionSuccess!=null)
+				onActionSuccess();
+		}
 
 		GameManager.instance.noFightNextTurn=true;
 		GameManager.instance.playerHasBall=false;

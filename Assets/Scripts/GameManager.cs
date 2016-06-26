@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 	public Player player;
 	public Team playerTeam;
 	public Team enemyTeam;
+	public int gameSpeed;
 
 	public static GameManager instance;
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
 	public event Action onPlayerMove;
 	public event Action onTurnStart;
 	public event Action onMatchStart;
+	public event Action onMatchEnd;
 	public event Action onTurnEnd;
 	public event Action onPlayerTurnStart;
 	public event Action onPlayerTurnEnd;
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
 	public event Action onPlayerTeamMiss;
 	public event Action onEnemyTeamMiss;
 	public event Action onComputerAttack;
+	public event Action onChangePossession;
 
 
 	private bool initEnded;
@@ -52,9 +55,6 @@ public class GameManager : MonoBehaviour
 		onPlayerTurnEnd+=EndTurn;
 		onPlayerGoal+=onPlayerTeamGoal;
 		onPlayerMiss+=onPlayerTeamMiss;
-		onPlayerTeamGoal+=onGoal;
-		onEnemyTeamGoal+=onGoal;
-		onGoal+=OnGoal;
 	}
 
 	void Start () 
@@ -64,15 +64,15 @@ public class GameManager : MonoBehaviour
 
 	void InitVariables()
 	{
+		gameSpeed=20;
 		gameStarted=true;
 		playerTurn=false;
 		currentMinute=1;
 		turnStarted=false;
 
 		noFightNextTurn=false;
-		//gameSpeed=(int)GameObject.Find("Speed").GetComponent<Slider>().value;
 		SetBallPosition(new Vector2(0,0));
-		stats = new MatchStatistics(new Team("PlayerTeam", 3, 3, 3), new Team("EnemyTeam", 3, 3, 3));
+		stats = new MatchStatistics(new Team("PlayerTeam", 1, 1, 1), new Team("EnemyTeam", 1, 1, 1));
 		playerTeam=stats.playerTeam;
 		enemyTeam=stats.enemyTeam;
 	}
@@ -87,10 +87,17 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	void OnGoal()
+	public void EndTheMatch()
 	{
-		SetBallPosition(Vector2.zero);
+		if(!gameStarted)
+			return;
+		gameStarted=false;
+		playerTurn=false;
+		playerHasBall=false;
+		if(onMatchEnd!=null)
+			onMatchEnd();
 	}
+		
 
 	void StartTurn()
 	{
@@ -141,7 +148,6 @@ public class GameManager : MonoBehaviour
 		if(onPlayerTurnStart!=null)
 			onPlayerTurnStart();
 
-
 	}
 
 	public void EndPlayerTurn()
@@ -158,6 +164,8 @@ public class GameManager : MonoBehaviour
 		currentMinute++;
 		if(onTurnEnd!=null)
 			onTurnEnd();
+		if(currentMinute>90)
+			EndTheMatch();
 	}
 
 	void BeginComputerTurn()
@@ -167,7 +175,7 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator ActualComputerTurn()
 	{
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(4f/gameSpeed);
 
 		if(!noFightNextTurn)
 			FightForBall();
@@ -247,6 +255,8 @@ public class GameManager : MonoBehaviour
 	public void ChangeBallPossession(Side s)
 	{
 		possession=s;
+		if(onChangePossession!=null)
+			onChangePossession();
 	}
 		
 	void FightForBall()
@@ -289,6 +299,7 @@ public class GameManager : MonoBehaviour
 			if(onEnemyTeamGoal!=null)
 				onEnemyTeamGoal();
 		}
+		SetBallPosition(Vector2.zero);
 	}
 
 	public void Miss(bool playerMiss, Side side)

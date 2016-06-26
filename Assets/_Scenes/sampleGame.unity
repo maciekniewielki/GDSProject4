@@ -235,8 +235,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1475672802}
-  m_RootOrder: 2
+  m_Father: {fileID: 1283114157}
+  m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 280.5, y: 375.37}
@@ -520,7 +520,7 @@ RectTransform:
   - {fileID: 1695694072}
   - {fileID: 988638804}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 11
+  m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -279.1}
@@ -572,7 +572,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetPlayerPassing
         m_Mode: 0
         m_Arguments:
@@ -749,7 +749,7 @@ RectTransform:
   - {fileID: 1364684721}
   - {fileID: 1096379508}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 16
+  m_RootOrder: 12
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -81.9, y: -160.5}
@@ -1264,7 +1264,7 @@ RectTransform:
   m_Children:
   - {fileID: 2042676286}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 17
+  m_RootOrder: 13
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 903, y: 500}
@@ -1408,8 +1408,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1475672802}
-  m_RootOrder: 4
+  m_Father: {fileID: 1283114157}
+  m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 720.5, y: 375.50006}
@@ -1769,7 +1769,7 @@ RectTransform:
   - {fileID: 1044756407}
   - {fileID: 1357113072}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -143.00002}
@@ -1821,7 +1821,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetPlayerDefence
         m_Mode: 0
         m_Arguments:
@@ -2044,7 +2044,9 @@ MonoBehaviour:
   playerHasBall: 0
   noFightNextTurn: 0
   currentMinute: 0
+  stats: {}
   player: {fileID: 1528338877}
+  gameSpeed: 0
 --- !u!4 &787259442
 Transform:
   m_ObjectHideFlags: 0
@@ -2292,7 +2294,7 @@ RectTransform:
   - {fileID: 2073107004}
   - {fileID: 1187135798}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 9
+  m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -211.4}
@@ -2344,7 +2346,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetEnemyMidfield
         m_Mode: 0
         m_Arguments:
@@ -2492,7 +2494,7 @@ RectTransform:
   - {fileID: 792392220}
   - {fileID: 1288922152}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -77.6}
@@ -2544,7 +2546,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetPlayerAttack
         m_Mode: 0
         m_Arguments:
@@ -2958,8 +2960,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1475672802}
-  m_RootOrder: 3
+  m_Father: {fileID: 1283114157}
+  m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 500.5, y: 375.37}
@@ -3068,7 +3070,7 @@ RectTransform:
   - {fileID: 374541819}
   - {fileID: 1922855323}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 10
+  m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -176.7}
@@ -3120,7 +3122,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetEnemyAttack
         m_Mode: 0
         m_Arguments:
@@ -3767,6 +3769,116 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1236284155}
+--- !u!1 &1253317385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1253317386}
+  - 222: {fileID: 1253317388}
+  - 114: {fileID: 1253317387}
+  m_Layer: 5
+  m_Name: Possession
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1253317386
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253317385}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1283114157}
+  m_RootOrder: 4
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -585, y: -41}
+  m_SizeDelta: {x: 583, y: 57}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1253317387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253317385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 36
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Current possession: Player Team'
+--- !u!222 &1253317388
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253317385}
+--- !u!1 &1283114156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1283114157}
+  m_Layer: 5
+  m_Name: Design
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1283114157
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1283114156}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1456903742}
+  - {fileID: 86777029}
+  - {fileID: 1035673207}
+  - {fileID: 519145574}
+  - {fileID: 1253317386}
+  m_Father: {fileID: 1475672802}
+  m_RootOrder: 14
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1288922151
 GameObject:
   m_ObjectHideFlags: 0
@@ -4295,8 +4407,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1475672802}
-  m_RootOrder: 1
+  m_Father: {fileID: 1283114157}
+  m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 57, y: 375.37}
@@ -4582,10 +4694,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1883688012}
-  - {fileID: 1456903742}
-  - {fileID: 86777029}
-  - {fileID: 1035673207}
-  - {fileID: 519145574}
   - {fileID: 918667659}
   - {fileID: 1876279957}
   - {fileID: 671146668}
@@ -4599,6 +4707,7 @@ RectTransform:
   - {fileID: 1710432828}
   - {fileID: 241272907}
   - {fileID: 440135853}
+  - {fileID: 1283114157}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
@@ -4637,7 +4746,7 @@ RectTransform:
   - {fileID: 1341797008}
   - {fileID: 1636105482}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 14
+  m_RootOrder: 10
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -380}
@@ -4689,7 +4798,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetPlayerFinishing
         m_Mode: 0
         m_Arguments:
@@ -4733,7 +4842,7 @@ RectTransform:
   - {fileID: 1195065818}
   - {fileID: 523816673}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 8
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -244.3}
@@ -4785,7 +4894,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetEnemyDefence
         m_Mode: 0
         m_Arguments:
@@ -5295,7 +5404,7 @@ RectTransform:
   - {fileID: 1192417895}
   - {fileID: 1179323662}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 15
+  m_RootOrder: 11
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -410.9}
@@ -5347,7 +5456,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetPlayerCrossing
         m_Mode: 0
         m_Arguments:
@@ -5641,7 +5750,7 @@ RectTransform:
   - {fileID: 660741110}
   - {fileID: 28020585}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -111.1}
@@ -5693,7 +5802,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetPlayerMidfield
         m_Mode: 0
         m_Arguments:
@@ -6193,7 +6302,7 @@ RectTransform:
   - {fileID: 506252900}
   - {fileID: 2133158517}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 13
+  m_RootOrder: 9
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -345.7}
@@ -6241,11 +6350,11 @@ MonoBehaviour:
   m_MinValue: 1
   m_MaxValue: 20
   m_WholeNumbers: 1
-  m_Value: 1
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetGameSpeed
         m_Mode: 0
         m_Arguments:
@@ -6425,6 +6534,51 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1991432852}
+--- !u!1 &1996962977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1996962979}
+  - 114: {fileID: 1996962978}
+  m_Layer: 0
+  m_Name: DesignTool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1996962978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1996962977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18993bd57bfb80146bcb4ffb600423af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logs:
+  - {fileID: 1456903743}
+  - {fileID: 86777030}
+  - {fileID: 1035673208}
+  - {fileID: 519145572}
+  possession: {fileID: 1253317387}
+--- !u!4 &1996962979
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1996962977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 271.34265, y: 153.81886, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
 --- !u!1 &2001326042
 GameObject:
   m_ObjectHideFlags: 0
@@ -6690,7 +6844,7 @@ RectTransform:
   - {fileID: 1164568805}
   - {fileID: 586693712}
   m_Father: {fileID: 1475672802}
-  m_RootOrder: 12
+  m_RootOrder: 8
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 259.13, y: -312.1}
@@ -6742,7 +6896,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327051281}
+      - m_Target: {fileID: 1996962978}
         m_MethodName: SetPlayerTackling
         m_Mode: 0
         m_Arguments:

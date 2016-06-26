@@ -17,6 +17,7 @@ public class ButtonManager : MonoBehaviour
 	{
 		GameManager.instance.onPlayerTurnStart+=SetCurrentlyAvailable;
 		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
+		GameManager.instance.onMatchEnd+=SetCurrentlyAvailable;
 		pitch=GameObject.Find("Pitch").GetComponent<PitchManager>();
 		buttons=new Dictionary<string, Button>();
 		foreach(Button g in buttonParent.transform.GetComponentsInChildren<Button>() )
@@ -30,6 +31,7 @@ public class ButtonManager : MonoBehaviour
 	{
 		SetButtonText("startButton", "Play match");
 	}
+		
 
 
 	public void SetInteractableToAll(bool val)
@@ -51,6 +53,10 @@ public class ButtonManager : MonoBehaviour
 	public void SetCurrentlyAvailable()
 	{
 		SetInteractableToAll(false);
+
+		if(!GameManager.instance.gameStarted)
+			SetInteractable("startButton", true);
+
 		if(!GameManager.instance.playerTurn)
 			return;
 
