@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
 	public event Action onActionFail;
 	public event Action onActionSuccess;
 
-	private PitchManager pitch;
-
 	void Awake()
 	{
 		playerInfo=new PlayerInfo();
@@ -22,12 +20,13 @@ public class Player : MonoBehaviour
 		d.Add("Crossing", new Attribute("Crossing", 1));
 		d.Add("Finishing", new Attribute("Finishing",1));
 		d.Add("Tackling", new Attribute("Tackling", 1));
+		d.Add("Dribbling", new Attribute("Dribbling", 1));
 		playerInfo.SetPlayerAttributes(d);
 	}
 
 	void Start()
 	{
-		pitch=GameObject.Find("Pitch").GetComponent<PitchManager>();
+		
 	}
 		
 	public void Pass(Vector2 destination)
@@ -47,6 +46,27 @@ public class Player : MonoBehaviour
 		
 		GameManager.instance.noFightNextTurn=true;
 		GameManager.instance.playerHasBall=false;
+		GameManager.instance.EndPlayerTurn();
+	}
+
+	public void Dribble(Vector2 destination)
+	{
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Dribbling").value, position, position))
+		{
+			GameManager.instance.ChangeBallPossession(Side.ENEMY);
+			if(onActionFail!=null)
+				onActionFail();
+		}
+		else
+		{
+			if(onActionSuccess!=null)
+				onActionSuccess();
+			MoveYourself(destination);
+			GameManager.instance.SetBallPosition(destination);
+		}
+
+		GameManager.instance.noFightNextTurn=true;
+		GameManager.instance.playerHasBall=true;
 		GameManager.instance.EndPlayerTurn();
 	}
 

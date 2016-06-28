@@ -10,7 +10,7 @@ public class ButtonManager : MonoBehaviour
 	public GameObject buttonParent;
 
 	private Dictionary<string, Button> buttons;
-	private string[] stageButtons={"passButton", "crossButton"};
+	private string[] stageButtons={"passButton", "crossButton", "dribbleButton"};
 	private PitchManager pitch;
 
 	void Start () 
@@ -62,6 +62,7 @@ public class ButtonManager : MonoBehaviour
 
 		if(GameManager.instance.playerHasBall)
 		{
+			SetInteractable("dribbleButton", true);
 			SetInteractable("passButton", true);
 			if(CalculationsManager.IsPlayerOnPenaltyArea())
 				SetInteractable("shootButton", true);

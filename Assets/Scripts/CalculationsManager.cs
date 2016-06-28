@@ -15,7 +15,7 @@ public class CalculationsManager: MonoBehaviour
 
 	public static Vector2[] GetPositions(string which, Vector2 where)
 	{
-		if(which.Equals("Pass"))
+		if(which.Equals("Pass")||which.Equals("Dribble"))
 			return GetPassingPositions(where);
 		else
 			return GetCrossingPositions(where);

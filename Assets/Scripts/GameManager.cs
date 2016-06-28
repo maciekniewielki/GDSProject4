@@ -242,6 +242,8 @@ public class GameManager : MonoBehaviour
 			player.Cross(destination);
 		else if(name.Equals("Shoot"))
 			player.FinishShoot();
+		else if(name.Equals("Dribble"))
+			player.Dribble(destination);
 	}
 
 	public void SetBallPosition(Vector2 destination)

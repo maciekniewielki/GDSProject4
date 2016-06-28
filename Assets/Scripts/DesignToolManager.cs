@@ -138,14 +138,17 @@ public class DesignToolManager : MonoBehaviour {
 	public void SetPlayerPassing(float passing)
 	{
 		GameManager.instance.player.playerInfo.playerAttributes["Passing"].value=(int)passing;
+		Debug.Log("current Passing: "+ GameManager.instance.player.playerInfo.playerAttributes["Passing"].value);
 	}
 	public void SetPlayerTackling(float tackling)
 	{
 		GameManager.instance.player.playerInfo.playerAttributes["Tackling"].value=(int)tackling;
+		Debug.Log("current Tackling "+ GameManager.instance.player.playerInfo.playerAttributes["Tackling"].value);
 	}
 	public void SetPlayerCrossing(float crossing)
 	{
 		GameManager.instance.player.playerInfo.playerAttributes["Crossing"].value=(int)crossing;
+		Debug.Log("current Crossing "+ GameManager.instance.player.playerInfo.playerAttributes["Crossing"].value);
 	}
 	public void SetGameSpeed(float speed)
 	{
@@ -154,5 +157,11 @@ public class DesignToolManager : MonoBehaviour {
 	public void SetPlayerFinishing(float finish)
 	{
 		GameManager.instance.player.playerInfo.playerAttributes["Finishing"].value=(int)finish;
+		Debug.Log("current Finishing "+ GameManager.instance.player.playerInfo.playerAttributes["Finishing"].value);
+	}
+	public void SetPlayerDribbling(float dribbling)
+	{
+		GameManager.instance.player.playerInfo.playerAttributes["Dribbling"].value=(int)dribbling;
+		Debug.Log("current Dribbling "+ GameManager.instance.player.playerInfo.playerAttributes["Dribbling"].value);
 	}
 }
