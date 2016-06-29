@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
 			playerHasBall=true;
 			BeginPlayerTurn();
 		}
-		else if(CalculationsManager.CanPlayerTackle())
+		else if(CalculationsManager.CanPlayerTackle()&&!noFightNextTurn)
 		{
 			bool wasTackleSuccessful=player.Tackle();
 			if(wasTackleSuccessful)
@@ -244,6 +244,8 @@ public class GameManager : MonoBehaviour
 			player.FinishShoot();
 		else if(name.Equals("Dribble"))
 			player.Dribble(destination);
+		else if(name.Equals("LongShot"))
+			player.LongShot();
 	}
 
 	public void SetBallPosition(Vector2 destination)
@@ -310,16 +312,19 @@ public class GameManager : MonoBehaviour
 		{
 			if(onPlayerMiss!=null)
 				onPlayerMiss();
+			SetBallPosition(Vector2.right);
 		}
 		else if(side==Side.PLAYER)
 		{
 			if(onPlayerTeamMiss!=null)
 				onPlayerTeamMiss();
+			SetBallPosition(Vector2.right);
 		}
 		else
 		{
 			if(onEnemyTeamMiss!=null)
 				onEnemyTeamMiss();
+			SetBallPosition(Vector2.left);
 		}
 	}
 

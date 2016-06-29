@@ -67,7 +67,10 @@ public class ButtonManager : MonoBehaviour
 			if(CalculationsManager.IsPlayerOnPenaltyArea())
 				SetInteractable("shootButton", true);
 			else
+			{
+				SetInteractable("longShotButton", true);
 				SetInteractable("crossButton", true);
+			}
 		}
 	}
 
@@ -83,6 +86,8 @@ public class ButtonManager : MonoBehaviour
 			}
 			else if(which.Equals("shootButton"))
 				GameManager.instance.MakeMove("Shoot", Vector2.right);
+			else if(which.Equals("longShotButton"))
+				GameManager.instance.MakeMove("LongShot", Vector2.right);
 		}
 		else
 		{

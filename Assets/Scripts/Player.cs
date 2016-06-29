@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 		d.Add("Finishing", new Attribute("Finishing",1));
 		d.Add("Tackling", new Attribute("Tackling", 1));
 		d.Add("Dribbling", new Attribute("Dribbling", 1));
+		d.Add("Long Shots", new Attribute("Long Shots", 1));
 		playerInfo.SetPlayerAttributes(d);
 	}
 
@@ -91,6 +92,29 @@ public class Player : MonoBehaviour
 	{
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
 		int percent=playerInfo.GetAttribute("Finishing").value*5;
+		if(UnityEngine.Random.Range(1,101)<=percent)
+		{
+			if(onActionSuccess!=null)
+				onActionSuccess();
+			GameManager.instance.Goal(true, Side.PLAYER);
+		}
+		else
+		{
+			if(onActionFail!=null)
+				onActionFail();
+			GameManager.instance.Miss(true, Side.ENEMY);	
+		}
+		GameManager.instance.noFightNextTurn=true;
+		GameManager.instance.playerHasBall=false;
+		GameManager.instance.EndPlayerTurn();
+	}
+
+	public void LongShot()
+	{
+		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
+		int percent=playerInfo.GetAttribute("Long Shots").value*5;
+		if(Vector2.Distance(position, Vector2.right)>1)
+			percent-=25;
 		if(UnityEngine.Random.Range(1,101)<=percent)
 		{
 			if(onActionSuccess!=null)

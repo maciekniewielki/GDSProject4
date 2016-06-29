@@ -164,4 +164,9 @@ public class DesignToolManager : MonoBehaviour {
 		GameManager.instance.player.playerInfo.playerAttributes["Dribbling"].value=(int)dribbling;
 		Debug.Log("current Dribbling "+ GameManager.instance.player.playerInfo.playerAttributes["Dribbling"].value);
 	}
+	public void SetPlayerLongShots(float longShots)
+	{
+		GameManager.instance.player.playerInfo.playerAttributes["Long Shots"].value=(int)longShots;
+		Debug.Log("current Long Shots "+ GameManager.instance.player.playerInfo.playerAttributes["Long Shots"].value);
+	}
 }
