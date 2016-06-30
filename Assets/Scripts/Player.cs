@@ -9,8 +9,12 @@ public class Player : MonoBehaviour
 	//TODO make it work
 	public Vector2 position;
 	public PlayerInfo playerInfo;
+	public int maxEnergy;
 	public event Action onActionFail;
 	public event Action onActionSuccess;
+	public event Action onEnergySet;
+
+	private int energy;
 
 	void Awake()
 	{
@@ -22,7 +26,10 @@ public class Player : MonoBehaviour
 		d.Add("Tackling", new Attribute("Tackling", 1));
 		d.Add("Dribbling", new Attribute("Dribbling", 1));
 		d.Add("Long Shots", new Attribute("Long Shots", 1));
+		d.Add("Stamina", new Attribute("Stamina", 1));
+		maxEnergy=d["Stamina"].value*5;
 		playerInfo.SetPlayerAttributes(d);
+		
 	}
 
 	void Start()
@@ -161,5 +168,22 @@ public class Player : MonoBehaviour
 	{
 		position=destination;
 		GameManager.instance.PlayerMoved();
+	}
+
+	public void SetEnergy(int val)
+	{
+		energy=val;
+		if(onEnergySet!=null)
+			onEnergySet();
+	}
+
+	public void ReduceEnergyBy(int val)
+	{
+		SetEnergy(energy-val);
+	}
+
+	public int GetEnergy()
+	{
+		return energy;
 	}
 }
