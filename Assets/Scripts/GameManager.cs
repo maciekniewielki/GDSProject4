@@ -75,8 +75,6 @@ public class GameManager : MonoBehaviour
 		stats = new MatchStatistics(new Team("PlayerTeam", 1, 1, 1), new Team("EnemyTeam", 1, 1, 1));
 		playerTeam=stats.playerTeam;
 		enemyTeam=stats.enemyTeam;
-
-		player.SetEnergy(player.maxEnergy);
 	}
 
 	public void StartTheMatch()
@@ -164,6 +162,7 @@ public class GameManager : MonoBehaviour
 	{
 		turnStarted=false;
 		currentMinute++;
+		player.ReduceEnergyBy(1);
 		if(onTurnEnd!=null)
 			onTurnEnd();
 		if(currentMinute>90)

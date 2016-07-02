@@ -169,4 +169,10 @@ public class DesignToolManager : MonoBehaviour {
 		GameManager.instance.player.playerInfo.playerAttributes["Long Shots"].value=(int)longShots;
 		Debug.Log("current Long Shots "+ GameManager.instance.player.playerInfo.playerAttributes["Long Shots"].value);
 	}
+
+	public void SetPlayerStamina(float stamina)
+	{
+		GameManager.instance.player.playerInfo.playerAttributes["Stamina"].value=(int)stamina;
+		Debug.Log("current Stamina "+ GameManager.instance.player.playerInfo.playerAttributes["Stamina"].value);
+	}
 }

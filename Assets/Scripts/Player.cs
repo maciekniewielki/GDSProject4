@@ -27,14 +27,20 @@ public class Player : MonoBehaviour
 		d.Add("Dribbling", new Attribute("Dribbling", 1));
 		d.Add("Long Shots", new Attribute("Long Shots", 1));
 		d.Add("Stamina", new Attribute("Stamina", 1));
-		maxEnergy=d["Stamina"].value*5;
 		playerInfo.SetPlayerAttributes(d);
+
 		
 	}
 
 	void Start()
 	{
-		
+		GameManager.instance.onMatchStart+=InitPlayer;
+	}
+
+	void InitPlayer()
+	{
+		maxEnergy=playerInfo.playerAttributes["Stamina"].value*5;
+		SetEnergy(maxEnergy);
 	}
 		
 	public void Pass(Vector2 destination)
@@ -179,7 +185,8 @@ public class Player : MonoBehaviour
 
 	public void ReduceEnergyBy(int val)
 	{
-		SetEnergy(energy-val);
+		if(energy>=0)
+			SetEnergy(energy-val);
 	}
 
 	public int GetEnergy()
