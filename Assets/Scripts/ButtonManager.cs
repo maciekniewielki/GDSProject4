@@ -18,6 +18,9 @@ public class ButtonManager : MonoBehaviour
 		GameManager.instance.onPlayerTurnStart+=SetCurrentlyAvailable;
 		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onMatchEnd+=SetCurrentlyAvailable;
+		GameManager.instance.onPause+=OnGamePause;
+		GameManager.instance.onUnpause+=OnGamePause;
+		GameManager.instance.onHalfTime+=OnHalfTime;
 		pitch=GameObject.Find("Pitch").GetComponent<PitchManager>();
 		buttons=new Dictionary<string, Button>();
 		foreach(Button g in buttonParent.transform.GetComponentsInChildren<Button>() )
@@ -31,8 +34,17 @@ public class ButtonManager : MonoBehaviour
 	{
 		SetButtonText("startButton", "Play match");
 	}
-		
 
+	void OnGamePause()
+	{
+		SetCurrentlyAvailable();
+	}
+		
+	void OnHalfTime()
+	{
+		OnGamePause();
+		SetButtonText("startButton", "2nd Half");
+	}
 
 	public void SetInteractableToAll(bool val)
 	{
@@ -53,9 +65,21 @@ public class ButtonManager : MonoBehaviour
 	public void SetCurrentlyAvailable()
 	{
 		SetInteractableToAll(false);
+		SetInteractable("startButton", true);
 
-		if(!GameManager.instance.gameStarted)
-			SetInteractable("startButton", true);
+		if(GameManager.instance.gameStarted)
+		{
+			if(!GameManager.instance.IsGamePaused())
+				SetButtonText("startButton", "Pause");
+			else
+				SetButtonText("startButton", "Play");
+
+		}
+		else
+			SetButtonText("startButton", "Play Match");
+			
+		if(GameManager.instance.IsGamePaused())
+			return;
 
 		if(!GameManager.instance.playerTurn)
 			return;
@@ -81,8 +105,14 @@ public class ButtonManager : MonoBehaviour
 		{
 			if(which.Equals("startButton"))
 			{
-				GameManager.instance.StartTheMatch();
-				SetInteractable("startButton", false);
+				
+				if(!GameManager.instance.HasTheGameStarted())
+					GameManager.instance.StartTheMatch();
+				else if(GameManager.instance.IsGamePaused())
+					GameManager.instance.Unpause();
+				else
+					GameManager.instance.Pause();
+
 			}
 			else if(which.Equals("shootButton"))
 				GameManager.instance.MakeMove("Shoot", Vector2.right);

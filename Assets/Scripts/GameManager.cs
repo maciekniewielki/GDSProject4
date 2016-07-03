@@ -39,10 +39,14 @@ public class GameManager : MonoBehaviour
 	public event Action onEnemyTeamMiss;
 	public event Action onComputerAttack;
 	public event Action onChangePossession;
+	public event Action onHalfTime;
+	public event Action onPause;
+	public event Action onUnpause;
 
 
 	private bool initEnded;
 	private string selectedMove;
+	private bool paused;
 
 	void Awake()
 	{
@@ -72,7 +76,7 @@ public class GameManager : MonoBehaviour
 
 		noFightNextTurn=false;
 		SetBallPosition(new Vector2(0,0));
-		stats = new MatchStatistics(new Team("PlayerTeam", 1, 1, 1), new Team("EnemyTeam", 1, 1, 1));
+		stats = new MatchStatistics(new Team("PlayerTeam", stats.playerTeam.defence, stats.playerTeam.midfield, stats.playerTeam.attack), new Team("EnemyTeam", stats.enemyTeam.defence, stats.enemyTeam.midfield, stats.enemyTeam.attack));
 		playerTeam=stats.playerTeam;
 		enemyTeam=stats.enemyTeam;
 	}
@@ -131,10 +135,9 @@ public class GameManager : MonoBehaviour
 
 	void Update () 
 	{
-		if(gameStarted&&!turnStarted)
+
+		if(gameStarted&&!turnStarted&&!paused)
 			StartTurn();
-		if(Input.GetKeyDown(KeyCode.Space))
-			EndPlayerTurn();
 	}
 
 	public bool HasTheGameStarted()
@@ -158,15 +161,44 @@ public class GameManager : MonoBehaviour
 		
 	}
 
+	void HalfTime()
+	{
+		SetBallPosition(Vector2.zero);
+		ChangeBallPossession(Side.ENEMY);
+		Pause();
+
+		if(onHalfTime!=null)
+			onHalfTime();
+	}
+
 	void EndTurn()
 	{
 		turnStarted=false;
 		currentMinute++;
+		if(currentMinute==46)
+			HalfTime();
+
 		player.ReduceEnergyBy(1);
 		if(onTurnEnd!=null)
 			onTurnEnd();
 		if(currentMinute>90)
 			EndTheMatch();
+	}
+
+	public void Pause()
+	{
+		paused=true;
+
+		if(onPause!=null)
+			onPause();
+	}
+
+	public void Unpause()
+	{
+		paused=false;
+
+		if(onUnpause!=null)
+			onUnpause();
 	}
 
 	void BeginComputerTurn()
@@ -203,7 +235,6 @@ public class GameManager : MonoBehaviour
 	void EndComputerTurn()
 	{
 		EndTurn();
-		//BeginPlayerTurn();
 	}
 
 	void ComputerShoot()
@@ -333,5 +364,10 @@ public class GameManager : MonoBehaviour
 	{
 		if(onPlayerMove!=null)
 			onPlayerMove();
+	}
+
+	public bool IsGamePaused()
+	{
+		return paused;
 	}
 }
