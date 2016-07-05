@@ -48,8 +48,14 @@ public class GameManager : MonoBehaviour
 	private string selectedMove;
 	private bool paused;
 
+	//Debug
+	public int ReceiveChanceWhen1Heart=10;
+	public int ReceiveChanceWhen2Hearts=40;
+	public int ReceiveChanceWhen3Hearts=70;
+
 	void Awake()
 	{
+		gameSpeed=20;
 		if(instance==null)
 			instance=this;
 		else if(instance!=this)
@@ -68,7 +74,6 @@ public class GameManager : MonoBehaviour
 
 	void InitVariables()
 	{
-		gameSpeed=20;
 		gameStarted=true;
 		playerTurn=false;
 		currentMinute=1;
@@ -178,7 +183,7 @@ public class GameManager : MonoBehaviour
 		if(currentMinute==46)
 			HalfTime();
 
-		player.ReduceEnergyBy(1);
+		player.ReduceEnergy();
 		if(onTurnEnd!=null)
 			onTurnEnd();
 		if(currentMinute>90)

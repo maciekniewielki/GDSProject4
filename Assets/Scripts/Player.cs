@@ -13,12 +13,16 @@ public class Player : MonoBehaviour
 	public event Action onActionFail;
 	public event Action onActionSuccess;
 	public event Action onEnergySet;
+	public event Action onEnergyDeplete;
 
 
-	private int energy;
+	private float energy;
+	private int involveLevel;
+	private bool energyDepleted;
 
 	void Awake()
 	{
+		involveLevel=1;
 		playerInfo=new PlayerInfo();
 		Dictionary<string, Attribute> d=new Dictionary<string, Attribute>();
 		d.Add("Passing", new Attribute("Passing", 1));
@@ -29,8 +33,6 @@ public class Player : MonoBehaviour
 		d.Add("Long Shots", new Attribute("Long Shots", 1));
 		d.Add("Stamina", new Attribute("Stamina", 1));
 		playerInfo.SetPlayerAttributes(d);
-
-		
 	}
 
 	void Start()
@@ -40,8 +42,10 @@ public class Player : MonoBehaviour
 
 	void InitPlayer()
 	{
-		maxEnergy=playerInfo.playerAttributes["Stamina"].value*5;
+		maxEnergy=playerInfo.playerAttributes["Stamina"].value*30;
 		SetEnergy(maxEnergy);
+		energyDepleted=false;
+
 	}
 		
 	public void Pass(Vector2 destination)
@@ -177,21 +181,51 @@ public class Player : MonoBehaviour
 		GameManager.instance.PlayerMoved();
 	}
 
-	public void SetEnergy(int val)
+	public void SetEnergy(float val)
 	{
-		energy=val;
+		if(val<=0)
+		{
+			energy=0;
+			energyDepleted=true;
+			SetInvolvement(1);
+			if(onEnergyDeplete!=null)
+				onEnergyDeplete();
+		}
+		else
+			energy=val;
 		if(onEnergySet!=null)
 			onEnergySet();
 	}
-
-	public void ReduceEnergyBy(int val)
+		
+	public void ReduceEnergy()
 	{
-		if(energy>=0)
-			SetEnergy(energy-val);
+		if(involveLevel==1)
+			SetEnergy(energy-3);
+		else if(involveLevel==2)
+			SetEnergy(energy-4);
+		else
+			SetEnergy(energy-6);
 	}
 
-	public int GetEnergy()
+	public float GetEnergy()
 	{
 		return energy;
 	}
+
+	public void SetInvolvement(int involvement)
+	{
+		involveLevel=involvement;
+		Debug.Log("Involvement:: "+involveLevel);
+	}
+
+	public int GetInvolvement()
+	{
+		return this.involveLevel;
+	}
+
+	public bool IsEnergyDepleted()
+	{
+		return energyDepleted;
+	}
+
 }

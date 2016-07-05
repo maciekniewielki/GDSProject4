@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class CalculationsManager: MonoBehaviour
 {
 	//TODO make it work
 
 	private MatchStatistics stats;
-	private Player player;
 
-	void Start()
-	{
-
-	}
 
 	public static Vector2[] GetPositions(string which, Vector2 where)
 	{
@@ -94,12 +91,44 @@ public class CalculationsManager: MonoBehaviour
 	public static Vector2 GetRandomAttackingPosition(Vector2 source, Side currentPossession)
 	{
 		source.x *= currentPossession == Side.PLAYER ? 1 : -1;
+		if(currentPossession==Side.ENEMY)
+		{
+			Vector2[] attackingPositions=GetAttackingPositions(source, currentPossession);
 
-		Vector2[] attackingPositions=GetAttackingPositions(source, currentPossession);
+			int randIndex=Random.Range(0,attackingPositions.Length);
+			return attackingPositions[randIndex];
+		}
+		else
+		{
+			Vector2[] attackingPositions=GetAttackingPositions(source, currentPossession);
+			if(attackingPositions.Count<Vector2>()==1)
+				return attackingPositions[0];
+			if(!attackingPositions.Contains(GameManager.instance.player.position))
+			{
+				int randIndex=Random.Range(0,attackingPositions.Length);
+				return attackingPositions[randIndex];
+			}
+			else
+			{
+				Vector2[] positionsWithoutPlayer=attackingPositions.Except<Vector2>(new Vector2[]{GameManager.instance.player.position}).ToArray<Vector2>();
+				int percent;
+				int involvement=GameManager.instance.player.GetInvolvement();
+				if(involvement==1)
+					percent=GameManager.instance.ReceiveChanceWhen1Heart;
+				else if(involvement==2)
+					percent=GameManager.instance.ReceiveChanceWhen2Hearts;
+				else
+					percent=GameManager.instance.ReceiveChanceWhen3Hearts;
 
-		int randIndex=Random.Range(0,attackingPositions.Length);
-		return attackingPositions[randIndex];
-
+				if(GetResultByPercent(percent))
+					return GameManager.instance.player.position;
+				else
+				{
+					int randIndex=Random.Range(0,positionsWithoutPlayer.Length);
+					return positionsWithoutPlayer[randIndex];
+				}
+			}
+		}
 	}
 
 	public static int GetFormationPointsInPosition(Vector2 pos, Side side)
@@ -225,5 +254,13 @@ public class CalculationsManager: MonoBehaviour
 			return Side.ENEMY;
 		else
 			return Side.PLAYER;
+	}
+
+	public static bool GetResultByPercent(int percent)
+	{
+		if(Random.Range(1,100)<percent)
+			return true;
+		else
+			return false;
 	}
 }

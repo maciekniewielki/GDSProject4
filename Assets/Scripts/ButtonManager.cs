@@ -16,7 +16,6 @@ public class ButtonManager : MonoBehaviour
 	void Start () 
 	{
 		GameManager.instance.onPlayerTurnStart+=SetCurrentlyAvailable;
-		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onMatchEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onPause+=OnGamePause;
 		GameManager.instance.onUnpause+=OnGamePause;
