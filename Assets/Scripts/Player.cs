@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 	public event Action onActionSuccess;
 	public event Action onEnergySet;
 
+
 	private int energy;
 
 	void Awake()
