@@ -14,6 +14,7 @@ public class DesignToolManager : MonoBehaviour {
 
 	public Text[] logs;
 	public Text possession;
+	public GameObject designerSliders;
 
 	// Use this for initialization
 	void Start () 
@@ -34,16 +35,19 @@ public class DesignToolManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		if(Input.GetKeyDown("d"))
+			designerSliders.SetActive(!designerSliders.activeSelf);
 	}
 
 	void InitLogs()
 	{
+		/*
 		foreach(Text t in logs)
 			if(t.Equals(logs[0]))
 				t.text="Logs: \n";
 			else
-				t.text="";
+				t.text="";*/
+		logs[0].text="";
 	}
 
 	void OnMatchEnd()
@@ -92,6 +96,7 @@ public class DesignToolManager : MonoBehaviour {
 
 	void AddText(string what)
 	{
+		/*
 		int numberOfTurns = GameManager.instance.currentMinute;
 		if(numberOfTurns>90)
 		{
@@ -107,6 +112,9 @@ public class DesignToolManager : MonoBehaviour {
 			logs[2].text = logs[2].text + numberOfTurns+"':" + what + "\n";
 		else
 			logs[3].text = logs [3].text + numberOfTurns+"':" + what + "\n";
+			*/
+
+		logs[0].text = what;
 	}
 
 
@@ -175,4 +183,5 @@ public class DesignToolManager : MonoBehaviour {
 		GameManager.instance.player.playerInfo.playerAttributes["Stamina"].value=(int)stamina;
 		Debug.Log("current Stamina "+ GameManager.instance.player.playerInfo.playerAttributes["Stamina"].value);
 	}
+		
 }

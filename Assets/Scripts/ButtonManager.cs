@@ -15,6 +15,7 @@ public class ButtonManager : MonoBehaviour
 
 	void Start () 
 	{
+		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onPlayerTurnStart+=SetCurrentlyAvailable;
 		GameManager.instance.onMatchEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onPause+=OnGamePause;
@@ -66,16 +67,19 @@ public class ButtonManager : MonoBehaviour
 		SetInteractableToAll(false);
 		SetInteractable("startButton", true);
 
-		if(GameManager.instance.gameStarted)
+		if(GameManager.instance.currentMinute!=46)
 		{
-			if(!GameManager.instance.IsGamePaused())
-				SetButtonText("startButton", "Pause");
-			else
-				SetButtonText("startButton", "Play");
+			if(GameManager.instance.gameStarted)
+			{
+				if(!GameManager.instance.IsGamePaused())
+					SetButtonText("startButton", "Pause");
+				else
+					SetButtonText("startButton", "Play");
 
+			}
+			else
+				SetButtonText("startButton", "Play Match");
 		}
-		else
-			SetButtonText("startButton", "Play Match");
 			
 		if(GameManager.instance.IsGamePaused())
 			return;

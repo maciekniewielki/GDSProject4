@@ -64,7 +64,7 @@ public class CalculationsManager: MonoBehaviour
 		else if(pos.x==1 & pos.y==1)
 			positions=new Vector2[]{new Vector2(1, 0)};
 		else if(pos.x==-1 && pos.y==0)
-			positions=new Vector2[]{new Vector2(0, 0)};
+			positions=new Vector2[]{new Vector2(0, 0), new Vector2(-1, 1), new Vector2(-1, -1)};
 		else if(pos.x==0 && pos.y==0)
 			positions=new Vector2[]{ new Vector2(1, 1), new Vector2(1, 0), new Vector2(1, -1)};
 		else if(pos.x==1 && pos.y==0)
