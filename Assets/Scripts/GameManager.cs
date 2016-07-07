@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 	private bool initEnded;
 	private string selectedMove;
 	private bool paused;
+	private bool playerRemoved;
 
 	//Debug
 	public int ReceiveChanceWhen1Heart=10;
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
 		onPlayerTurnEnd+=EndTurn;
 		onPlayerGoal+=onPlayerTeamGoal;
 		onPlayerMiss+=onPlayerTeamMiss;
+		player.onEnergyDeplete+=RemovePlayer;
 	}
 
 	void Start () 
@@ -78,6 +80,7 @@ public class GameManager : MonoBehaviour
 		playerTurn=false;
 		currentMinute=1;
 		turnStarted=false;
+		playerRemoved=false;
 
 		noFightNextTurn=false;
 		SetBallPosition(new Vector2(0,0));
@@ -155,6 +158,8 @@ public class GameManager : MonoBehaviour
 		playerTurn=true;
 		if(onPlayerTurnStart!=null)
 			onPlayerTurnStart();
+		if(playerRemoved)
+			EndPlayerTurn();
 
 	}
 
@@ -374,5 +379,11 @@ public class GameManager : MonoBehaviour
 	public bool IsGamePaused()
 	{
 		return paused;
+	}
+
+	void RemovePlayer()
+	{
+		playerRemoved=true;
+		player.position=Vector2.right*2;
 	}
 }

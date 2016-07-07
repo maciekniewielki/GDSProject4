@@ -22,8 +22,10 @@ public class PitchManager : MonoBehaviour
     {
 		GameManager.instance.onPlayerMove+=MovePlayerSprite;
 		GameManager.instance.onMatchStart+=InitPitch;
+		GameManager.instance.onMatchEnd+=SetPlayerVisibility;
 		GameManager.instance.onBallMove+=SetBallGraphicalPosition;
 		GameManager.instance.onPlayerTurnEnd+=UnHighlightEverything;
+		GameManager.instance.player.onEnergyDeplete+=RemovePlayerSprite;
 	}
 
 	
@@ -45,6 +47,10 @@ public class PitchManager : MonoBehaviour
 	}
 		
 
+	void SetPlayerVisibility()
+	{
+		playerSprite.GetComponent<SpriteRenderer>().enabled=true;
+	}
 
     int GetRandPos()
     {
@@ -92,6 +98,10 @@ public class PitchManager : MonoBehaviour
 	{
 		UnHighlightEverything();
 	}
-		
+
+	void RemovePlayerSprite()
+	{
+		playerSprite.GetComponent<SpriteRenderer>().enabled=false;
+	}
 
 }

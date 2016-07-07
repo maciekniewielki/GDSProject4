@@ -4,34 +4,40 @@ using UnityEngine.UI;
 
 public class Involve : MonoBehaviour 
 {
-	public Toggle[] toggles;
+	public Heart[] hearts;
 
-	public int currentlySelectedToggle;
+	public int currentlySelectedHeart;
 
 	void Start()
 	{
-		currentlySelectedToggle=1;
-	}
-
-	public void SomethingChanged(Toggle t)
-	{
-		if(!t.isOn)
-			return;
-		currentlySelectedToggle=int.Parse(t.name);
-		if(!GameManager.instance.player.IsEnergyDepleted())
-			GameManager.instance.player.SetInvolvement(currentlySelectedToggle);
-	}
-
-	int WhichIsOn()
-	{
-		foreach(Toggle t in toggles)
-			if(t.isOn)
-				return int.Parse(t.name);
-		return 0;
+		currentlySelectedHeart=1;
+		SetHeartsHighlight(1);
 	}
 
 	void InitInvolvement()
 	{
-		GameManager.instance.player.SetInvolvement(WhichIsOn());
+		GameManager.instance.player.SetInvolvement(currentlySelectedHeart);
+	}
+
+	public void Click(int which)
+	{
+		if(which!=currentlySelectedHeart)
+		{
+			currentlySelectedHeart=which;
+			SetHeartsHighlight(currentlySelectedHeart);
+			if(!GameManager.instance.player.IsEnergyDepleted())
+				GameManager.instance.player.SetInvolvement(currentlySelectedHeart);
+		}
+	}
+
+	void SetHeartsHighlight(int involveLevel)
+	{
+		for(int ii=0;ii<hearts.Length;ii++)
+		{
+			if(ii+1<=involveLevel)
+				hearts[ii].Highlight();
+			else
+				hearts[ii].Unhighlight();
+		}
 	}
 }

@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
 	void Start()
 	{
 		GameManager.instance.onMatchStart+=InitPlayer;
+		GameManager.instance.onMatchEnd+=SetStartingPosition;
 	}
 
 	void InitPlayer()
@@ -45,7 +46,11 @@ public class Player : MonoBehaviour
 		maxEnergy=playerInfo.playerAttributes["Stamina"].value*30;
 		SetEnergy(maxEnergy);
 		energyDepleted=false;
+	}
 
+	void SetStartingPosition()
+	{
+		MoveYourself(Vector2.zero);
 	}
 		
 	public void Pass(Vector2 destination)
@@ -183,7 +188,7 @@ public class Player : MonoBehaviour
 
 	public void SetEnergy(float val)
 	{
-		if(val<=0)
+		if(val<=0&&!energyDepleted)
 		{
 			energy=0;
 			energyDepleted=true;
