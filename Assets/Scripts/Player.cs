@@ -158,7 +158,12 @@ public class Player : MonoBehaviour
 	public void Cross(Vector2 destination)
 	{
 		GameManager.instance.SetBallPosition(destination);
-		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Crossing").value ,position, destination))
+		int value=playerInfo.GetAttribute("Crossing").value;
+
+		if(Vector2.Distance(position, Vector2.right)>1)
+			value-=5;
+
+		if(!CalculationsManager.IsMoveSuccessful(value ,position, destination))
 		{
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
 			if(onActionFail!=null)
