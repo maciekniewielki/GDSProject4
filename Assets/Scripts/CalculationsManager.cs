@@ -263,4 +263,12 @@ public class CalculationsManager: MonoBehaviour
 		else
 			return false;
 	}
+
+	public static bool GetResultByPercent(float percent)
+	{
+		if(Random.value<=percent)
+			return true;
+		else
+			return false;
+	}
 }
