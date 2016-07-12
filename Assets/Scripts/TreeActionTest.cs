@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TreeActionTest : MonoBehaviour {
 
+	TreeAction strzal;
 	TreeAction ruch;
 	bool toggled;
 	// Use this for initialization
@@ -30,17 +31,19 @@ public class TreeActionTest : MonoBehaviour {
 
 
 		toggled=false;
+
+		strzal=GameObject.Find("ActionList").GetComponent<ActionsList>().strzal;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		if(toggled)
-			ruch.MakeAction();
+			strzal.MakeAction();
 		if(Input.GetKeyDown("t"))
 			toggled=!toggled;
 
 		if(Input.GetKeyDown("space"))
-			ruch.MakeAction();
+			strzal.MakeAction();
 	}
 }

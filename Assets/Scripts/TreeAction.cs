@@ -31,7 +31,7 @@ public class TreeAction
 		if(run!=null)
 			run();
 
-		Debug.Log("My message: "+message);
+		Debug.Log(message);
 	}
 
 	void RunRecursively()
