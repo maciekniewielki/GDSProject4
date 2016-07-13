@@ -10,11 +10,11 @@ public class Player : MonoBehaviour
 	public Vector2 position;
 	public PlayerInfo playerInfo;
 	public int maxEnergy;
+	public ActionsList actionList;
 	public event Action onActionFail;
 	public event Action onActionSuccess;
 	public event Action onEnergySet;
 	public event Action onEnergyDeplete;
-
 
 	private float energy;
 	private int involveLevel;
@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
 	{
 		GameManager.instance.onMatchStart+=InitPlayer;
 		GameManager.instance.onMatchEnd+=SetStartingPosition;
+
 	}
 
 	void InitPlayer()
@@ -114,18 +115,20 @@ public class Player : MonoBehaviour
 	public void FinishShoot()
 	{
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
-		int percent=playerInfo.GetAttribute("Finishing").value*5;
+		float percent=playerInfo.GetAttribute("Finishing").value*5/100;
 		if(UnityEngine.Random.Range(1,101)<=percent)
 		{
 			if(onActionSuccess!=null)
 				onActionSuccess();
-			GameManager.instance.Goal(true, Side.PLAYER);
+			//GameManager.instance.Goal(true, Side.PLAYER);
+			actionList.shoot.subActions[1].MakeAction();
 		}
 		else
 		{
 			if(onActionFail!=null)
 				onActionFail();
-			GameManager.instance.Miss(true, Side.ENEMY);	
+			//GameManager.instance.Miss(true, Side.ENEMY);	
+			actionList.shoot.subActions[0].MakeAction();
 		}
 		GameManager.instance.noFightNextTurn=true;
 		GameManager.instance.playerHasBall=false;
@@ -142,13 +145,15 @@ public class Player : MonoBehaviour
 		{
 			if(onActionSuccess!=null)
 				onActionSuccess();
-			GameManager.instance.Goal(true, Side.PLAYER);
+			//GameManager.instance.Goal(true, Side.PLAYER);
+			actionList.shoot.subActions[1].MakeAction();
 		}
 		else
 		{
 			if(onActionFail!=null)
 				onActionFail();
-			GameManager.instance.Miss(true, Side.ENEMY);	
+			//GameManager.instance.Miss(true, Side.ENEMY);	
+			actionList.shoot.subActions[0].MakeAction();
 		}
 		GameManager.instance.noFightNextTurn=true;
 		GameManager.instance.playerHasBall=false;

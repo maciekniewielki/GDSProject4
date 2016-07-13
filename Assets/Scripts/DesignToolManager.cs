@@ -26,8 +26,6 @@ public class DesignToolManager : MonoBehaviour {
 		g.onEnemyTeamGoal+=EnemyTeamGoal;
 		g.onEnemyTeamMiss+=EnemyTeamMiss;
 		g.onChangePossession+=UpdatePossession;
-		p.onActionSuccess+=ActionSuccess;
-		p.onActionFail+=ActionFail;
 		g.onMatchStart+=InitLogs;
 		g.onMatchEnd+=OnMatchEnd;
 	}
@@ -94,7 +92,7 @@ public class DesignToolManager : MonoBehaviour {
 		AddText("Enemy Team has Missed");
 	}
 
-	void AddText(string what)
+	public void AddText(string what)
 	{
 		/*
 		int numberOfTurns = GameManager.instance.currentMinute;

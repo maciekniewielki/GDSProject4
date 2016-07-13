@@ -4530,6 +4530,7 @@ MonoBehaviour:
   stats: {}
   player: {fileID: 1528338877}
   gameSpeed: 0
+  logs: {fileID: 1996962978}
   ReceiveChanceWhen1Heart: 10
   ReceiveChanceWhen2Hearts: 40
   ReceiveChanceWhen3Hearts: 70
@@ -8907,7 +8908,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 120
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -9742,6 +9743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0}
   maxEnergy: 0
+  actionList: {fileID: 744601401}
 --- !u!1 &1530447281
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 	public Team playerTeam;
 	public Team enemyTeam;
 	public int gameSpeed;
+	public DesignToolManager logs;
 
 	public static GameManager instance;
 

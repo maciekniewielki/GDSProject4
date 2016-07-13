@@ -32,7 +32,7 @@ public class TreeActionTest : MonoBehaviour {
 
 		toggled=false;
 
-		strzal=GameObject.Find("ActionList").GetComponent<ActionsList>().strzal;
+		strzal=GameObject.Find("ActionList").GetComponent<ActionsList>().shoot;
 	}
 	
 	// Update is called once per frame

@@ -31,7 +31,7 @@ public class TreeAction
 		if(run!=null)
 			run();
 
-		Debug.Log(message);
+		GameManager.instance.logs.AddText(message);
 	}
 
 	void RunRecursively()
