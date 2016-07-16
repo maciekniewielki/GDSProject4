@@ -5,10 +5,37 @@ public class ActionsList : MonoBehaviour
 {
 
 	public TreeAction shoot;
+	public TreeAction cornerCPU;
 
 	void Awake () 
 	{
-//shoot begin
+		ShootInit();
+		CornerCPUInit();
+	}
+
+	void CornerCPUInit()
+	{
+		//cornerCPUbegin
+		//celny begin
+		TreeAction udanyDoGraczaGlowa=new TreeAction(0.6f, null, true, "Gracz glowkuje po dosrodkowaniu");
+		TreeAction udanyDoGraczaNoga=new TreeAction(0.4f, null, true, "Gracz strzela noga po dosrodkowaniu", PlayerFinishingShot);
+		TreeAction udanyDoPartneraStrzal=new TreeAction(0.6f, null, true, "Partner strzela noga po dosrodkowaniu", ComputerShoot);
+
+		TreeAction udanyDoGracza=new TreeAction(0.4f, new TreeAction[]{udanyDoGraczaGlowa, udanyDoGraczaNoga});
+		TreeAction udany=new TreeAction(0.4f, new TreeAction[]{udanyDoGracza, udanyDoPartneraStrzal});
+		//celny end
+
+		//niecelny begin
+		TreeAction nieudany=new TreeAction(0.4f, null, true, "Przeciwnik przejmuje pilke", EnemyBall);
+		//niecelny end
+		cornerCPU=new TreeAction(2f, new TreeAction[]{nieudany, udany});
+		//niecelny end
+		//cornerCPUend
+	}
+
+	void ShootInit()
+	{
+		//shoot begin
 		//celny begin
 		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", Goal);
 		TreeAction celnyBroniChwyta=new TreeAction(0.3f, null, true, "Strzal celny, ale bramkarz lapie pilke", EnemyBall);
@@ -16,10 +43,10 @@ public class ActionsList : MonoBehaviour
 		TreeAction celnyBroniPiastkujeDoNas=new TreeAction(0.85f, null, true, "Strzal celny, ale bramkarz wypiastkowal do nas", OurBall);
 		TreeAction celnyBroniOdbijaDoRywala=new TreeAction(0.4f, null, true, "Strzal celny, ale bramkarz odbil do swojego", EnemyBall);
 		TreeAction celnyBroniOdbijaDoNas=new TreeAction(0.6f, null, true, "Strzal celny, ale bramkarz odbil do nas", OurBall);
-		TreeAction celnyBroniZaLinieRoznyPrawy=new TreeAction(0.5f, null, true, "Strzal celny, ale bramkarz wybil za linie. Prawy rozny");
-		TreeAction celnyBroniZaLinieRoznyLewy=new TreeAction(0.5f, null, true, "Strzal celny, ale bramkarz wybil za linie. Lewy rozny");
-		TreeAction celnyTrafiaRywalaZaLiniePrawyRozny=new TreeAction(0.5f, null, true, "Strzal celny, ale pilka trafia rywala i leci za linie. Prawy rozny");
-		TreeAction celnyTrafiaRywalaZaLinieLewyRozny=new TreeAction(0.5f, null, true, "Strzal celny, ale pilka trafia rywala i leci za linie. Lewy rozny");
+		TreeAction celnyBroniZaLinieRoznyPrawy=new TreeAction(0.5f, null, true, "Strzal celny, ale bramkarz wybil za linie. Prawy rozny", RightCorner);
+		TreeAction celnyBroniZaLinieRoznyLewy=new TreeAction(0.5f, null, true, "Strzal celny, ale bramkarz wybil za linie. Lewy rozny", LeftCorner);
+		TreeAction celnyTrafiaRywalaZaLiniePrawyRozny=new TreeAction(0.5f, null, true, "Strzal celny, ale pilka trafia rywala i leci za linie. Prawy rozny", RightCorner);
+		TreeAction celnyTrafiaRywalaZaLinieLewyRozny=new TreeAction(0.5f, null, true, "Strzal celny, ale pilka trafia rywala i leci za linie. Lewy rozny", LeftCorner);
 		TreeAction celnyTrafiaRywalaOpanowuje=new TreeAction(0.15f, null, true, "Strzal celny, ale pilka trafia rywala, ktory ja opanowuje", EnemyBall);
 		TreeAction celnyTrafiaRywalaDoNas=new TreeAction(0.15f, null, true, "Strzal celny, ale pilka trafia rywala i leci do nas", OurBall);
 		TreeAction celnyTrafiaRywalaOdbicieDoSektorowObok=new TreeAction(0.1f, null, true, "Strzal celny, ale pilka trafia rywala i leci na jedno z otaczajacych pol", RandomAdjacementField);
@@ -61,7 +88,7 @@ public class ActionsList : MonoBehaviour
 		//niecelny end
 
 		shoot=new TreeAction(2f, new TreeAction[]{nieCelny, celny});
-//shoot end
+		//shoot end
 	}
 
 	public void EnemyBall()
@@ -95,6 +122,32 @@ public class ActionsList : MonoBehaviour
 	public void Miss()
 	{
 		GameManager.instance.Miss(true, Side.PLAYER);
+	}
+
+	public void LeftCorner()
+	{
+		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
+		GameManager.instance.nextAction=new RestartAction(RestartActionType.CORNER, Side.PLAYER, isPlayerPerforming, new Vector2(1,1));
+		GameManager.instance.PreparePlayerForRestartMove();
+	}
+
+	public void RightCorner()
+	{
+		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
+		GameManager.instance.nextAction=new RestartAction(RestartActionType.CORNER, Side.PLAYER, isPlayerPerforming, new Vector2(1,-1));
+		GameManager.instance.PreparePlayerForRestartMove();
+	}
+
+	public void PlayerFinishingShot()
+	{
+		GameManager.instance.MakeMove("Shoot", Vector2.right);
+	}
+
+	public void ComputerShoot()
+	{
+		GameManager.instance.ComputerShoot();
 	}
 
 }

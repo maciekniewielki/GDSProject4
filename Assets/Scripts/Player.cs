@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 	public PlayerInfo playerInfo;
 	public int maxEnergy;
 	public ActionsList actionList;
+	public Vector2 preferredPosition;
 	public event Action onActionFail;
 	public event Action onActionSuccess;
 	public event Action onEnergySet;
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
 		d.Add("Dribbling", new Attribute("Dribbling", 1));
 		d.Add("Long Shots", new Attribute("Long Shots", 1));
 		d.Add("Stamina", new Attribute("Stamina", 1));
+		d.Add("Corners", new Attribute("Corners", 1));
 		playerInfo.SetPlayerAttributes(d);
 	}
 
@@ -183,6 +185,26 @@ public class Player : MonoBehaviour
 		GameManager.instance.noFightNextTurn=true;
 		GameManager.instance.playerHasBall=false;
 		GameManager.instance.EndPlayerTurn();
+	}
+
+	public void Corner()
+	{
+		MoveYourself(GameManager.instance.nextAction.source);
+		GameManager.instance.SetBallPosition(Vector2.right);
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Corners").value, Vector2.zero, Vector2.right))
+		{
+			GameManager.instance.ChangeBallPossession(Side.ENEMY);
+			if(onActionFail!=null)
+				onActionFail();
+		}
+		else
+		{
+			GameManager.instance.ChangeBallPossession(Side.PLAYER);
+			if(onActionSuccess!=null)
+				onActionSuccess();
+		}
+			
+		GameManager.instance.EndPlayerRestartMove();
 	}
 
 	public Vector2 GetPlayerPosition()

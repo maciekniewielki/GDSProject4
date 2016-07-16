@@ -35,7 +35,10 @@ public class Field : MonoBehaviour
 	void OnMouseDown()
 	{
 		if(!GameManager.instance.gameStarted)
+		{
 			GameManager.instance.player.MoveYourself(NameToVector(name));
+			GameManager.instance.player.preferredPosition=NameToVector(name);
+		}
 
 		Debug.Log("Clicked field: "+ NameToVector(name));
 

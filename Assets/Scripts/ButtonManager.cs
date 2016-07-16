@@ -15,6 +15,8 @@ public class ButtonManager : MonoBehaviour
 
 	void Start () 
 	{
+		GameManager.instance.onCornerEnd+=SetCurrentlyAvailable;
+		GameManager.instance.onCornerBegin+=OnRestartMoveBegin;
 		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onPlayerTurnStart+=SetCurrentlyAvailable;
 		GameManager.instance.onMatchEnd+=SetCurrentlyAvailable;
@@ -44,6 +46,11 @@ public class ButtonManager : MonoBehaviour
 	{
 		OnGamePause();
 		SetButtonText("startButton", "2nd Half");
+	}
+
+	void OnRestartMoveBegin()
+	{
+		SetInteractable("cornerButton", true);
 	}
 
 	public void SetInteractableToAll(bool val)
@@ -83,9 +90,17 @@ public class ButtonManager : MonoBehaviour
 			
 		if(GameManager.instance.IsGamePaused())
 			return;
+		
+		if(GameManager.instance.IsPlayerWaitingForRestart())
+		{
+			SetInteractable("cornerButton", true);
+			return;
+		}
 
 		if(!GameManager.instance.playerTurn)
 			return;
+
+
 
 		if(GameManager.instance.playerHasBall)
 		{
@@ -121,6 +136,8 @@ public class ButtonManager : MonoBehaviour
 				GameManager.instance.MakeMove("Shoot", Vector2.right);
 			else if(which.Equals("longShotButton"))
 				GameManager.instance.MakeMove("LongShot", Vector2.right);
+			else if(which.Equals("cornerButton"))
+				GameManager.instance.MakeMove("Corner", Vector2.right);
 		}
 		else
 		{

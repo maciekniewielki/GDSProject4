@@ -66,7 +66,7 @@ public class CalculationsManager: MonoBehaviour
 		else if(pos.x==-1 && pos.y==0)
 			positions=new Vector2[]{new Vector2(0, 0), new Vector2(-1, 1), new Vector2(-1, -1)};
 		else if(pos.x==0 && pos.y==0)
-			positions=new Vector2[]{ new Vector2(1, 1), new Vector2(1, 0), new Vector2(1, -1)};
+			positions=new Vector2[]{ new Vector2(1, 1), new Vector2(1, 0), new Vector2(1, -1),  new Vector2(0, 1), new Vector2(0, -1)};
 		else if(pos.x==1 && pos.y==0)
 			positions=null;
 		else if(pos.x==-1 && pos.y==-1)
@@ -206,6 +206,22 @@ public class CalculationsManager: MonoBehaviour
 	public static bool CanPlayerTackle()
 	{
 		if(IsPlayerStandingOnBall()&&GameManager.instance.possession==Side.ENEMY)
+			return true;
+		else
+			return false;
+	}
+
+	public static bool IsPlayerTakingRestartMove()
+	{
+		if(GameManager.instance.nextAction!=null)
+			return GameManager.instance.nextAction.isPlayerPerforming;
+		else
+			return false;
+	}
+
+	public static bool CanPlayerTakeCorner()
+	{
+		if(GameManager.instance.player.preferredPosition==Vector2.up||GameManager.instance.player.preferredPosition==Vector2.down)
 			return true;
 		else
 			return false;

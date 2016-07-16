@@ -11,7 +11,10 @@ public class PitchManager : MonoBehaviour
     public GameObject ball;
     public Text[] logs;
 	public GameObject playerSprite;
-
+	public GameObject rightEnemyCorner;
+	public GameObject leftEnemyCorner;
+	public GameObject rightPlayerCorner;
+	public GameObject leftPlayerCorner;
 
 	void Awake()
 	{
@@ -20,6 +23,8 @@ public class PitchManager : MonoBehaviour
 
 	void Start ()
     {
+		GameManager.instance.onCornerBegin+=PrepareForRestartMove;
+		GameManager.instance.onCornerEnd+=EndRestartMove;
 		GameManager.instance.onPlayerMove+=MovePlayerSprite;
 		GameManager.instance.onMatchStart+=InitPitch;
 		GameManager.instance.onMatchEnd+=SetPlayerVisibility;
@@ -104,4 +109,29 @@ public class PitchManager : MonoBehaviour
 		playerSprite.GetComponent<SpriteRenderer>().enabled=false;
 	}
 
+	void RemoveBallSprite()
+	{
+		ball.GetComponent<SpriteRenderer>().enabled=false;
+	}
+
+	public void PrepareForRestartMove()
+	{
+		if(GameManager.instance.nextAction.source==new Vector2(1,1))
+			leftEnemyCorner.SetActive(true);
+		else
+			rightEnemyCorner.SetActive(true);
+		RemoveBallSprite();
+		RemovePlayerSprite();
+	}
+
+	public void EndRestartMove()
+	{
+		playerSprite.GetComponent<SpriteRenderer>().enabled=true;
+		ball.GetComponent<SpriteRenderer>().enabled=true;
+
+		leftEnemyCorner.SetActive(false);
+		rightEnemyCorner.SetActive(false);
+		leftPlayerCorner.SetActive(false);
+		rightPlayerCorner.SetActive(false);
+	}
 }

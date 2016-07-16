@@ -181,5 +181,11 @@ public class DesignToolManager : MonoBehaviour {
 		GameManager.instance.player.playerInfo.playerAttributes["Stamina"].value=(int)stamina;
 		Debug.Log("current Stamina "+ GameManager.instance.player.playerInfo.playerAttributes["Stamina"].value);
 	}
+
+	public void SetPlayerCorners(float corners)
+	{
+		GameManager.instance.player.playerInfo.playerAttributes["Corners"].value=(int)corners;
+		Debug.Log("current Corners "+ GameManager.instance.player.playerInfo.playerAttributes["Corners"].value);
+	}
 		
 }

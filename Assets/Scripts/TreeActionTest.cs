@@ -5,8 +5,9 @@ public class TreeActionTest : MonoBehaviour {
 
 	TreeAction strzal;
 	TreeAction ruch;
+	TreeAction cornerCPU;
 	bool toggled;
-	// Use this for initialization
+
 	void Start () 
 	{
 		TreeAction celnyGol=new TreeAction(0.7f, null, true, "Weee... Goool");
@@ -33,17 +34,17 @@ public class TreeActionTest : MonoBehaviour {
 		toggled=false;
 
 		strzal=GameObject.Find("ActionList").GetComponent<ActionsList>().shoot;
+		cornerCPU= GameObject.Find("ActionList").GetComponent<ActionsList>().cornerCPU;
 	}
-	
-	// Update is called once per frame
+
 	void Update () 
 	{
 		if(toggled)
-			strzal.MakeAction();
+			cornerCPU.MakeAction();
 		if(Input.GetKeyDown("t"))
 			toggled=!toggled;
 
 		if(Input.GetKeyDown("space"))
-			strzal.MakeAction();
+			cornerCPU.MakeAction();
 	}
 }

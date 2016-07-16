@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 	public Team enemyTeam;
 	public int gameSpeed;
 	public DesignToolManager logs;
+	public RestartAction nextAction;
 
 	public static GameManager instance;
 
@@ -43,12 +44,15 @@ public class GameManager : MonoBehaviour
 	public event Action onHalfTime;
 	public event Action onPause;
 	public event Action onUnpause;
+	public event Action onCornerBegin;
+	public event Action onCornerEnd;
 
 
 	private bool initEnded;
 	private string selectedMove;
 	private bool paused;
 	private bool playerRemoved;
+	public bool playerRestartMoveRemaining;
 
 	//Debug
 	public int ReceiveChanceWhen1Heart=10;
@@ -145,7 +149,7 @@ public class GameManager : MonoBehaviour
 	void Update () 
 	{
 
-		if(gameStarted&&!turnStarted&&!paused)
+		if(gameStarted&&!turnStarted&&!paused&&!playerRestartMoveRemaining)
 			StartTurn();
 	}
 
@@ -167,6 +171,7 @@ public class GameManager : MonoBehaviour
 	public void EndPlayerTurn()
 	{
 		playerTurn=false;
+		playerHasBall=false;
 		if(onPlayerTurnEnd!=null)
 			onPlayerTurnEnd();
 		
@@ -219,17 +224,22 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator ActualComputerTurn()
 	{
-		yield return new WaitForSeconds(4f/gameSpeed);
-
+		bool isDraw=false;
 		if(!noFightNextTurn)
-			FightForBall();
+			isDraw=FightForBall();
 		else
 			noFightNextTurn=false;
 
-		if (CalculationsManager.CanComputerShootOnPenaltyArea())
-			ComputerShoot();
-		else
-			ComputerAttack();
+		if(!isDraw)
+		{
+			if (CalculationsManager.CanComputerShootOnPenaltyArea())
+				ComputerShoot();
+			else
+				ComputerAttack();
+		}
+			
+		yield return new WaitForSeconds(4f/gameSpeed);
+		EndComputerTurn();
 	}
 		
 
@@ -239,8 +249,6 @@ public class GameManager : MonoBehaviour
 		SetBallPosition(destination);
 		if(onComputerAttack!=null)
 			onComputerAttack();
-
-		EndComputerTurn();
 	}
 
 	void EndComputerTurn()
@@ -248,7 +256,7 @@ public class GameManager : MonoBehaviour
 		EndTurn();
 	}
 
-	void ComputerShoot()
+	public void ComputerShoot()
 	{
 		if(CalculationsManager.IsComputerShootSuccessful(possession))
 		{
@@ -259,8 +267,8 @@ public class GameManager : MonoBehaviour
 			Miss(false, possession);
 		}
 		ChangeBallPossession(CalculationsManager.OtherSide(possession));
-		EndComputerTurn();
 	}
+		
 
 	public void SetSelectedMove(string move)
 	{
@@ -289,6 +297,8 @@ public class GameManager : MonoBehaviour
 			player.Dribble(destination);
 		else if(name.Equals("LongShot"))
 			player.LongShot();
+		else if(name.Equals("Corner"))
+			player.Corner();
 	}
 
 	public void SetBallPosition(Vector2 destination)
@@ -306,15 +316,18 @@ public class GameManager : MonoBehaviour
 			onChangePossession();
 	}
 		
-	void FightForBall()
+	bool FightForBall()
 	{
 		int playerScore = CalculationsManager.GetFormationPointsInPosition(ballPosition, Side.PLAYER)+CalculationsManager.RollTheDice();
 		int enemyScore = CalculationsManager.GetFormationPointsInPosition(ballPosition, Side.ENEMY)+CalculationsManager.RollTheDice();
 
 		if (playerScore==enemyScore)
-			EndComputerTurn();
+			return true;
 		else
+		{
 			ChangeBallPossession(playerScore > enemyScore ? Side.PLAYER : Side.ENEMY);
+			return false;
+		}
 
 	}
 
@@ -380,6 +393,30 @@ public class GameManager : MonoBehaviour
 	public bool IsGamePaused()
 	{
 		return paused;
+	}
+
+	public bool IsPlayerWaitingForRestart()
+	{
+		return playerRestartMoveRemaining;
+	}
+
+	public void PreparePlayerForRestartMove()
+	{
+		if(!nextAction.isPlayerPerforming)
+			return;
+		playerRestartMoveRemaining=true;
+		if(nextAction.type==RestartActionType.CORNER)
+		{
+			if(onCornerBegin!=null)
+				onCornerBegin();
+		}
+	}
+
+	public void EndPlayerRestartMove()
+	{
+		playerRestartMoveRemaining=false;
+		if(onCornerEnd!=null)
+			onCornerEnd();
 	}
 
 	void RemovePlayer()

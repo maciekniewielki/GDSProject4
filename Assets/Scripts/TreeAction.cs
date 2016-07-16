@@ -28,10 +28,12 @@ public class TreeAction
 			return;
 		}	
 
+		Debug.Log(message);
+		GameManager.instance.logs.AddText(message);
+
 		if(run!=null)
 			run();
-
-		GameManager.instance.logs.AddText(message);
+		
 	}
 
 	void RunRecursively()
