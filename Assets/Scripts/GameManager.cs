@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
@@ -113,8 +114,14 @@ public class GameManager : MonoBehaviour
 		playerHasBall=false;
 		if(onMatchEnd!=null)
 			onMatchEnd();
+
+		Invoke("LoadEndMatchStatistics", 3);
 	}
 		
+	void LoadEndMatchStatistics()
+	{
+		SceneManager.LoadScene("matchStatistics");
+	}
 
 	void StartTurn()
 	{
