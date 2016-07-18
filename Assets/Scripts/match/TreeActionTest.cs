@@ -28,7 +28,7 @@ public class TreeActionTest : MonoBehaviour {
 		TreeAction podanieDoNasDoGracza= new TreeAction(0.7f, new TreeAction[]{podanieDoNasDoGraczaGlowa, podanieDoNasDoGraczaNoga});
 		TreeAction podanieDoNas= new TreeAction(0.4f, new TreeAction[]{podanieDoNasDoGracza, podanieDoNasDoPartnera});
 
-		ruch= new TreeAction(2f, new TreeAction[]{podanieDoNas, celny});
+		TreeAction udany= new TreeAction(2f, new TreeAction[]{podanieDoNas, celny});
 
 
 		toggled=false;

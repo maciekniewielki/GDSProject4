@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 	public int maxEnergy;
 	public ActionsList actionList;
 	public Vector2 preferredPosition;
+	public bool movedThisTurn;
 	public event Action onActionFail;
 	public event Action onActionSuccess;
 	public event Action onEnergySet;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
 
 	void Start()
 	{
+		GameManager.instance.onTurnStart+=ResetMove;
 		GameManager.instance.onMatchStart+=InitPlayer;
 		GameManager.instance.onMatchEnd+=SetStartingPosition;
 
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
 
 	void InitPlayer()
 	{
+		movedThisTurn=false;
 		maxEnergy=playerInfo.playerAttributes["Stamina"].value*30;
 		SetEnergy(maxEnergy);
 		energyDepleted=false;
@@ -54,6 +57,11 @@ public class Player : MonoBehaviour
 	void SetStartingPosition()
 	{
 		MoveYourself(Vector2.zero);
+	}
+
+	void ResetMove()
+	{
+		movedThisTurn=false;
 	}
 		
 	public void Pass(Vector2 destination)
@@ -216,6 +224,13 @@ public class Player : MonoBehaviour
 	{
 		position=destination;
 		GameManager.instance.PlayerMoved();
+	}
+
+	public void MoveYourselfAction(Vector2 destination)
+	{
+		movedThisTurn=true;
+		MoveYourself(destination);
+		GameManager.instance.Unpause();
 	}
 
 	public void SetEnergy(float val)

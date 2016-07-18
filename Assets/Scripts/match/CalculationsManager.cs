@@ -12,7 +12,7 @@ public class CalculationsManager: MonoBehaviour
 
 	public static Vector2[] GetPositions(string which, Vector2 where)
 	{
-		if(which.Equals("Pass")||which.Equals("Dribble"))
+		if(which.Equals("Pass")||which.Equals("Dribble")||which.Equals("Move"))
 			return GetPassingPositions(where);
 		else
 			return GetCrossingPositions(where);
@@ -188,6 +188,29 @@ public class CalculationsManager: MonoBehaviour
 		}
 		int attackerPoints=GetFormationPointsInPosition(field, shooterSide)+RollTheDice();
 		int defenderPoints=GetFormationPointsInPosition(field, defenderSide)+RollTheDice();
+
+		if(attackerPoints>defenderPoints)
+			return true;
+		else
+			return false;
+	}
+
+	public static bool IsComputerCornerSuccessful(Side shooterSide)
+	{
+		Vector2 defenderField;
+		Side defenderSide;
+		if(shooterSide==Side.PLAYER)
+		{
+			defenderField=Vector2.right;
+			defenderSide=Side.ENEMY;
+		}
+		else
+		{
+			defenderField=Vector2.left;
+			defenderSide=Side.PLAYER;
+		}
+		int attackerPoints=GetFormationPointsInPosition(Vector2.zero, shooterSide)+RollTheDice();
+		int defenderPoints=GetFormationPointsInPosition(defenderField, defenderSide)+RollTheDice();
 
 		if(attackerPoints>defenderPoints)
 			return true;

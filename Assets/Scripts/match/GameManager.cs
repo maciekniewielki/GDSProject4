@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 	public int gameSpeed;
 	public DesignToolManager logs;
 	public RestartAction nextAction;
+	public bool playerRestartMoveRemaining;
+	public bool CPURestartMoveRemaining;
 
 	public static GameManager instance;
 
@@ -53,7 +55,8 @@ public class GameManager : MonoBehaviour
 	private string selectedMove;
 	private bool paused;
 	private bool playerRemoved;
-	public bool playerRestartMoveRemaining;
+
+
 
 	//Debug
 	public int ReceiveChanceWhen1Heart=10;
@@ -87,6 +90,8 @@ public class GameManager : MonoBehaviour
 		currentMinute=1;
 		turnStarted=false;
 		playerRemoved=false;
+		playerRestartMoveRemaining=false;
+		CPURestartMoveRemaining=false;
 
 		noFightNextTurn=false;
 		SetBallPosition(new Vector2(0,0));
@@ -156,7 +161,7 @@ public class GameManager : MonoBehaviour
 	void Update () 
 	{
 
-		if(gameStarted&&!turnStarted&&!paused&&!playerRestartMoveRemaining)
+		if(gameStarted&&!turnStarted&&!paused&&!playerRestartMoveRemaining&&!CPURestartMoveRemaining)
 			StartTurn();
 	}
 
@@ -306,6 +311,8 @@ public class GameManager : MonoBehaviour
 			player.LongShot();
 		else if(name.Equals("Corner"))
 			player.Corner();
+		else if(name.Equals("Move"))
+			player.MoveYourselfAction(destination);
 	}
 
 	public void SetBallPosition(Vector2 destination)
@@ -407,16 +414,50 @@ public class GameManager : MonoBehaviour
 		return playerRestartMoveRemaining;
 	}
 
-	public void PreparePlayerForRestartMove()
+	public void PrepareForRestartMove()
 	{
 		if(!nextAction.isPlayerPerforming)
-			return;
-		playerRestartMoveRemaining=true;
+		{
+			if(nextAction.type==RestartActionType.CORNER)
+			{
+				SetBallPosition(nextAction.source);
+				Invoke("PreComputerCorner", 4f/gameSpeed);
+			}
+			CPURestartMoveRemaining=true;
+		}
+		else
+			playerRestartMoveRemaining=true;
 		if(nextAction.type==RestartActionType.CORNER)
 		{
 			if(onCornerBegin!=null)
 				onCornerBegin();
 		}
+	}
+
+	void PreComputerCorner()
+	{
+		SetBallPosition(Vector2.right);
+		Invoke("ComputerCorner", 4f/gameSpeed);
+	}
+
+	void ComputerCorner()
+	{
+		if(CalculationsManager.IsComputerCornerSuccessful(possession))
+		{
+			player.actionList.cornerCPU.subActions[1].MakeAction();
+		}
+		else
+		{
+			player.actionList.cornerCPU.subActions[0].MakeAction();
+		}
+		EndCPURestartMove();
+	}
+
+	void EndCPURestartMove()
+	{
+		CPURestartMoveRemaining=false;
+		if(onCornerEnd!=null)
+			onCornerEnd();
 	}
 
 	public void EndPlayerRestartMove()

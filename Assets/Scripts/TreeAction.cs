@@ -33,7 +33,6 @@ public class TreeAction
 
 		if(run!=null)
 			run();
-		
 	}
 
 	void RunRecursively()

@@ -23,6 +23,8 @@ public class PitchManager : MonoBehaviour
 
 	void Start ()
     {
+		GameManager.instance.onPlayerMove+=UnHighlightEverything;
+		GameManager.instance.onTurnStart+=UnHighlightEverything;
 		GameManager.instance.onCornerBegin+=PrepareForRestartMove;
 		GameManager.instance.onCornerEnd+=EndRestartMove;
 		GameManager.instance.onPlayerMove+=MovePlayerSprite;
@@ -116,12 +118,15 @@ public class PitchManager : MonoBehaviour
 
 	public void PrepareForRestartMove()
 	{
-		if(GameManager.instance.nextAction.source==new Vector2(1,1))
-			leftEnemyCorner.SetActive(true);
-		else
-			rightEnemyCorner.SetActive(true);
-		RemoveBallSprite();
-		RemovePlayerSprite();
+		if(GameManager.instance.nextAction.isPlayerPerforming)
+		{
+			if(GameManager.instance.nextAction.source==new Vector2(1,1))
+				leftEnemyCorner.SetActive(true);
+			else
+				rightEnemyCorner.SetActive(true);
+			RemoveBallSprite();
+			RemovePlayerSprite();
+		}
 	}
 
 	public void EndRestartMove()

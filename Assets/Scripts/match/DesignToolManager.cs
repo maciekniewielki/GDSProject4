@@ -21,10 +21,11 @@ public class DesignToolManager : MonoBehaviour {
 	{
 		GameManager g=GameManager.instance;
 		Player p=g.player;
-		g.onPlayerTeamGoal+=PlayerTeamGoal;
-		g.onPlayerTeamMiss+=PlayerTeamMiss;
-		g.onEnemyTeamGoal+=EnemyTeamGoal;
-		g.onEnemyTeamMiss+=EnemyTeamMiss;
+		g.onCornerBegin+=Corner;
+		//g.onPlayerTeamGoal+=PlayerTeamGoal;
+		//g.onPlayerTeamMiss+=PlayerTeamMiss;
+		//g.onEnemyTeamGoal+=EnemyTeamGoal;
+		//g.onEnemyTeamMiss+=EnemyTeamMiss;
 		g.onChangePossession+=UpdatePossession;
 		g.onMatchStart+=InitLogs;
 		g.onMatchEnd+=OnMatchEnd;
@@ -62,6 +63,14 @@ public class DesignToolManager : MonoBehaviour {
 	void ActionFail()
 	{
 		AddText("Action Failed!");
+	}
+
+	void Corner()
+	{
+		if(GameManager.instance.possession==Side.PLAYER)
+			AddText("Corner for the " + GameManager.instance.stats.playerTeam.name);
+		else
+			AddText("Corner for the " + GameManager.instance.stats.enemyTeam.name);
 	}
 
 	void UpdatePossession()

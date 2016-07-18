@@ -10,11 +10,12 @@ public class ButtonManager : MonoBehaviour
 	public GameObject buttonParent;
 
 	private Dictionary<string, Button> buttons;
-	private string[] stageButtons={"passButton", "crossButton", "dribbleButton"};
+	private string[] stageButtons={"passButton", "crossButton", "dribbleButton", "moveButton"};
 	private PitchManager pitch;
 
 	void Start () 
 	{
+		GameManager.instance.onTurnStart+=SetCurrentlyAvailable;
 		GameManager.instance.onCornerEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onCornerBegin+=OnRestartMoveBegin;
 		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
@@ -31,7 +32,6 @@ public class ButtonManager : MonoBehaviour
 		InitButtons();
 	}
 		
-
 	public void InitButtons()
 	{
 		SetButtonText("startButton", "Play match");
@@ -50,7 +50,8 @@ public class ButtonManager : MonoBehaviour
 
 	void OnRestartMoveBegin()
 	{
-		SetInteractable("cornerButton", true);
+		if(GameManager.instance.nextAction.isPlayerPerforming)
+			SetInteractable("cornerButton", true);
 	}
 
 	public void SetInteractableToAll(bool val)
@@ -73,6 +74,9 @@ public class ButtonManager : MonoBehaviour
 	{
 		SetInteractableToAll(false);
 		SetInteractable("startButton", true);
+
+		if(!GameManager.instance.playerHasBall&&!GameManager.instance.playerRestartMoveRemaining&&!GameManager.instance.IsGamePaused()&&!GameManager.instance.player.movedThisTurn)
+			SetInteractable("moveButton", true);
 
 		if(GameManager.instance.currentMinute!=46)
 		{
@@ -146,6 +150,8 @@ public class ButtonManager : MonoBehaviour
 			string move=(which.First().ToString().ToUpper()+which.Substring(1)).Remove(which.Length-6);
 			Debug.Log("Selected move: "+move);
 
+			if(move.Equals("Move"))
+				GameManager.instance.Pause();
 
 			GameManager.instance.SetSelectedMove(move);
 			pitch.HighlightSelected(CalculationsManager.GetPositions(move, GameManager.instance.GetPlayerPosition()));
