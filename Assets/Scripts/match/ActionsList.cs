@@ -6,11 +6,13 @@ public class ActionsList: MonoBehaviour
 
 	public TreeAction shoot;
 	public TreeAction cornerCPU;
+    public TreeAction ThrowInCPU;
 
 	void Awake () 
 	{
 		ShootInit();
 		CornerCPUInit();
+        ThrowInCPUInit();
 	}
 
 	void CornerCPUInit()
@@ -32,6 +34,27 @@ public class ActionsList: MonoBehaviour
 		//niecelny end
 		//cornerCPUend
 	}
+
+    void ThrowInCPUInit()
+    {
+        //ThrowInCPU begin
+        // udany begin
+        TreeAction udanyPierwszySektorDoGracza=new TreeAction(0.8f, null, true, "Gracz otrzymuje piłkę po bliskiej wrzutce z autu");
+        TreeAction udanyPierwszySektorDoPartnera=new TreeAction(0.2f, null, true, "Partnerzy otrzymują piłkę po bliskiej wrzutce z autu", OurBall);
+        TreeAction udanyDrugiSektorDoGracza=new TreeAction(0.8f, null, true, "Gracz otrzymuje piłkę po długiej wrzutce z autu");
+        TreeAction udanyDrugiSektorDoPartnera=new TreeAction(0.2f, null, true, "Partnerzy otrzymują piłkę po długiej wrzutce z autu", OurBall);
+
+        TreeAction udanyPierwszySektor = new TreeAction(0.8f, new TreeAction[] { udanyPierwszySektorDoGracza, udanyPierwszySektorDoPartnera });
+        TreeAction udanyDrugiSektor = new TreeAction(0.2f, new TreeAction[] { udanyDrugiSektorDoGracza, udanyDrugiSektorDoPartnera });
+        TreeAction udany = new TreeAction(0.4f, new TreeAction[] { udanyPierwszySektor, udanyDrugiSektor });
+        //udany end
+
+        //nieudany begin
+        TreeAction nieudany = new TreeAction(0.4f, null, true, "Źle wykonany aut, rywal przy piłce", EnemyBall);
+        //nieudany end
+        ThrowInCPU = new TreeAction(2f, new TreeAction[] { nieudany, udany });
+        //ThrowInCPUend
+    }
 
 	void ShootInit()
 	{
