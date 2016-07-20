@@ -60,7 +60,7 @@ public class ActionsList: MonoBehaviour
 	{
 		//shoot begin
 		//celny begin
-		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", RightCorner);
+		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", Out);
 		TreeAction celnyBroniChwyta=new TreeAction(0.3f, null, true, "Strzal celny, ale bramkarz lapie pilke", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoRywala=new TreeAction(0.15f, null, true, "Strzal celny, ale bramkarz wypiastkowal do swojego", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoNas=new TreeAction(0.85f, null, true, "Strzal celny, ale bramkarz wypiastkowal do nas", OurBall);
@@ -152,7 +152,7 @@ public class ActionsList: MonoBehaviour
 		GameManager.instance.Invoke("ActualLeftCorner", 4f/GameManager.instance.gameSpeed);
 	}
 
-	void ActualLeftCorner()
+	public void ActualLeftCorner()
 	{
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
@@ -161,6 +161,11 @@ public class ActionsList: MonoBehaviour
 	}
 
 	public void RightCorner()
+	{
+		GameManager.instance.Invoke("ActualRightCorner", 4f/GameManager.instance.gameSpeed);
+	}
+
+	public void ActualRightCorner()
 	{
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
@@ -176,6 +181,16 @@ public class ActionsList: MonoBehaviour
 	public void ComputerShoot()
 	{
 		GameManager.instance.ComputerShoot();
+	}
+
+	public void Out()
+	{
+		if(!CalculationsManager.IsPositionOnTheEdge(GameManager.instance.ballPosition))
+			return;
+		bool isPlayerPerforming=GameManager.instance.ballPosition==GameManager.instance.player.position;
+		GameManager.instance.nextAction=new RestartAction(RestartActionType.OUT, Side.PLAYER, isPlayerPerforming, GameManager.instance.ballPosition);
+		GameManager.instance.PrepareForRestartMove();
+			
 	}
 
 }

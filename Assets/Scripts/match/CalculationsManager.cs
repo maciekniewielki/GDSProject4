@@ -12,8 +12,10 @@ public class CalculationsManager: MonoBehaviour
 
 	public static Vector2[] GetPositions(string which, Vector2 where)
 	{
-		if(which.Equals("Pass")||which.Equals("Dribble")||which.Equals("Move"))
+		if(which.Equals("Pass")||which.Equals("Dribble")||which.Equals("Move")||which.Equals("LongOut"))
 			return GetPassingPositions(where);
+		else if(which.Equals("Out"))
+			return GetOutPosition();
 		else
 			return GetCrossingPositions(where);
 	}
@@ -21,6 +23,11 @@ public class CalculationsManager: MonoBehaviour
 	public static Vector2[] GetCrossingPositions(Vector2 where)
 	{
 		return new Vector2[]{new Vector2(1,0)};
+	}
+
+	public static Vector2[] GetOutPosition()
+	{
+		return new Vector2[]{GameManager.instance.nextAction.source};
 	}
 		
 
@@ -309,5 +316,10 @@ public class CalculationsManager: MonoBehaviour
 			return true;
 		else
 			return false;
+	}
+
+	public static bool IsPositionOnTheEdge(Vector2 position)
+	{
+		return Mathf.Abs(position.y)==1?true:false;
 	}
 }

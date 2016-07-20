@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 		d.Add("Long Shots", new Attribute("Long Shots", 1));
 		d.Add("Stamina", new Attribute("Stamina", 1));
 		d.Add("Corners", new Attribute("Corners", 1));
+		d.Add("Long Throws", new Attribute("Long Throws", 1));
 		playerInfo.SetPlayerAttributes(d);
 	}
 
@@ -212,6 +213,43 @@ public class Player : MonoBehaviour
 				onActionSuccess();
 		}
 			
+		GameManager.instance.EndPlayerRestartMove();
+	}
+
+	public void Out()
+	{
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Long Throws").value+6, position, position))
+		{
+			GameManager.instance.ChangeBallPossession(Side.ENEMY);
+			if(onActionFail!=null)
+				onActionFail();
+		}
+		else
+		{
+			GameManager.instance.ChangeBallPossession(Side.PLAYER);
+			if(onActionSuccess!=null)
+				onActionSuccess();
+		}
+
+		GameManager.instance.EndPlayerRestartMove();
+	}
+
+	public void LongOut(Vector2 destination)
+	{
+		GameManager.instance.SetBallPosition(destination);
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Long Throws").value, destination, destination))
+		{
+			GameManager.instance.ChangeBallPossession(Side.ENEMY);
+			if(onActionFail!=null)
+				onActionFail();
+		}
+		else
+		{
+			GameManager.instance.ChangeBallPossession(Side.PLAYER);
+			if(onActionSuccess!=null)
+				onActionSuccess();
+		}
+
 		GameManager.instance.EndPlayerRestartMove();
 	}
 

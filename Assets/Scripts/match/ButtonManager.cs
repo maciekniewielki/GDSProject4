@@ -10,14 +10,17 @@ public class ButtonManager : MonoBehaviour
 	public GameObject buttonParent;
 
 	private Dictionary<string, Button> buttons;
-	private string[] stageButtons={"passButton", "crossButton", "dribbleButton", "moveButton"};
+	private string[] stageButtons={"passButton", "crossButton", "dribbleButton", "moveButton", "outButton"};
 	private PitchManager pitch;
+
+	private bool shortOut;
 
 	void Start () 
 	{
 		GameManager.instance.onTurnStart+=SetCurrentlyAvailable;
 		GameManager.instance.onCornerEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onCornerBegin+=OnRestartMoveBegin;
+		GameManager.instance.onOutBegin+=OnRestartMoveBegin;
 		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onPlayerTurnStart+=SetCurrentlyAvailable;
 		GameManager.instance.onMatchEnd+=SetCurrentlyAvailable;
@@ -50,8 +53,10 @@ public class ButtonManager : MonoBehaviour
 
 	void OnRestartMoveBegin()
 	{
-		if(GameManager.instance.nextAction.isPlayerPerforming)
+		if(GameManager.instance.nextAction.isPlayerPerforming&&GameManager.instance.nextAction.type==RestartActionType.CORNER)
 			SetInteractable("cornerButton", true);
+		else if(GameManager.instance.nextAction.isPlayerPerforming&&GameManager.instance.nextAction.type==RestartActionType.OUT)
+			SetInteractable("outButton", true);
 	}
 
 	public void SetInteractableToAll(bool val)
@@ -97,7 +102,10 @@ public class ButtonManager : MonoBehaviour
 		
 		if(GameManager.instance.IsPlayerWaitingForRestart())
 		{
-			SetInteractable("cornerButton", true);
+			if(GameManager.instance.nextAction.type==RestartActionType.CORNER)
+				SetInteractable("cornerButton", true);
+			else if(GameManager.instance.nextAction.type==RestartActionType.OUT)
+				SetInteractable("outButton", true);
 			return;
 		}
 
@@ -127,7 +135,6 @@ public class ButtonManager : MonoBehaviour
 		{
 			if(which.Equals("startButton"))
 			{
-				
 				if(!GameManager.instance.HasTheGameStarted())
 					GameManager.instance.StartTheMatch();
 				else if(GameManager.instance.IsGamePaused())
@@ -146,8 +153,20 @@ public class ButtonManager : MonoBehaviour
 		else
 		{
 			SetCurrentlyAvailable();
-			SetInteractable(which, false);
-			string move=(which.First().ToString().ToUpper()+which.Substring(1)).Remove(which.Length-6);
+			string move;
+			if(!which.Equals("outButton"))
+			{
+				SetInteractable(which, false);
+				move=(which.First().ToString().ToUpper()+which.Substring(1)).Remove(which.Length-6);
+			}
+			else
+			{
+				shortOut=!shortOut;
+				if(shortOut)
+					move="Out";
+				else
+					move="LongOut";
+			}
 			Debug.Log("Selected move: "+move);
 
 			if(move.Equals("Move"))

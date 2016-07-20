@@ -197,4 +197,9 @@ public class DesignToolManager : MonoBehaviour {
 		Debug.Log("current Corners "+ GameManager.instance.player.playerInfo.playerAttributes["Corners"].value);
 	}
 		
+	public void SetPlayerLongThrows(float longThrows)
+	{
+		GameManager.instance.player.playerInfo.playerAttributes["Long Throws"].value=(int)longThrows;
+		Debug.Log("current Long Throws "+ GameManager.instance.player.playerInfo.playerAttributes["Long Throws"].value);
+	}
 }

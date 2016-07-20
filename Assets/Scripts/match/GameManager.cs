@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 	public event Action onUnpause;
 	public event Action onCornerBegin;
 	public event Action onCornerEnd;
+	public event Action onOutBegin;
 
 
 	private bool initEnded;
@@ -313,6 +314,10 @@ public class GameManager : MonoBehaviour
 			player.Corner();
 		else if(name.Equals("Move"))
 			player.MoveYourselfAction(destination);
+		else if(name.Equals("Out"))
+			player.Out();
+		else if(name.Equals("LongOut"))
+			player.LongOut(destination);
 	}
 
 	public void SetBallPosition(Vector2 destination)
@@ -423,6 +428,10 @@ public class GameManager : MonoBehaviour
 				SetBallPosition(nextAction.source);
 				Invoke("PreComputerCorner", 4f/gameSpeed);
 			}
+			else if(nextAction.type==RestartActionType.OUT)
+			{
+				FightForBall();
+			}
 			CPURestartMoveRemaining=true;
 		}
 		else
@@ -431,6 +440,11 @@ public class GameManager : MonoBehaviour
 		{
 			if(onCornerBegin!=null)
 				onCornerBegin();
+		}
+		else if(nextAction.type==RestartActionType.OUT)
+		{
+			if(onOutBegin!=null)
+				onOutBegin();
 		}
 	}
 

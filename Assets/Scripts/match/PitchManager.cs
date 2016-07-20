@@ -16,6 +16,13 @@ public class PitchManager : MonoBehaviour
 	public GameObject rightPlayerCorner;
 	public GameObject leftPlayerCorner;
 
+	public GameObject leftDefenceOut;
+	public GameObject leftMiddleOut;
+	public GameObject leftAttackOut;
+	public GameObject rightDefenceOut;
+	public GameObject rightMiddleOut;
+	public GameObject rightAttackOut;
+
 	void Awake()
 	{
 		
@@ -26,6 +33,7 @@ public class PitchManager : MonoBehaviour
 		GameManager.instance.onPlayerMove+=UnHighlightEverything;
 		GameManager.instance.onTurnStart+=UnHighlightEverything;
 		GameManager.instance.onCornerBegin+=PrepareForRestartMove;
+		GameManager.instance.onOutBegin+=PrepareForRestartMove;
 		GameManager.instance.onCornerEnd+=EndRestartMove;
 		GameManager.instance.onPlayerMove+=MovePlayerSprite;
 		GameManager.instance.onMatchStart+=InitPitch;
@@ -120,12 +128,41 @@ public class PitchManager : MonoBehaviour
 	{
 		if(GameManager.instance.nextAction.isPlayerPerforming)
 		{
-			if(GameManager.instance.nextAction.source==new Vector2(1,1))
-				leftEnemyCorner.SetActive(true);
-			else
-				rightEnemyCorner.SetActive(true);
+			if(GameManager.instance.nextAction.type==RestartActionType.CORNER)
+			{
+				if(GameManager.instance.nextAction.source==new Vector2(1,1))
+					leftEnemyCorner.SetActive(true);
+				else
+					rightEnemyCorner.SetActive(true);
+			}
+			else if(GameManager.instance.nextAction.type==RestartActionType.OUT)
+			{
+				SetOutIconActive(GameManager.instance.nextAction.source);
+			}
 			RemoveBallSprite();
 			RemovePlayerSprite();
+		}
+	}
+
+	void SetOutIconActive(Vector2 field)
+	{
+		if(field.y==1)
+		{
+			if(field.x==-1)
+				leftDefenceOut.SetActive(true);
+			else if(field.x==0)
+				leftMiddleOut.SetActive(true);
+			else if(field.x==1)
+					leftAttackOut.SetActive(true);
+		}
+		else if(field.y==-1)
+		{
+			if(field.x==-1)
+				rightDefenceOut.SetActive(true);
+			else if(field.x==0)
+				rightMiddleOut.SetActive(true);
+			else if(field.x==1)
+				rightAttackOut.SetActive(true);
 		}
 	}
 
@@ -138,5 +175,12 @@ public class PitchManager : MonoBehaviour
 		rightEnemyCorner.SetActive(false);
 		leftPlayerCorner.SetActive(false);
 		rightPlayerCorner.SetActive(false);
+
+		leftAttackOut.SetActive(false);
+		leftMiddleOut.SetActive(false);
+		leftDefenceOut.SetActive(false);
+		rightAttackOut.SetActive(false);
+		rightMiddleOut.SetActive(false);
+		rightDefenceOut.SetActive(false);
 	}
 }
