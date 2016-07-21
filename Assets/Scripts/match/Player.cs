@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
 		d.Add("Stamina", new Attribute("Stamina", 1));
 		d.Add("Corners", new Attribute("Corners", 1));
 		d.Add("Long Throws", new Attribute("Long Throws", 1));
+		d.Add("Heading", new Attribute("Heading", 1));
 		playerInfo.SetPlayerAttributes(d);
 	}
 
@@ -123,10 +124,34 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	public void FinishHead()
+	{
+		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
+		int percent=playerInfo.GetAttribute("Heading").value*5;
+		if(UnityEngine.Random.Range(1,101)<=percent)
+		{
+			if(onActionSuccess!=null)
+				onActionSuccess();
+			//GameManager.instance.Goal(true, Side.PLAYER);
+			actionList.shoot.subActions[1].MakeAction();
+		}
+		else
+		{
+			if(onActionFail!=null)
+				onActionFail();
+			//GameManager.instance.Miss(true, Side.ENEMY);	
+			actionList.shoot.subActions[0].MakeAction();
+		}
+		GameManager.instance.EndPlayerRestartMove();
+		GameManager.instance.noFightNextTurn=true;
+		GameManager.instance.playerHasBall=false;
+		GameManager.instance.EndPlayerTurn();
+	}
+
 	public void FinishShoot()
 	{
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
-		float percent=playerInfo.GetAttribute("Finishing").value*5/100;
+		int percent=playerInfo.GetAttribute("Finishing").value*5;
 		if(UnityEngine.Random.Range(1,101)<=percent)
 		{
 			if(onActionSuccess!=null)
@@ -238,6 +263,25 @@ public class Player : MonoBehaviour
 	{
 		GameManager.instance.SetBallPosition(destination);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Long Throws").value, destination, destination))
+		{
+			GameManager.instance.ChangeBallPossession(Side.ENEMY);
+			if(onActionFail!=null)
+				onActionFail();
+		}
+		else
+		{
+			GameManager.instance.ChangeBallPossession(Side.PLAYER);
+			if(onActionSuccess!=null)
+				onActionSuccess();
+		}
+
+		GameManager.instance.EndPlayerRestartMove();
+	}
+
+	public void Head(Vector2 destination)
+	{
+		GameManager.instance.SetBallPosition(destination);
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Heading").value, destination, destination))
 		{
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
 			if(onActionFail!=null)

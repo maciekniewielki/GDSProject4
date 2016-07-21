@@ -18,4 +18,4 @@ public class RestartAction
 };
 
 
-public enum RestartActionType{CORNER, FREEKICK, PENALTY, OUT};
+public enum RestartActionType{CORNER, FREEKICK, PENALTY, OUT, HEAD};

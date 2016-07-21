@@ -318,6 +318,11 @@ public class GameManager : MonoBehaviour
 			player.Out();
 		else if(name.Equals("LongOut"))
 			player.LongOut(destination);
+		else if(name.Equals("Head")&&nextAction.source!=Vector2.right)
+			player.Head(destination);
+		else if(name.Equals("Head")&&nextAction.source==Vector2.right)
+			player.FinishHead();
+		
 	}
 
 	public void SetBallPosition(Vector2 destination)

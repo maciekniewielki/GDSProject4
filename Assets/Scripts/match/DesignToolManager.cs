@@ -202,4 +202,10 @@ public class DesignToolManager : MonoBehaviour {
 		GameManager.instance.player.playerInfo.playerAttributes["Long Throws"].value=(int)longThrows;
 		Debug.Log("current Long Throws "+ GameManager.instance.player.playerInfo.playerAttributes["Long Throws"].value);
 	}
+
+	public void SetPlayerHeading(float heading)
+	{
+		GameManager.instance.player.playerInfo.playerAttributes["Heading"].value=(int)heading;
+		Debug.Log("current Heading "+ GameManager.instance.player.playerInfo.playerAttributes["Heading"].value);
+	}
 }

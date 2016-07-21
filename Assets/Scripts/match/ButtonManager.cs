@@ -106,6 +106,8 @@ public class ButtonManager : MonoBehaviour
 				SetInteractable("cornerButton", true);
 			else if(GameManager.instance.nextAction.type==RestartActionType.OUT)
 				SetInteractable("outButton", true);
+			else if(GameManager.instance.nextAction.type==RestartActionType.HEAD)
+				SetInteractable("headButton", true);
 			return;
 		}
 
@@ -130,6 +132,18 @@ public class ButtonManager : MonoBehaviour
 
 	public void Click(string which)
 	{
+
+		if((which.First().ToString().ToUpper()+which.Substring(1)).Remove(which.Length-6).Equals("Head"))
+		{
+			if(GameManager.instance.nextAction.source==Vector2.right)
+				GameManager.instance.MakeMove("Head", Vector2.right);
+			else
+			{
+				SetCurrentlyAvailable();
+				GameManager.instance.SetSelectedMove("Head");
+				pitch.HighlightSelected(CalculationsManager.GetPositions("Head", GameManager.instance.GetPlayerPosition()));
+			}
+		}
 
 		if(!stageButtons.Contains(which))
 		{

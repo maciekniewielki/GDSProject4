@@ -12,7 +12,7 @@ public class CalculationsManager: MonoBehaviour
 
 	public static Vector2[] GetPositions(string which, Vector2 where)
 	{
-		if(which.Equals("Pass")||which.Equals("Dribble")||which.Equals("Move")||which.Equals("LongOut"))
+		if(which.Equals("Pass")||which.Equals("Dribble")||which.Equals("Move")||which.Equals("LongOut")||which.Equals("Head"))
 			return GetPassingPositions(where);
 		else if(which.Equals("Out"))
 			return GetOutPosition();
