@@ -7,6 +7,7 @@ public class StatisticsViewer : MonoBehaviour
 	public Text playerTeamNameDisplay;
 	public Text enemyTeamNameDisplay;
 	public Text score;
+    public Text playerTeamShotsDisplay;
 
 	void Start()
 	{
@@ -28,6 +29,7 @@ public class StatisticsViewer : MonoBehaviour
 		playerTeamNameDisplay.text=stats.playerTeam.name;
 		enemyTeamNameDisplay.text=stats.enemyTeam.name;
 		score.text=stats.playerTeamGoals+":"+stats.enemyTeamGoals;
+        playerTeamShotsDisplay.text = stats.playerTeamShots.ToString();
 	}
 
 }
