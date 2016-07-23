@@ -17,6 +17,7 @@ public class ButtonManager : MonoBehaviour
 
 	void Start () 
 	{
+		GameManager.instance.onFreeKickBegin+=SetFreeKickButtonToPressed;
 		GameManager.instance.onTurnStart+=SetCurrentlyAvailable;
 		GameManager.instance.onCornerEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onCornerBegin+=OnRestartMoveBegin;
@@ -70,6 +71,18 @@ public class ButtonManager : MonoBehaviour
 		buttons[which].interactable=val;
 	}
 
+	public void SetColorToPressed(string which)
+	{
+		ColorBlock colors=buttons[which].colors;
+		colors.pressedColor=colors.normalColor;
+		buttons[which].colors=colors;
+	}
+
+	public void SetFreeKickButtonToPressed()
+	{
+		SetColorToPressed("freekickButton");
+	}
+
 	public void SetButtonText(string which, string txt)
 	{
 		buttons[which].GetComponentInChildren<Text>().text=txt;
@@ -108,6 +121,8 @@ public class ButtonManager : MonoBehaviour
 				SetInteractable("outButton", true);
 			else if(GameManager.instance.nextAction.type==RestartActionType.HEAD)
 				SetInteractable("headButton", true);
+			else if(GameManager.instance.nextAction.type==RestartActionType.FREEKICK)
+				SetInteractable("freekickButton", true);
 			return;
 		}
 
@@ -132,7 +147,6 @@ public class ButtonManager : MonoBehaviour
 
 	public void Click(string which)
 	{
-
 		if((which.First().ToString().ToUpper()+which.Substring(1)).Remove(which.Length-6).Equals("Head"))
 		{
 			if(GameManager.instance.nextAction.source==Vector2.right)

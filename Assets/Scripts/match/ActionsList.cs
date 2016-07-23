@@ -213,7 +213,7 @@ public class ActionsList: MonoBehaviour
 	{
 		//shoot begin
 		//celny begin
-		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", Goal);
+		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", FreeKickAction);
 		TreeAction celnyBroniChwyta=new TreeAction(0.3f, null, true, "Strzal celny, ale bramkarz lapie pilke", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoRywala=new TreeAction(0.15f, null, true, "Strzal celny, ale bramkarz wypiastkowal do swojego", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoNas=new TreeAction(0.85f, null, true, "Strzal celny, ale bramkarz wypiastkowal do nas", OurBall);
@@ -352,4 +352,13 @@ public class ActionsList: MonoBehaviour
 		GameManager.instance.PrepareForRestartMove();
 	}
 
+	public void FreeKickAction()
+	{
+		if(CalculationsManager.IsPlayerStandingOnBall())
+			GameManager.instance.nextAction=new RestartAction(RestartActionType.FREEKICK, Side.PLAYER, true, GameManager.instance.ballPosition);
+		else
+			GameManager.instance.nextAction=new RestartAction(RestartActionType.FREEKICK, Side.PLAYER, false, GameManager.instance.ballPosition);
+		GameManager.instance.SetSelectedMove("Freekick");
+		GameManager.instance.PrepareForRestartMove();
+	}
 }

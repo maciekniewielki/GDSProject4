@@ -208,4 +208,10 @@ public class DesignToolManager : MonoBehaviour {
 		GameManager.instance.player.playerInfo.playerAttributes["Heading"].value=(int)heading;
 		Debug.Log("current Heading "+ GameManager.instance.player.playerInfo.playerAttributes["Heading"].value);
 	}
+
+	public void SetPlayerFreeKickTaking(float freeKicks)
+	{
+		GameManager.instance.player.playerInfo.playerAttributes["Free Kick Taking"].value=(int)freeKicks;
+		Debug.Log("current Free Kick Taking "+ GameManager.instance.player.playerInfo.playerAttributes["Free Kick Taking"].value);
+	}
 }

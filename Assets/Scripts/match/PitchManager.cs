@@ -15,6 +15,7 @@ public class PitchManager : MonoBehaviour
 	public GameObject leftEnemyCorner;
 	public GameObject rightPlayerCorner;
 	public GameObject leftPlayerCorner;
+	public GameObject freeKickIcon;
 
 	public GameObject leftDefenceOut;
 	public GameObject leftMiddleOut;
@@ -30,6 +31,7 @@ public class PitchManager : MonoBehaviour
 
 	void Start ()
     {
+		GameManager.instance.onFreeKickBegin+=PrepareForRestartMove;
 		GameManager.instance.onPlayerMove+=UnHighlightEverything;
 		GameManager.instance.onTurnStart+=UnHighlightEverything;
 		GameManager.instance.onCornerBegin+=PrepareForRestartMove;
@@ -105,8 +107,9 @@ public class PitchManager : MonoBehaviour
 
 	void UnHighlightEverything()
 	{
-		foreach(GameObject g in fields)
-			g.GetComponent<Field>().UnHighlight();
+		if(!GameManager.instance.IsPlayerWaitingForRestart())
+			foreach(GameObject g in fields)
+				g.GetComponent<Field>().UnHighlight();
 	}
 
 	public void Refresh()
@@ -139,6 +142,11 @@ public class PitchManager : MonoBehaviour
 			{
 				SetOutIconActive(GameManager.instance.nextAction.source);
 			}
+			else if(GameManager.instance.nextAction.type==RestartActionType.FREEKICK)
+			{
+				HighlightField(Vector2.right);
+				SetFreeKickIconActive();
+			}
 			RemoveBallSprite();
 			RemovePlayerSprite();
 		}
@@ -166,6 +174,13 @@ public class PitchManager : MonoBehaviour
 		}
 	}
 
+	void SetFreeKickIconActive()
+	{
+		int index=Flatten(GameManager.instance.ballPosition);
+		freeKickIcon.transform.position= fields[index].transform.position;
+		freeKickIcon.SetActive(true);
+	}
+
 	public void EndRestartMove()
 	{
 		playerSprite.GetComponent<SpriteRenderer>().enabled=true;
@@ -182,5 +197,7 @@ public class PitchManager : MonoBehaviour
 		rightAttackOut.SetActive(false);
 		rightMiddleOut.SetActive(false);
 		rightDefenceOut.SetActive(false);
+
+		freeKickIcon.SetActive(false);
 	}
 }

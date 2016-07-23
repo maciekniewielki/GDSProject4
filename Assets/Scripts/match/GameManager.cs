@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 	public event Action onCornerBegin;
 	public event Action onCornerEnd;
 	public event Action onOutBegin;
+	public event Action onFreeKickBegin;
 
 
 	private bool initEnded;
@@ -322,6 +323,8 @@ public class GameManager : MonoBehaviour
 			player.Head(destination);
 		else if(name.Equals("Head")&&nextAction.source==Vector2.right)
 			player.FinishHead();
+		else if(name.Equals("Freekick"))
+			player.FreeKick();
 		
 	}
 
@@ -437,6 +440,10 @@ public class GameManager : MonoBehaviour
 			{
 				FightForBall();
 			}
+			else if(nextAction.type==RestartActionType.FREEKICK)
+			{
+				Invoke("ComputerFreeKick", 4f/gameSpeed);
+			}
 			CPURestartMoveRemaining=true;
 		}
 		else
@@ -450,6 +457,11 @@ public class GameManager : MonoBehaviour
 		{
 			if(onOutBegin!=null)
 				onOutBegin();
+		}
+		else if(nextAction.type==RestartActionType.FREEKICK)
+		{
+			if(onFreeKickBegin!=null)
+				onFreeKickBegin();
 		}
 	}
 
@@ -468,6 +480,19 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			player.actionList.cornerCPU.subActions[0].MakeAction();
+		}
+		EndCPURestartMove();
+	}
+
+	void ComputerFreeKick()
+	{
+		if(CalculationsManager.IsComputerShootSuccessful(possession))
+		{
+			player.actionList.FreeKickCPU.subActions[1].MakeAction();
+		}
+		else
+		{
+			player.actionList.FreeKickCPU.subActions[0].MakeAction();
 		}
 		EndCPURestartMove();
 	}

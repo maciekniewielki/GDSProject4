@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
 		d.Add("Corners", new Attribute("Corners", 1));
 		d.Add("Long Throws", new Attribute("Long Throws", 1));
 		d.Add("Heading", new Attribute("Heading", 1));
+		d.Add("Free Kick Taking", new Attribute("Free Kick Taking", 1));
 		playerInfo.SetPlayerAttributes(d);
 	}
 
@@ -282,6 +283,25 @@ public class Player : MonoBehaviour
 	{
 		GameManager.instance.SetBallPosition(destination);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Heading").value, destination, destination))
+		{
+			GameManager.instance.ChangeBallPossession(Side.ENEMY);
+			if(onActionFail!=null)
+				onActionFail();
+		}
+		else
+		{
+			GameManager.instance.ChangeBallPossession(Side.PLAYER);
+			if(onActionSuccess!=null)
+				onActionSuccess();
+		}
+
+		GameManager.instance.EndPlayerRestartMove();
+	}
+
+	public void FreeKick()
+	{
+		GameManager.instance.SetBallPosition(Vector2.right);
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Free Kick Taking").value, Vector2.right, Vector2.right))
 		{
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
 			if(onActionFail!=null)
