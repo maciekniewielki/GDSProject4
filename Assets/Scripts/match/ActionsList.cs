@@ -147,13 +147,13 @@ public class ActionsList: MonoBehaviour
         //dribbling begin
         //udany begin
         TreeAction udanyRywalWybija = new TreeAction(0.05f, null, true, "Świetny drybling! Rywal ratuje się wybiciem na aut", Out);
-        TreeAction udanyPrzejscie = new TreeAction(0.8f, null, true, "Świetny drybling! Zawodnik przesuwa się wgłąb boiska");
-        TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Świetny drybling przerwany faulem. Nic strasznego. Wolny!");
-        TreeAction udanyFaulZwyklyKontuzja = new TreeAction(0.05f, null, true, "Świetny drybling przerwany faulem. Wygląda na kontuzję");
-        TreeAction udanyFaulNaZoltaBezKontuzji = new TreeAction(0.85f, null, true, "Świetny drybling przerwany faulem. Będzie żółta kartka");
-        TreeAction udanyFaulNaZoltaKontuzja = new TreeAction(0.15f, null, true, "Świetny drybling przerwany faulem. Jest żółta kartka i kontuzja");
-        TreeAction udanyFaulNaCzerwonaBezKontuzji = new TreeAction(0.7f, null, true, "Świetny drybling przerwany faulem. Będzie czerwona kartka!");
-        TreeAction udanyFaulNaCzerwonaKontuzja = new TreeAction(0.3f, null, true, "Świetny drybling przerwany faulem. Jest czerwona kartka i kontuzja");
+        TreeAction udanyPrzejscie = new TreeAction(0.8f, null, true, "Świetny drybling! Zawodnik przesuwa się wgłąb boiska", DribbleSuccessful);
+		TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Świetny drybling przerwany faulem. Nic strasznego. Wolny!", Foul);
+		TreeAction udanyFaulZwyklyKontuzja = new TreeAction(0.05f, null, true, "Świetny drybling przerwany faulem. Wygląda na kontuzję", FoulContusion);
+		TreeAction udanyFaulNaZoltaBezKontuzji = new TreeAction(0.85f, null, true, "Świetny drybling przerwany faulem. Będzie żółta kartka", FoulYellow);
+		TreeAction udanyFaulNaZoltaKontuzja = new TreeAction(0.15f, null, true, "Świetny drybling przerwany faulem. Jest żółta kartka i kontuzja", FoulContusionYellow);
+		TreeAction udanyFaulNaCzerwonaBezKontuzji = new TreeAction(0.7f, null, true, "Świetny drybling przerwany faulem. Będzie czerwona kartka!", FoulRed);
+		TreeAction udanyFaulNaCzerwonaKontuzja = new TreeAction(0.3f, null, true, "Świetny drybling przerwany faulem. Jest czerwona kartka i kontuzja", FoulContusionRed);
 
         TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja });
         TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja });
@@ -181,12 +181,12 @@ public class ActionsList: MonoBehaviour
         //udany begin
         TreeAction udanyRywalWybija = new TreeAction(0.05f, null, true, "Świetny odbiór! Rywal ratuje się wybiciem na aut", Out);
         TreeAction udanyOdbior = new TreeAction(0.8f, null, true, "Świetny odbiór!");
-        TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Rywal nas fauluje w walce. Nic strasznego. Wolny!");
-        TreeAction udanyFaulZwyklyKontuzja = new TreeAction(0.05f, null, true, "Rywal nas fauluje w walce. Wygląda na kontuzję");
-        TreeAction udanyFaulNaZoltaBezKontuzji = new TreeAction(0.85f, null, true, "Rywal nas fauluje w walce. Będzie żółta kartka");
-        TreeAction udanyFaulNaZoltaKontuzja = new TreeAction(0.15f, null, true, "Rywal nas fauluje w walce. Jest żółta kartka i kontuzja");
-        TreeAction udanyFaulNaCzerwonaBezKontuzji = new TreeAction(0.7f, null, true, "Rywal nas fauluje w walce. Będzie czerwona kartka!");
-        TreeAction udanyFaulNaCzerwonaKontuzja = new TreeAction(0.3f, null, true, "Rywal nas fauluje w walce. Jest czerwona kartka i kontuzja");
+		TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Rywal nas fauluje w walce. Nic strasznego. Wolny!", Foul);
+		TreeAction udanyFaulZwyklyKontuzja = new TreeAction(0.05f, null, true, "Rywal nas fauluje w walce. Wygląda na kontuzję", FoulContusion);
+		TreeAction udanyFaulNaZoltaBezKontuzji = new TreeAction(0.85f, null, true, "Rywal nas fauluje w walce. Będzie żółta kartka", FoulYellow);
+		TreeAction udanyFaulNaZoltaKontuzja = new TreeAction(0.15f, null, true, "Rywal nas fauluje w walce. Jest żółta kartka i kontuzja", FoulContusionYellow);
+		TreeAction udanyFaulNaCzerwonaBezKontuzji = new TreeAction(0.7f, null, true, "Rywal nas fauluje w walce. Będzie czerwona kartka!", FoulRed);
+		TreeAction udanyFaulNaCzerwonaKontuzja = new TreeAction(0.3f, null, true, "Rywal nas fauluje w walce. Jest czerwona kartka i kontuzja", FoulContusionRed);
 
         TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja });
         TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja });
@@ -198,9 +198,9 @@ public class ActionsList: MonoBehaviour
         //nieudany begin
         TreeAction nieudanyGraczWybija = new TreeAction(0.05f, null, true, "Kiepski odbiór, trzeba ratować się wybiciem na aut", Out);
         TreeAction nieudanyMija = new TreeAction(0.75f, null, true, "Kiepski odbiór, akcja rywali trwa", EnemyBall);
-        TreeAction nieudanyFaulZwykly=new TreeAction(0.75f, null, true, "Kiepski odbiór, faulujemy rywala. Bez konsekwencji");
-        TreeAction nieudanyFaulNaZolta=new TreeAction(0.2f, null, true, "Kiepski odbiór, faulujemy rywala. Żółta kartka");
-        TreeAction nieudanyFaulNaCzerwona = new TreeAction(0.05f, null, true, "Kiepski odbiór, faulujemy rywala. Czerwona kartka");
+		TreeAction nieudanyFaulZwykly=new TreeAction(0.75f, null, true, "Kiepski odbiór, faulujemy rywala. Bez konsekwencji", Foul);
+		TreeAction nieudanyFaulNaZolta=new TreeAction(0.2f, null, true, "Kiepski odbiór, faulujemy rywala. Żółta kartka", PlayerYellow);
+		TreeAction nieudanyFaulNaCzerwona = new TreeAction(0.05f, null, true, "Kiepski odbiór, faulujemy rywala. Czerwona kartka", PlayerRed);
 
         TreeAction nieudanyFaul = new TreeAction(0.25f, new TreeAction[] { nieudanyFaulZwykly, nieudanyFaulNaZolta, nieudanyFaulNaCzerwona });
         TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyGraczWybija, nieudanyMija, nieudanyFaul });
@@ -213,7 +213,7 @@ public class ActionsList: MonoBehaviour
 	{
 		//shoot begin
 		//celny begin
-		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", FreeKickAction);
+		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", Goal);
 		TreeAction celnyBroniChwyta=new TreeAction(0.3f, null, true, "Strzal celny, ale bramkarz lapie pilke", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoRywala=new TreeAction(0.15f, null, true, "Strzal celny, ale bramkarz wypiastkowal do swojego", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoNas=new TreeAction(0.85f, null, true, "Strzal celny, ale bramkarz wypiastkowal do nas", OurBall);
@@ -356,12 +356,65 @@ public class ActionsList: MonoBehaviour
 	{
 		if(CalculationsManager.IsBallOnPenaltyArea())
 			return;
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		if(CalculationsManager.IsPlayerStandingOnBall())
 			GameManager.instance.nextAction=new RestartAction(RestartActionType.FREEKICK, Side.PLAYER, true, GameManager.instance.ballPosition);
 		else
-			GameManager.instance.nextAction=new RestartAction(RestartActionType.FREEKICK, Side.PLAYER, false, GameManager.instance.ballPosition);
+			GameManager.instance.nextAction=new RestartAction(RestartActionType.FREEKICK, CalculationsManager.OtherSide(GameManager.instance.possession), false, GameManager.instance.ballPosition);
 		GameManager.instance.SetSelectedMove("Freekick");
 		GameManager.instance.PrepareForRestartMove();
+	}
+
+	public void DribbleSuccessful()
+	{
+		GameManager.instance.player.MoveYourself(GameManager.instance.player.dribblingTarget);
+	}
+
+	public void Foul()
+	{
+		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		Debug.Log("Foul initiated");
+		FreeKickAction();
+	}
+
+	public void FoulContusion()
+	{
+		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		FreeKickAction();
+	}
+
+	public void FoulContusionYellow()
+	{
+		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		FreeKickAction();
+	}
+
+	public void FoulContusionRed()
+	{
+		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		FreeKickAction();
+	}
+
+	public void FoulYellow()
+	{
+		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		FreeKickAction();
+	}
+
+	public void FoulRed()
+	{
+		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		FreeKickAction();
+	}
+
+	public void PlayerYellow()
+	{
+		GameManager.instance.ChangeBallPossession(Side.ENEMY);
+		FreeKickAction();
+	}
+
+	public void PlayerRed()
+	{
+		GameManager.instance.ChangeBallPossession(Side.ENEMY);
+		FreeKickAction();
 	}
 }

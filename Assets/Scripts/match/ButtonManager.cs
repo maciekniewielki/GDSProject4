@@ -93,9 +93,6 @@ public class ButtonManager : MonoBehaviour
 		SetInteractableToAll(false);
 		SetInteractable("startButton", true);
 
-		if(!GameManager.instance.playerHasBall&&!GameManager.instance.playerRestartMoveRemaining&&!GameManager.instance.IsGamePaused()&&!GameManager.instance.player.movedThisTurn)
-			SetInteractable("moveButton", true);
-
 		if(GameManager.instance.currentMinute!=46)
 		{
 			if(GameManager.instance.gameStarted)
@@ -110,9 +107,12 @@ public class ButtonManager : MonoBehaviour
 				SetButtonText("startButton", "Play Match");
 		}
 			
-		if(GameManager.instance.IsGamePaused())
+		if(GameManager.instance.IsGamePaused()||GameManager.instance.player.IsEnergyDepleted())
 			return;
-		
+
+		if(!GameManager.instance.playerHasBall&&!GameManager.instance.playerRestartMoveRemaining&&!GameManager.instance.IsGamePaused()&&!GameManager.instance.player.movedThisTurn)
+			SetInteractable("moveButton", true);
+
 		if(GameManager.instance.IsPlayerWaitingForRestart())
 		{
 			if(GameManager.instance.nextAction.type==RestartActionType.CORNER)

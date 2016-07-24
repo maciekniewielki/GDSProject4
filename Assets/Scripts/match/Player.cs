@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 	public event Action onActionSuccess;
 	public event Action onEnergySet;
 	public event Action onEnergyDeplete;
+	public Vector2 dribblingTarget;
 
 	private float energy;
 	private int involveLevel;
@@ -91,15 +92,17 @@ public class Player : MonoBehaviour
 	{
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Dribbling").value, position, position))
 		{
+			actionList.Dribbling.subActions[0].MakeAction();
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
 			if(onActionFail!=null)
 				onActionFail();
 		}
 		else
 		{
+			actionList.Dribbling.subActions[1].MakeAction();
 			if(onActionSuccess!=null)
 				onActionSuccess();
-			MoveYourself(destination);
+			SetDribblingTarget(destination);
 			GameManager.instance.SetBallPosition(destination);
 		}
 
@@ -113,12 +116,14 @@ public class Player : MonoBehaviour
 		
 		if(CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Tackling").value,position, position))
 		{
+			actionList.Tackle.subActions[1].MakeAction();
 			if(onActionSuccess!=null)
 				onActionSuccess();
 			return true;
 		}
 		else
 		{
+			actionList.Tackle.subActions[0].MakeAction();
 			if(onActionFail!=null)
 				onActionFail();
 			return false;
@@ -247,12 +252,14 @@ public class Player : MonoBehaviour
 	{
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Long Throws").value+6, position, position))
 		{
+			actionList.ThrowIn.subActions[0].MakeAction();
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
 			if(onActionFail!=null)
 				onActionFail();
 		}
 		else
 		{
+			actionList.ThrowIn.subActions[1].MakeAction();
 			GameManager.instance.ChangeBallPossession(Side.PLAYER);
 			if(onActionSuccess!=null)
 				onActionSuccess();
@@ -266,12 +273,14 @@ public class Player : MonoBehaviour
 		GameManager.instance.SetBallPosition(destination);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Long Throws").value, destination, destination))
 		{
+			actionList.ThrowIn.subActions[0].MakeAction();
 			GameManager.instance.ChangeBallPossession(Side.ENEMY);
 			if(onActionFail!=null)
 				onActionFail();
 		}
 		else
 		{
+			actionList.ThrowIn.subActions[1].MakeAction();
 			GameManager.instance.ChangeBallPossession(Side.PLAYER);
 			if(onActionSuccess!=null)
 				onActionSuccess();
@@ -383,4 +392,8 @@ public class Player : MonoBehaviour
 		return energyDepleted;
 	}
 
+	public void SetDribblingTarget(Vector2 dest)
+	{
+		dribblingTarget=dest;
+	}
 }
