@@ -161,6 +161,7 @@ public class ButtonManager : MonoBehaviour
 
 		if(!stageButtons.Contains(which))
 		{
+			pitch.UnHighlightEverything();
 			if(which.Equals("startButton"))
 			{
 				if(!GameManager.instance.HasTheGameStarted())

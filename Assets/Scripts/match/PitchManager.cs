@@ -105,7 +105,7 @@ public class PitchManager : MonoBehaviour
 		playerSprite.transform.position= fields[index].transform.position;
 	}
 
-	void UnHighlightEverything()
+	public void UnHighlightEverything()
 	{
 		if(!GameManager.instance.IsPlayerWaitingForRestart())
 			foreach(GameObject g in fields)

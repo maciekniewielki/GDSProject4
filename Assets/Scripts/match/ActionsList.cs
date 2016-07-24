@@ -354,6 +354,9 @@ public class ActionsList: MonoBehaviour
 
 	public void FreeKickAction()
 	{
+		if(CalculationsManager.IsBallOnPenaltyArea())
+			return;
+		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		if(CalculationsManager.IsPlayerStandingOnBall())
 			GameManager.instance.nextAction=new RestartAction(RestartActionType.FREEKICK, Side.PLAYER, true, GameManager.instance.ballPosition);
 		else

@@ -174,6 +174,7 @@ public class Player : MonoBehaviour
 
 	public void LongShot()
 	{
+		GameManager.instance.SetBallPosition(Vector2.right);
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
 		int percent=playerInfo.GetAttribute("Long Shots").value*5;
 		if(Vector2.Distance(position, Vector2.right)>1)
