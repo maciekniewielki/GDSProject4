@@ -408,6 +408,7 @@ public class ActionsList: MonoBehaviour
 
 	public void PlayerYellow()
 	{
+		GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "yellow");
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);
 		FreeKickAction();
 	}

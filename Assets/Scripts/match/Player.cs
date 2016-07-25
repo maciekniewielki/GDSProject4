@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
 	private float energy;
 	private int involveLevel;
 	private bool energyDepleted;
+	private bool hasYellow;
 
 	void Awake()
 	{
@@ -395,5 +396,19 @@ public class Player : MonoBehaviour
 	public void SetDribblingTarget(Vector2 dest)
 	{
 		dribblingTarget=dest;
+	}
+
+	public void GetYellowCard()
+	{
+		if(hasYellow)
+			GetRedCard();
+		else
+			hasYellow=true;
+	}
+
+	public void GetRedCard()
+	{
+		if(onEnergyDeplete!=null)
+			onEnergyDeplete();
 	}
 }

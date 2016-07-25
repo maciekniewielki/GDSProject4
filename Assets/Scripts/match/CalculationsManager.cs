@@ -322,4 +322,22 @@ public class CalculationsManager: MonoBehaviour
 	{
 		return Mathf.Abs(position.y)==1?true:false;
 	}
+
+	public static string GetFormationWithMostPoints(Team team)
+	{
+		if(team.attack>=team.midfield&&team.attack>=team.defence)
+			return "attack";
+		else if(team.midfield>=team.defence&&team.midfield>=team.attack)
+			return "midfield";
+		else
+			return "defence";
+	}
+
+	public static bool IsYellowCardRed(int yellowCards)
+	{
+		if(yellowCards==1)
+			return GetResultByPercent(0.25f);
+		else
+			return false;
+	}
 }

@@ -516,4 +516,159 @@ public class GameManager : MonoBehaviour
 		playerRemoved=true;
 		player.position=Vector2.right*2;
 	}
+
+	public void Card(bool isPlayer, Side side, Vector2 position, string color)
+	{
+		if(isPlayer)
+			if(color.Equals("yellow"))
+				player.GetYellowCard();
+			else
+				player.GetRedCard();
+		else
+		{
+			if(color.Equals("red"))
+			{
+				if(position.x==1&&side==Side.PLAYER)
+					ReduceFormationPoints("attack", side);
+				else if(position.x==0&&side==Side.PLAYER)
+					ReduceFormationPoints("midfield", side);
+				else if(position.x==-1&&side==Side.PLAYER)
+					ReduceFormationPoints("defence", side);
+				else if(position.x==1&&side==Side.ENEMY)
+					ReduceFormationPoints("defence", side);
+				else if(position.x==0&&side==Side.ENEMY)
+					ReduceFormationPoints("midfield", side);
+				else if(position.x==-1&&side==Side.ENEMY)
+					ReduceFormationPoints("attack", side);
+			}
+			else if(color.Equals("yellow"))
+			{
+				if(position.x==1&&side==Side.PLAYER)
+					GiveYellowCardToFormation("attack", side);
+				else if(position.x==0&&side==Side.PLAYER)
+					GiveYellowCardToFormation("midfield", side);
+				else if(position.x==-1&&side==Side.PLAYER)
+					GiveYellowCardToFormation("defence", side);
+				else if(position.x==1&&side==Side.ENEMY)
+					GiveYellowCardToFormation("defence", side);
+				else if(position.x==0&&side==Side.ENEMY)
+					GiveYellowCardToFormation("midfield", side);
+				else if(position.x==-1&&side==Side.ENEMY)
+					GiveYellowCardToFormation("attack", side);
+			}
+		}
+	}
+
+
+	public void GiveYellowCardToFormation(string formation, Side side)
+	{
+		if(formation.Equals("attack")&&side==Side.PLAYER)
+		{
+			if(!CalculationsManager.IsYellowCardRed(playerTeam.attackYellowCards))
+				playerTeam.attackYellowCards++;
+			else
+			{
+				ReduceFormationPoints("attack", side);
+				playerTeam.attackYellowCards--;
+			}
+		}
+		else if(formation.Equals("midfield")&&side==Side.PLAYER)
+		{
+			if(!CalculationsManager.IsYellowCardRed(playerTeam.midfieldYellowCards))
+				playerTeam.midfieldYellowCards++;
+			else
+			{
+				ReduceFormationPoints("midfield", side);
+				playerTeam.midfieldYellowCards--;
+			}
+		}
+		else if(formation.Equals("defence")&&side==Side.PLAYER)
+		{
+			if(!CalculationsManager.IsYellowCardRed(playerTeam.defenceYellowCards))
+				playerTeam.defence++;
+			else
+			{
+				ReduceFormationPoints("defence", side);
+				playerTeam.defenceYellowCards--;
+			}
+		}
+		else if(formation.Equals("attack")&&side==Side.ENEMY)
+		{
+			if(!CalculationsManager.IsYellowCardRed(enemyTeam.attackYellowCards))
+				enemyTeam.attackYellowCards++;
+			else
+			{
+				ReduceFormationPoints("attack", side);
+				enemyTeam.attackYellowCards--;
+			}
+		}
+		else if(formation.Equals("midfield")&&side==Side.ENEMY)
+		{
+			if(!CalculationsManager.IsYellowCardRed(enemyTeam.midfieldYellowCards))
+				enemyTeam.midfieldYellowCards++;
+			else
+			{
+				ReduceFormationPoints("midfield", side);
+				enemyTeam.midfieldYellowCards--;
+			}
+		}
+		else if(formation.Equals("defence")&&side==Side.ENEMY)
+		{
+			if(!CalculationsManager.IsYellowCardRed(enemyTeam.defenceYellowCards))
+				enemyTeam.defenceYellowCards++;
+			else
+			{
+				ReduceFormationPoints("defence", side);
+				enemyTeam.defenceYellowCards--;
+			}
+		}
+	}
+
+	public void ReduceFormationPoints(string formation, Side side)
+	{
+		if(formation.Equals("attack")&&side==Side.PLAYER)
+		{
+			if(playerTeam.attack>=0)
+				playerTeam.attack--;
+			else
+				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(playerTeam), side);
+		}
+		else if(formation.Equals("midfield")&&side==Side.PLAYER)
+		{
+			if(playerTeam.midfield>=0)
+				playerTeam.midfield--;
+			else
+				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(playerTeam), side);
+		}
+		else if(formation.Equals("defence")&&side==Side.PLAYER)
+		{
+			if(playerTeam.defence>=0)
+				playerTeam.defence--;
+			else
+				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(playerTeam), side);
+		}
+		else if(formation.Equals("attack")&&side==Side.ENEMY)
+		{
+			if(playerTeam.attack>=0)
+				playerTeam.attack--;
+			else
+				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(enemyTeam), side);
+		}
+		else if(formation.Equals("midfield")&&side==Side.ENEMY)
+		{
+			if(playerTeam.midfield>=0)
+				playerTeam.midfield--;
+			else
+				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(enemyTeam), side);
+		}
+		else if(formation.Equals("defence")&&side==Side.ENEMY)
+		{
+			if(playerTeam.defence>=0)
+				playerTeam.defence--;
+			else
+				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(enemyTeam), side);
+		}
+			
+	}
 }
+	
