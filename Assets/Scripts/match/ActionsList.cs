@@ -367,6 +367,7 @@ public class ActionsList: MonoBehaviour
 	public void DribbleSuccessful()
 	{
 		GameManager.instance.player.MoveYourself(GameManager.instance.player.dribblingTarget);
+		GameManager.instance.SetBallPosition(GameManager.instance.player.dribblingTarget);
 	}
 
 	public void Foul()
@@ -384,24 +385,28 @@ public class ActionsList: MonoBehaviour
 
 	public void FoulContusionYellow()
 	{
+		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "yellow");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
 	}
 
 	public void FoulContusionRed()
 	{
+		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "red");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
 	}
 
 	public void FoulYellow()
 	{
+		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "yellow");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
 	}
 
 	public void FoulRed()
 	{
+		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "red");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
 	}
@@ -415,6 +420,7 @@ public class ActionsList: MonoBehaviour
 
 	public void PlayerRed()
 	{
+		GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "red");
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);
 		FreeKickAction();
 	}

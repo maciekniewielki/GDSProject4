@@ -100,11 +100,10 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
+			SetDribblingTarget(destination);
 			actionList.Dribbling.subActions[1].MakeAction();
 			if(onActionSuccess!=null)
 				onActionSuccess();
-			SetDribblingTarget(destination);
-			GameManager.instance.SetBallPosition(destination);
 		}
 
 		GameManager.instance.noFightNextTurn=true;
