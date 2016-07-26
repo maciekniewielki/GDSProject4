@@ -12,6 +12,7 @@ public class ActionsList: MonoBehaviour
     public TreeAction FreeKickCPU;
     public TreeAction Dribbling;
     public TreeAction Tackle;
+    public TreeAction Penalty;
 
 	void Awake () 
 	{
@@ -23,6 +24,7 @@ public class ActionsList: MonoBehaviour
         FreeKickCPUInit();
         DribblingInit();
         TackleInit();
+        PenaltyInit();
 	}
 
 	void CornerCPUInit()
@@ -44,6 +46,24 @@ public class ActionsList: MonoBehaviour
 		//niecelny end
 		//cornerCPUend
 	}
+
+    void PenaltyInit()
+    {
+        //penalty begin
+        //celny begin
+        TreeAction celnyBramkarzNieBroni = new TreeAction(0.75f, null, true, "Pewnie wykonana jedenastka!", Goal);
+        TreeAction celnyBramkarzChwyta = new TreeAction(0.1f, null, true, "Bramkarz broni! Źle wykonany karny!", EnemyBall);
+        TreeAction celnyBramkarzWybija = new TreeAction(0.15f, null, true, "Nie ma gola! Bramkarz wyczuł strzelającego! Rzut rożny.", OurBall);
+
+        TreeAction celny = new TreeAction(0.4f, new TreeAction[] { celnyBramkarzNieBroni, celnyBramkarzChwyta, celnyBramkarzWybija });
+        //celny end
+
+        //niecelny begin
+        TreeAction niecelny = new TreeAction(0.4f, null, true, "Pudło! Zmarnowany karny!", EnemyBall);
+        //niecelny end
+        Penalty = new TreeAction(2f, new TreeAction[] { celny, niecelny });
+        //penalty end
+    }
 
     void ThrowInCPUInit()
     {
