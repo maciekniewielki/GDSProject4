@@ -379,12 +379,14 @@ public class ActionsList: MonoBehaviour
 
 	public void FoulContusion()
 	{
+		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
 	}
 
 	public void FoulContusionYellow()
 	{
+		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
 		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "yellow");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
@@ -392,6 +394,7 @@ public class ActionsList: MonoBehaviour
 
 	public void FoulContusionRed()
 	{
+		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
 		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "red");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
@@ -424,4 +427,6 @@ public class ActionsList: MonoBehaviour
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);
 		FreeKickAction();
 	}
+
+
 }

@@ -28,8 +28,11 @@ public class TreeAction
 			return;
 		}	
 
-		Debug.Log(message);
-		GameManager.instance.logs.AddText(message);
+		if(message!=null&&!message.Equals(""))
+		{
+			Debug.Log(message);
+			GameManager.instance.logs.AddText(message);
+		}
 
 		if(run!=null)
 			run();

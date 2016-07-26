@@ -8,7 +8,12 @@ public class CalculationsManager: MonoBehaviour
 	//TODO make it work
 
 	private MatchStatistics stats;
+	private static Contusion[] contusions;
 
+	void Awake()
+	{
+		
+	}
 
 	public static Vector2[] GetPositions(string which, Vector2 where)
 	{
@@ -339,5 +344,29 @@ public class CalculationsManager: MonoBehaviour
 			return GetResultByPercent(0.25f);
 		else
 			return false;
+	}
+
+	public static Contusion GetRandomContusion()
+	{
+		contusions=new Contusion[9];
+		contusions[0]=new Contusion(ContusionType.ANKLE_SPRAIN, 14, 21, 0.5f);
+		contusions[1]=new Contusion(ContusionType.ACHILLES_TEAR, 90, 100, 0.08f);
+		contusions[2]=new Contusion(ContusionType.ACHILLES_RUPTURE, 280, 320, 0.05f);
+		contusions[3]=new Contusion(ContusionType.GASTROSOLEUS_TEAR, 25, 40, 0.03f);
+		contusions[4]=new Contusion(ContusionType.KNEE_INJURY, 45, 60, 0.06f);
+		contusions[5]=new Contusion(ContusionType.TIBIAL_LIGAMENT_INJURY, 14, 28, 0.1f);
+		contusions[6]=new Contusion(ContusionType.THIGHT_CONTUSION, 5, 7, 0.2f);
+		contusions[7]=new Contusion(ContusionType.MUSCLE_FIBER_RUPTURE, 24, 46, 0.03f);
+		contusions[8]=new Contusion(ContusionType.CRUCIATE_LIGAMENT_RUPTURE, 180, 224, 0.03f);
+
+		float temp=0;
+		float randValue=UnityEngine.Random.value;
+		for(int ii=0; ii<contusions.Length;ii++)
+		{
+			temp+=contusions[ii].probability;
+			if(randValue<=temp)
+				return contusions[ii];
+		}
+		return contusions[8];
 	}
 }

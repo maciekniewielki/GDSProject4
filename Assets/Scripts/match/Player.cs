@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 	public event Action onEnergySet;
 	public event Action onEnergyDeplete;
 	public Vector2 dribblingTarget;
+	public Contusion contusion;
 
 	private float energy;
 	private int involveLevel;
@@ -407,6 +408,13 @@ public class Player : MonoBehaviour
 
 	public void GetRedCard()
 	{
+		if(onEnergyDeplete!=null)
+			onEnergyDeplete();
+	}
+
+	public void GetContusion(Contusion cont)
+	{
+		contusion=cont;
 		if(onEnergyDeplete!=null)
 			onEnergyDeplete();
 	}

@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 	public event Action onCornerEnd;
 	public event Action onOutBegin;
 	public event Action onFreeKickBegin;
+	public event Action onMakeMove;
 
 
 	private bool initEnded;
@@ -301,6 +302,9 @@ public class GameManager : MonoBehaviour
 
 	public void MakeMove(string name, Vector2 destination)
 	{
+		if(onMakeMove!=null)
+			onMakeMove();
+
 		if(name.Equals("Pass"))
 			player.Pass(destination);
 		else if(name.Equals("Cross"))

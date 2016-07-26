@@ -31,6 +31,7 @@ public class PitchManager : MonoBehaviour
 
 	void Start ()
     {
+		GameManager.instance.onMakeMove+=UnHighlightEverything;
 		GameManager.instance.onFreeKickBegin+=PrepareForRestartMove;
 		GameManager.instance.onPlayerMove+=UnHighlightEverything;
 		GameManager.instance.onTurnStart+=UnHighlightEverything;

@@ -185,6 +185,7 @@ public class ButtonManager : MonoBehaviour
 			string move;
 			if(!which.Equals("outButton"))
 			{
+				pitch.UnHighlightEverything();
 				SetInteractable(which, false);
 				move=(which.First().ToString().ToUpper()+which.Substring(1)).Remove(which.Length-6);
 			}
