@@ -214,4 +214,10 @@ public class DesignToolManager : MonoBehaviour {
 		GameManager.instance.player.playerInfo.playerAttributes["Free Kick Taking"].value=(int)freeKicks;
 		Debug.Log("current Free Kick Taking "+ GameManager.instance.player.playerInfo.playerAttributes["Free Kick Taking"].value);
 	}
+
+	public void SetPlayerPenaltyTaking(float penaltyTaking)
+	{
+		GameManager.instance.player.playerInfo.playerAttributes["Penalty Taking"].value=(int)penaltyTaking;
+		Debug.Log("current Penalty Taking "+ GameManager.instance.player.playerInfo.playerAttributes["Penalty Taking"].value);
+	}
 }

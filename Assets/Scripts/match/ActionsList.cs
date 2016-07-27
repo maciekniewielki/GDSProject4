@@ -61,7 +61,7 @@ public class ActionsList: MonoBehaviour
         //niecelny begin
         TreeAction niecelny = new TreeAction(0.4f, null, true, "Pudło! Zmarnowany karny!", EnemyBall);
         //niecelny end
-        Penalty = new TreeAction(2f, new TreeAction[] { celny, niecelny });
+        Penalty = new TreeAction(2f, new TreeAction[] { niecelny, celny });
         //penalty end
     }
 
@@ -374,13 +374,18 @@ public class ActionsList: MonoBehaviour
 
 	public void FreeKickAction()
 	{
-		if(CalculationsManager.IsBallOnPenaltyArea())
-			return;
+		RestartActionType moveType=RestartActionType.FREEKICK;
+		string move="Freekick";
+		if(CalculationsManager.IsBallOnPenaltyArea()&&CalculationsManager.GetResultByPercent(0.5f))
+		{
+			moveType=RestartActionType.PENALTY;
+			move="Penalty";
+		}
 		if(CalculationsManager.IsPlayerStandingOnBall())
-			GameManager.instance.nextAction=new RestartAction(RestartActionType.FREEKICK, Side.PLAYER, true, GameManager.instance.ballPosition);
+			GameManager.instance.nextAction=new RestartAction(moveType, Side.PLAYER, true, GameManager.instance.ballPosition);
 		else
-			GameManager.instance.nextAction=new RestartAction(RestartActionType.FREEKICK, CalculationsManager.OtherSide(GameManager.instance.possession), false, GameManager.instance.ballPosition);
-		GameManager.instance.SetSelectedMove("Freekick");
+			GameManager.instance.nextAction=new RestartAction(moveType, CalculationsManager.OtherSide(GameManager.instance.possession), false, GameManager.instance.ballPosition);
+		GameManager.instance.SetSelectedMove(move);
 		GameManager.instance.PrepareForRestartMove();
 	}
 

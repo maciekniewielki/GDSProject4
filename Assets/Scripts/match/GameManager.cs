@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 	public event Action onOutBegin;
 	public event Action onFreeKickBegin;
 	public event Action onMakeMove;
+	public event Action onPenaltyBegin;
 
 
 	private bool initEnded;
@@ -329,6 +330,8 @@ public class GameManager : MonoBehaviour
 			player.FinishHead();
 		else if(name.Equals("Freekick"))
 			player.FreeKick();
+		else if(name.Equals("Penalty"))
+			player.Penalty();
 		
 	}
 
@@ -448,6 +451,10 @@ public class GameManager : MonoBehaviour
 			{
 				Invoke("ComputerFreeKick", 4f/gameSpeed);
 			}
+			else if(nextAction.type==RestartActionType.PENALTY)
+			{
+				Invoke("Penalty Bitch", 4f/gameSpeed);
+			}
 			CPURestartMoveRemaining=true;
 		}
 		else
@@ -466,6 +473,11 @@ public class GameManager : MonoBehaviour
 		{
 			if(onFreeKickBegin!=null)
 				onFreeKickBegin();
+		}
+		else if(nextAction.type==RestartActionType.PENALTY)
+		{
+			if(onPenaltyBegin!=null)
+				onPenaltyBegin();
 		}
 	}
 

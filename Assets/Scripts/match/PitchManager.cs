@@ -32,6 +32,7 @@ public class PitchManager : MonoBehaviour
 	void Start ()
     {
 		GameManager.instance.onMakeMove+=UnHighlightEverything;
+		GameManager.instance.onPenaltyBegin+=PrepareForRestartMove;
 		GameManager.instance.onFreeKickBegin+=PrepareForRestartMove;
 		GameManager.instance.onPlayerMove+=UnHighlightEverything;
 		GameManager.instance.onTurnStart+=UnHighlightEverything;
@@ -143,7 +144,7 @@ public class PitchManager : MonoBehaviour
 			{
 				SetOutIconActive(GameManager.instance.nextAction.source);
 			}
-			else if(GameManager.instance.nextAction.type==RestartActionType.FREEKICK)
+			else if(GameManager.instance.nextAction.type==RestartActionType.FREEKICK||GameManager.instance.nextAction.type==RestartActionType.PENALTY)
 			{
 				HighlightField(Vector2.right);
 				SetFreeKickIconActive();
