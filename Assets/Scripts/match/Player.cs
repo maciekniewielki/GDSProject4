@@ -367,7 +367,7 @@ public class Player : MonoBehaviour
 
 	public void SetEnergy(float val)
 	{
-		if(val<=0&&!energyDepleted)
+		if(val<=0)
 		{
 			energy=0;
 			energyDepleted=true;

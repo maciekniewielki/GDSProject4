@@ -10,14 +10,18 @@ public class TreeAction
 	public bool isLast;
 	public string message;
 	public event Action run;
+	public checkTypes checkType;
+	public float probabilityWithCheckedType;
 
-	public TreeAction(float probability ,TreeAction[] subActions=null, bool isLast=false, string message="", Action action=null)
+	public TreeAction(float probability ,TreeAction[] subActions=null, bool isLast=false, string message="", Action action=null, checkTypes checkType=checkTypes.NONE, float probabilityWithCheckedType=0f)
 	{
 		this.probability=probability;
 		this.subActions=subActions;
 		this.isLast=isLast;
 		this.message=message;
 		run=action;
+		this.checkType=checkType;
+		this.probabilityWithCheckedType=probabilityWithCheckedType;
 	}
 
 	public void MakeAction()
@@ -44,7 +48,10 @@ public class TreeAction
 		float randValue=UnityEngine.Random.value;
 		for(int ii=0; ii<subActions.Length;ii++)
 		{
-			temp+=subActions[ii].probability;
+			if(CheckTheType(checkType))
+				temp+=subActions[ii].probabilityWithCheckedType;
+			else
+				temp+=subActions[ii].probability;
 			if(randValue<=temp||ii==subActions.Length-1)
 			{
 				subActions[ii].MakeAction();
@@ -54,4 +61,18 @@ public class TreeAction
 				continue;
 		}
 	}
-}
+
+	bool CheckTheType(checkTypes type)
+	{
+		if(type==checkTypes.BALL_ON_SIDES)
+			return CalculationsManager.IsPositionOnTheEdge(GameManager.instance.ballPosition);
+		else if(type==checkTypes.PLAYER_ON_PENALTY)
+			return CalculationsManager.IsPlayerOnPenaltyArea();
+		else if(type==checkTypes.PLAYER_SAME_SECTOR_AS_BALL)
+			return CalculationsManager.IsPlayerStandingOnBall();
+		else
+			return false;
+	}
+};
+
+public enum checkTypes{PLAYER_ON_PENALTY, BALL_ON_SIDES, PLAYER_SAME_SECTOR_AS_BALL, NONE}

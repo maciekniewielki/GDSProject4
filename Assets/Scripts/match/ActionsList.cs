@@ -3,7 +3,6 @@ using System.Collections;
 //dupa
 public class ActionsList: MonoBehaviour
 {
-
 	public TreeAction shoot;
 	public TreeAction cornerCPU;
     public TreeAction ThrowInCPU;
@@ -33,9 +32,9 @@ public class ActionsList: MonoBehaviour
 		//celny begin
 		TreeAction udanyDoGraczaGlowa=new TreeAction(0.6f, null, true, "Gracz glowkuje po dosrodkowaniu", Head);
 		TreeAction udanyDoGraczaNoga=new TreeAction(0.4f, null, true, "Gracz strzela noga po dosrodkowaniu", PlayerFinishingShot);
-		TreeAction udanyDoPartneraStrzal=new TreeAction(0.6f, null, true, "Partner strzela noga po dosrodkowaniu", ComputerShoot);
+		TreeAction udanyDoPartneraStrzal=new TreeAction(1f, null, true, "Partner strzela noga po dosrodkowaniu", ComputerShoot, checkTypes.PLAYER_ON_PENALTY, 0.6f);
 
-		TreeAction udanyDoGracza=new TreeAction(0.4f, new TreeAction[]{udanyDoGraczaGlowa, udanyDoGraczaNoga});
+		TreeAction udanyDoGracza=new TreeAction(0.0f, new TreeAction[]{udanyDoGraczaGlowa, udanyDoGraczaNoga}, false, "", null, checkTypes.PLAYER_ON_PENALTY, 0.4f);
 		TreeAction udany=new TreeAction(0.4f, new TreeAction[]{udanyDoGracza, udanyDoPartneraStrzal});
 		//celny end
 
@@ -134,20 +133,20 @@ public class ActionsList: MonoBehaviour
         TreeAction udanyCelnyGol = new TreeAction(0.7f, null, true, "Piękny gol zdobyty po strzale z rzutu wolnego!", Goal);
 		TreeAction udanyCelnyOdbijaDruzynaGraczGlowa = new TreeAction(0.35f, null, true, "Bramkarz odbija wolny, ale jest szansa na dobitkę głową...", Head);
         TreeAction udanyCelnyOdbijaDruzynaGraczNoga = new TreeAction(0.65f, null, true, "Bramkarz odbija wolny, ale jest szansa na dobitkę nogą...", PlayerFinishingShot);
-        TreeAction udanyCelnyOdbijaDruzynaPartner = new TreeAction(0.3f, null, true, "Bramkarz odbija wolny, ale partnerzy dobijają!", ComputerShoot);
+		TreeAction udanyCelnyOdbijaDruzynaPartner = new TreeAction(1f, null, true, "Bramkarz odbija wolny, ale partnerzy dobijają!", ComputerShoot, checkTypes.PLAYER_ON_PENALTY, 0.3f);
         TreeAction udanyCelnyOdbijaDoRywala = new TreeAction(0.25f, null, true, "Bramkarz odbija wolny, piłka trafia pod nogi rywali", EnemyBall);
         TreeAction udanyCelnyOdbijaZaLiniePrawyRozny = new TreeAction(0.5f, null, true, "Dobry rzut wolny, ale bramkarz wybil za linie. Prawy rozny", RightCorner);
         TreeAction udanyCelnyOdbijaZaLinieLewyRozny = new TreeAction(0.5f, null, true, "Dobry rzut wolny, ale bramkarz wybil za linie. Lewy rozny", LeftCorner);
         TreeAction udanyDoPartneraGraczGlowa = new TreeAction(0.65f, null, true, "Podanie z wolnego do partnerów, ci wrzucają piłkę na główkę...");
         TreeAction udanyDoPartneraGraczNoga = new TreeAction(0.35f, null, true, "Podanie z wolnego do partnerów, ci podają idealnie na nogę...", PlayerFinishingShot);
-        TreeAction udanyDoPartneraStrzal = new TreeAction(0.3f, null, true, "Podanie z wolnego do partnera, ten oddaje strzał!", ComputerShoot);
+		TreeAction udanyDoPartneraStrzal = new TreeAction(1f, null, true, "Podanie z wolnego do partnera, ten oddaje strzał!", ComputerShoot, checkTypes.PLAYER_ON_PENALTY, 0.3f);
 
-        TreeAction udanyCelnyOdbijaDruzynaGracz = new TreeAction(0.7f, new TreeAction[] { udanyCelnyOdbijaDruzynaGraczGlowa, udanyCelnyOdbijaDruzynaGraczNoga });
+		TreeAction udanyCelnyOdbijaDruzynaGracz = new TreeAction(0.0f, new TreeAction[] { udanyCelnyOdbijaDruzynaGraczGlowa, udanyCelnyOdbijaDruzynaGraczNoga }, false, "", null, checkTypes.PLAYER_ON_PENALTY, 0.7f);
         TreeAction udanyCelnyOdbijaDruzyna = new TreeAction(0.15f, new TreeAction[] { udanyCelnyOdbijaDruzynaGracz, udanyCelnyOdbijaDruzynaPartner });
         TreeAction udanyCelnyOdbijaZaLinie = new TreeAction(0.6f, new TreeAction[] { udanyCelnyOdbijaZaLinieLewyRozny, udanyCelnyOdbijaZaLiniePrawyRozny });
         TreeAction udanyCelnyOdbija = new TreeAction(0.3f, new TreeAction[] { udanyCelnyOdbijaDruzyna, udanyCelnyOdbijaDoRywala, udanyCelnyOdbijaZaLinie });
         TreeAction udanyCelny = new TreeAction(0.6f, new TreeAction[] { udanyCelnyGol, udanyCelnyOdbija });
-        TreeAction udanyDoPartneraGracz = new TreeAction(0.7f, new TreeAction[] { udanyDoPartneraGraczGlowa, udanyDoPartneraGraczNoga });
+		TreeAction udanyDoPartneraGracz = new TreeAction(0.0f, new TreeAction[] { udanyDoPartneraGraczGlowa, udanyDoPartneraGraczNoga }, false, "", null, checkTypes.PLAYER_ON_PENALTY, 0.7f);
         TreeAction udanyDoPartnera = new TreeAction(0.4f, new TreeAction[] { udanyDoPartneraGracz, udanyDoPartneraStrzal });
         TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyCelny, udanyDoPartnera });
         //udany end
@@ -166,7 +165,7 @@ public class ActionsList: MonoBehaviour
     {
         //dribbling begin
         //udany begin
-        TreeAction udanyRywalWybija = new TreeAction(0.05f, null, true, "Świetny drybling! Rywal ratuje się wybiciem na aut", Out);
+		TreeAction udanyRywalWybija = new TreeAction(0.0f, null, true, "Świetny drybling! Rywal ratuje się wybiciem na aut", Out, checkTypes.BALL_ON_SIDES, 0.05f);
         TreeAction udanyPrzejscie = new TreeAction(0.8f, null, true, "Świetny drybling! Zawodnik przesuwa się wgłąb boiska", DribbleSuccessful);
 		TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Świetny drybling przerwany faulem. Nic strasznego. Wolny!", Foul);
 		TreeAction udanyFaulZwyklyKontuzja = new TreeAction(0.05f, null, true, "Świetny drybling przerwany faulem. Wygląda na kontuzję", FoulContusion);
@@ -178,17 +177,17 @@ public class ActionsList: MonoBehaviour
         TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja });
         TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja });
         TreeAction udanyFaulNaCzerwona = new TreeAction(0.05f, new TreeAction[] { udanyFaulNaCzerwonaBezKontuzji, udanyFaulNaCzerwonaKontuzja });
-        TreeAction udanyFaul = new TreeAction(0.2f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona });
+		TreeAction udanyFaul = new TreeAction(0.2f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.15f);
         TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyRywalWybija, udanyPrzejscie, udanyFaul });
         //udany end
 
         //nieudany begin
-        TreeAction nieudanyGraczWybija = new TreeAction(0.05f, null, true, "Kiepski drybling, trzeba ratować się wybiciem na aut", Out);
+		TreeAction nieudanyGraczWybija = new TreeAction(0.0f, null, true, "Kiepski drybling, trzeba ratować się wybiciem na aut", Out, checkTypes.BALL_ON_SIDES, 0.05f);
         TreeAction nieudanyStrata = new TreeAction(0.75f, null, true, "Kiepski drybling i strata piłki", EnemyBall);
         TreeAction nieudanyKopaninaRywal = new TreeAction(0.5f, null, true, "Kiepski drybling, piłka po walce trafia do rywali", EnemyBall);
         TreeAction nieudanyKopaninaPartner = new TreeAction(0.5f, null, true, "Kiepski drybling, piłka szczęśliwie trafia po odbiciu do partnera", OurBall);
 
-        TreeAction nieudanyKopanina = new TreeAction(0.25f, new TreeAction[] { nieudanyKopaninaRywal, nieudanyKopaninaPartner });
+		TreeAction nieudanyKopanina = new TreeAction(0.25f, new TreeAction[] { nieudanyKopaninaRywal, nieudanyKopaninaPartner }, false, "", null, checkTypes.BALL_ON_SIDES, 0.2f);
         TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyGraczWybija, nieudanyStrata, nieudanyKopanina });
         //nieudany end
         Dribbling = new TreeAction(2f, new TreeAction[] { nieudany, udany });
@@ -199,7 +198,7 @@ public class ActionsList: MonoBehaviour
     {
         //tackle begin
         //udany begin
-        TreeAction udanyRywalWybija = new TreeAction(0.05f, null, true, "Świetny odbiór! Rywal ratuje się wybiciem na aut", Out);
+		TreeAction udanyRywalWybija = new TreeAction(0.0f, null, true, "Świetny odbiór! Rywal ratuje się wybiciem na aut", Out, checkTypes.BALL_ON_SIDES, 0.05f);
         TreeAction udanyOdbior = new TreeAction(0.8f, null, true, "Świetny odbiór!");
 		TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Rywal nas fauluje w walce. Nic strasznego. Wolny!", Foul);
 		TreeAction udanyFaulZwyklyKontuzja = new TreeAction(0.05f, null, true, "Rywal nas fauluje w walce. Wygląda na kontuzję", FoulContusion);
@@ -211,18 +210,18 @@ public class ActionsList: MonoBehaviour
         TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja });
         TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja });
         TreeAction udanyFaulNaCzerwona = new TreeAction(0.05f, new TreeAction[] { udanyFaulNaCzerwonaBezKontuzji, udanyFaulNaCzerwonaKontuzja });
-        TreeAction udanyFaul = new TreeAction(0.2f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona });
+		TreeAction udanyFaul = new TreeAction(0.2f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.15f);
         TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyRywalWybija, udanyOdbior, udanyFaul });
         //udany end
 
         //nieudany begin
-        TreeAction nieudanyGraczWybija = new TreeAction(0.05f, null, true, "Kiepski odbiór, trzeba ratować się wybiciem na aut", Out);
+		TreeAction nieudanyGraczWybija = new TreeAction(0.0f, null, true, "Kiepski odbiór, trzeba ratować się wybiciem na aut", Out, checkTypes.BALL_ON_SIDES, 0.05f);
         TreeAction nieudanyMija = new TreeAction(0.75f, null, true, "Kiepski odbiór, akcja rywali trwa", EnemyBall);
 		TreeAction nieudanyFaulZwykly=new TreeAction(0.75f, null, true, "Kiepski odbiór, faulujemy rywala. Bez konsekwencji", Foul);
 		TreeAction nieudanyFaulNaZolta=new TreeAction(0.2f, null, true, "Kiepski odbiór, faulujemy rywala. Żółta kartka", PlayerYellow);
 		TreeAction nieudanyFaulNaCzerwona = new TreeAction(0.05f, null, true, "Kiepski odbiór, faulujemy rywala. Czerwona kartka", PlayerRed);
 
-        TreeAction nieudanyFaul = new TreeAction(0.25f, new TreeAction[] { nieudanyFaulZwykly, nieudanyFaulNaZolta, nieudanyFaulNaCzerwona });
+		TreeAction nieudanyFaul = new TreeAction(0.25f, new TreeAction[] { nieudanyFaulZwykly, nieudanyFaulNaZolta, nieudanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.2f);
         TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyGraczWybija, nieudanyMija, nieudanyFaul });
         //nieudany end
         Tackle = new TreeAction(2f, new TreeAction[] { nieudany, udany });
