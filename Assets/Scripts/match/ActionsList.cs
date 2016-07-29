@@ -324,6 +324,7 @@ public class ActionsList: MonoBehaviour
 
 	public void ActualLeftCorner()
 	{
+		GameManager.instance.SetSelectedMove("Corner");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
 		GameManager.instance.nextAction=new RestartAction(RestartActionType.CORNER, Side.PLAYER, isPlayerPerforming, new Vector2(1,1));
@@ -332,11 +333,12 @@ public class ActionsList: MonoBehaviour
 
 	public void RightCorner()
 	{
-		GameManager.instance.Invoke("player.actionList.ActualRightCorner", 4f/GameManager.instance.gameSpeed);
+		ActualRightCorner();
 	}
 
 	public void ActualRightCorner()
 	{
+		GameManager.instance.SetSelectedMove("Corner");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
 		GameManager.instance.nextAction=new RestartAction(RestartActionType.CORNER, Side.PLAYER, isPlayerPerforming, new Vector2(1,-1));

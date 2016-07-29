@@ -135,6 +135,7 @@ public class PitchManager : MonoBehaviour
 		{
 			if(GameManager.instance.nextAction.type==RestartActionType.CORNER)
 			{
+				HighlightField(Vector2.right);
 				if(GameManager.instance.nextAction.source==new Vector2(1,1))
 					leftEnemyCorner.SetActive(true);
 				else

@@ -176,8 +176,6 @@ public class ButtonManager : MonoBehaviour
 				GameManager.instance.MakeMove("Shoot", Vector2.right);
 			else if(which.Equals("longShotButton"))
 				GameManager.instance.MakeMove("LongShot", Vector2.right);
-			else if(which.Equals("cornerButton"))
-				GameManager.instance.MakeMove("Corner", Vector2.right);
 		}
 		else
 		{
