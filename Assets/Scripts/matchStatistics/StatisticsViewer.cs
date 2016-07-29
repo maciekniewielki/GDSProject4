@@ -8,6 +8,11 @@ public class StatisticsViewer : MonoBehaviour
 	public Text enemyTeamNameDisplay;
 	public Text score;
     public Text playerTeamShotsDisplay;
+    public Text TeamNames;
+    public Text ShotsSign;
+    public Text PlayerName;
+    public Text PlayerGoals;
+    public Text PlayerPassess;
 
 	void Start()
 	{
@@ -29,7 +34,11 @@ public class StatisticsViewer : MonoBehaviour
 		playerTeamNameDisplay.text=stats.playerTeam.name;
 		enemyTeamNameDisplay.text=stats.enemyTeam.name;
 		score.text=stats.playerTeamGoals+":"+stats.enemyTeamGoals;
-        playerTeamShotsDisplay.text = stats.playerTeamShots.ToString();
-	}
+        playerTeamShotsDisplay.text = stats.playerTeamShots.ToString()+" - "+stats.enemyTeamShots.ToString();
+        TeamNames.text = stats.playerTeam.name + " - " + stats.enemyTeam.name;
+        PlayerGoals.text = "Goals: "+stats.playerGoals.ToString();
+        PlayerPassess.text = "Passess: " + stats.passesSuccessful.ToString() + "/";
+        
+    }
 
 }
