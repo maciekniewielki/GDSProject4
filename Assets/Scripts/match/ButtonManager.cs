@@ -27,6 +27,8 @@ public class ButtonManager : MonoBehaviour
 		GameManager.instance.onMatchEnd+=SetCurrentlyAvailable;
 		GameManager.instance.onPause+=OnGamePause;
 		GameManager.instance.onUnpause+=OnGamePause;
+		GameManager.instance.onHardPause+=OnGamePause;
+		GameManager.instance.onHardUnpause+=OnGamePause;
 		GameManager.instance.onHalfTime+=OnHalfTime;
 		pitch=GameObject.Find("Pitch").GetComponent<PitchManager>();
 		buttons=new Dictionary<string, Button>();
@@ -91,6 +93,8 @@ public class ButtonManager : MonoBehaviour
 	public void SetCurrentlyAvailable()
 	{
 		SetInteractableToAll(false);
+		if(GameManager.instance.IsGameHardPaused())
+			return;
 		SetInteractable("startButton", true);
 
 		if(GameManager.instance.currentMinute!=46)

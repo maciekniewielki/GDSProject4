@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 	public event Action onHalfTime;
 	public event Action onPause;
 	public event Action onUnpause;
+	public event Action onHardPause;
+	public event Action onHardUnpause;
 	public event Action onCornerBegin;
 	public event Action onCornerEnd;
 	public event Action onOutBegin;
@@ -58,6 +60,7 @@ public class GameManager : MonoBehaviour
 	private bool initEnded;
 	private string selectedMove;
 	private bool paused;
+	private bool hardPaused;
 	private bool playerRemoved;
 
 
@@ -89,6 +92,7 @@ public class GameManager : MonoBehaviour
 
 	void InitVariables()
 	{
+		hardPaused=false;
 		gameStarted=true;
 		playerTurn=false;
 		currentMinute=1;
@@ -165,7 +169,7 @@ public class GameManager : MonoBehaviour
 	void Update () 
 	{
 
-		if(gameStarted&&!turnStarted&&!paused&&!playerRestartMoveRemaining&&!CPURestartMoveRemaining)
+		if(gameStarted&&!turnStarted&&!paused&&!playerRestartMoveRemaining&&!CPURestartMoveRemaining&&!hardPaused)
 			StartTurn();
 	}
 
@@ -223,6 +227,22 @@ public class GameManager : MonoBehaviour
 
 		if(onPause!=null)
 			onPause();
+	}
+
+	public void HardUnpause()
+	{
+		hardPaused=false;
+
+		if(onHardUnpause!=null)
+			onHardUnpause();
+	}
+
+	public void HardPause()
+	{
+		hardPaused=true;
+
+		if(onHardPause!=null)
+			onHardPause();
 	}
 
 	public void Unpause()
@@ -427,6 +447,11 @@ public class GameManager : MonoBehaviour
 	public bool IsGamePaused()
 	{
 		return paused;
+	}
+
+	public bool IsGameHardPaused()
+	{
+		return hardPaused;
 	}
 
 	public bool IsPlayerWaitingForRestart()

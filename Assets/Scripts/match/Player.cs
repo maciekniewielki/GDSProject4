@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 	public event Action onEnergyDeplete;
 	public Vector2 dribblingTarget;
 	public Contusion contusion;
+	public string actionCompleted;
 
 	private float energy;
 	private int involveLevel;
@@ -73,6 +74,7 @@ public class Player : MonoBehaviour
 		
 	public void Pass(Vector2 destination)
 	{
+		actionCompleted="Pass";
 		GameManager.instance.SetBallPosition(destination);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Passing").value, position, destination))
 		{
@@ -93,6 +95,7 @@ public class Player : MonoBehaviour
 
 	public void Dribble(Vector2 destination)
 	{
+		actionCompleted="Dribble";
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Dribbling").value, position, position))
 		{
 			actionList.Dribbling.subActions[0].MakeAction();
@@ -115,7 +118,7 @@ public class Player : MonoBehaviour
 
 	public bool Tackle()
 	{
-		
+		actionCompleted="Tackle";
 		if(CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Tackling").value,position, position))
 		{
 			actionList.Tackle.subActions[1].MakeAction();
@@ -134,6 +137,7 @@ public class Player : MonoBehaviour
 
 	public void FinishHead()
 	{
+		actionCompleted="FinishHead";
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
 		int percent=playerInfo.GetAttribute("Heading").value*5;
 		if(UnityEngine.Random.Range(1,101)<=percent)
@@ -158,6 +162,7 @@ public class Player : MonoBehaviour
 
 	public void FinishShoot()
 	{
+		actionCompleted="Shoot";
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
 		int percent=playerInfo.GetAttribute("Finishing").value*5;
 		if(UnityEngine.Random.Range(1,101)<=percent)
@@ -181,6 +186,7 @@ public class Player : MonoBehaviour
 
 	public void LongShot()
 	{
+		actionCompleted="LongShoot";
 		GameManager.instance.SetBallPosition(Vector2.right);
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
 		int percent=playerInfo.GetAttribute("Long Shots").value*5;
@@ -207,6 +213,7 @@ public class Player : MonoBehaviour
 
 	public void Cross(Vector2 destination)
 	{
+		actionCompleted="Cross";
 		GameManager.instance.SetBallPosition(destination);
 		int value=playerInfo.GetAttribute("Crossing").value;
 
@@ -232,6 +239,7 @@ public class Player : MonoBehaviour
 
 	public void Corner()
 	{
+		actionCompleted="Corner";
 		MoveYourself(GameManager.instance.nextAction.source);
 		GameManager.instance.SetBallPosition(Vector2.right);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Corners").value, Vector2.zero, Vector2.right))
@@ -252,6 +260,7 @@ public class Player : MonoBehaviour
 
 	public void Out()
 	{
+		actionCompleted="Out";
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Long Throws").value+6, position, position))
 		{
 			actionList.ThrowIn.subActions[0].MakeAction();
@@ -272,6 +281,7 @@ public class Player : MonoBehaviour
 
 	public void LongOut(Vector2 destination)
 	{
+		actionCompleted="LongOut";
 		GameManager.instance.SetBallPosition(destination);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Long Throws").value, destination, destination))
 		{
@@ -293,6 +303,7 @@ public class Player : MonoBehaviour
 
 	public void Head(Vector2 destination)
 	{
+		actionCompleted="Head";
 		GameManager.instance.SetBallPosition(destination);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Heading").value, destination, destination))
 		{
@@ -312,6 +323,7 @@ public class Player : MonoBehaviour
 
 	public void FreeKick()
 	{
+		actionCompleted="FreeKick";
 		GameManager.instance.SetBallPosition(Vector2.right);
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Free Kick Taking").value, Vector2.right, Vector2.right))
 		{
@@ -331,6 +343,7 @@ public class Player : MonoBehaviour
 
 	public void Penalty()
 	{
+		actionCompleted="Penalty";
 		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Free Kick Taking").value, Vector2.right, Vector2.right))
 		{
 			actionList.Penalty.subActions[0].MakeAction();

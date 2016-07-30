@@ -35,7 +35,7 @@ public class TreeAction
 		if(message!=null&&!message.Equals(""))
 		{
 			Debug.Log(message);
-			GameManager.instance.logs.AddText(message);
+			GameManager.instance.logs.QueueText(message);
 		}
 
 		if(run!=null)

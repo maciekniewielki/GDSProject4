@@ -45,6 +45,8 @@ public class PitchManager : MonoBehaviour
 		GameManager.instance.onBallMove+=SetBallGraphicalPosition;
 		GameManager.instance.onPlayerTurnEnd+=UnHighlightEverything;
 		GameManager.instance.player.onEnergyDeplete+=RemovePlayerSprite;
+		GameManager.instance.player.onActionFail+=UnHighlightEverything;
+		GameManager.instance.player.onActionSuccess+=UnHighlightEverything;
 	}
 
 	
@@ -90,6 +92,7 @@ public class PitchManager : MonoBehaviour
 
 	void HighlightField(Vector2 which)
 	{
+		Debug.Log("Highlighting " + which);
 		int index=Flatten(which);
 		fields[index].GetComponent<Field>().Highlight();
 		
@@ -114,6 +117,12 @@ public class PitchManager : MonoBehaviour
 				g.GetComponent<Field>().UnHighlight();
 	}
 
+	public void HardUnHighlightEverything()
+	{
+		foreach(GameObject g in fields)
+			g.GetComponent<Field>().UnHighlight();
+	}
+
 	public void Refresh()
 	{
 		UnHighlightEverything();
@@ -121,6 +130,7 @@ public class PitchManager : MonoBehaviour
 
 	void RemovePlayerSprite()
 	{
+		Debug.Log("Removed Player Sprite");
 		playerSprite.GetComponent<SpriteRenderer>().enabled=false;
 	}
 
@@ -186,7 +196,8 @@ public class PitchManager : MonoBehaviour
 
 	public void EndRestartMove()
 	{
-		playerSprite.GetComponent<SpriteRenderer>().enabled=true;
+		if(!GameManager.instance.player.IsEnergyDepleted())
+			playerSprite.GetComponent<SpriteRenderer>().enabled=true;
 		ball.GetComponent<SpriteRenderer>().enabled=true;
 
 		leftEnemyCorner.SetActive(false);

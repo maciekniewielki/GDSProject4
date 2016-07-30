@@ -11,6 +11,7 @@ public class DesignToolManager : MonoBehaviour {
 	private int gameSpeed;
 	private int playerFinishing;
 	private int playerCrossing;
+	private string buffer;
 
 	public Text[] logs;
 	public Text possession;
@@ -99,6 +100,16 @@ public class DesignToolManager : MonoBehaviour {
 	void EnemyTeamMiss()
 	{
 		AddText("Enemy Team has Missed");
+	}
+
+	public void FlushTheBuffer()
+	{
+		AddText(buffer);
+	}
+
+	public void QueueText(string what)
+	{
+		buffer=what;
 	}
 
 	public void AddText(string what)

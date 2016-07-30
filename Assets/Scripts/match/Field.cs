@@ -42,6 +42,9 @@ public class Field : MonoBehaviour
 
 		Debug.Log("Clicked field: "+ NameToVector(name));
 
+		if(GameManager.instance.IsGameHardPaused())
+			return;
+
 		if(GameManager.instance.GetSelectedMove()!=null&&highlighted)
 			GameManager.instance.MakeSelectedMove(NameToVector(name));
 	}
