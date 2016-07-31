@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
 
 	void Awake()
 	{
+		contusion=null;
 		involveLevel=1;
 		playerInfo=new PlayerInfo();
 		Dictionary<string, Attribute> d=new Dictionary<string, Attribute>();

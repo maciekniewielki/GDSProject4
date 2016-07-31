@@ -104,6 +104,7 @@ public class DesignToolManager : MonoBehaviour {
 
 	public void FlushTheBuffer()
 	{
+		Debug.Log("Flushing");
 		AddText(buffer);
 	}
 

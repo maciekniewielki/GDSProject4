@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
 	public event Action onFreeKickBegin;
 	public event Action onMakeMove;
 	public event Action onPenaltyBegin;
+	public event Action onActionTreeEnd;
 
 
 	private bool initEnded;
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
 
 		noFightNextTurn=false;
 		SetBallPosition(new Vector2(0,0));
-		stats = new MatchStatistics(new Team("PlayerTeam", stats.playerTeam.defence, stats.playerTeam.midfield, stats.playerTeam.attack), new Team("EnemyTeam", stats.enemyTeam.defence, stats.enemyTeam.midfield, stats.enemyTeam.attack));
+		stats = new MatchStatistics(new Team("PlayerTeam", 1, 1, 1), new Team("EnemyTeam", 1, 1, 1));
 		playerTeam=stats.playerTeam;
 		enemyTeam=stats.enemyTeam;
 	}
@@ -306,6 +307,19 @@ public class GameManager : MonoBehaviour
 	}
 		
 
+	public void ComputerPenalty()
+	{
+		if(CalculationsManager.IsComputerShootSuccessful(possession))
+		{
+			Goal(false, possession);
+		}
+		else
+		{
+			Miss(false, possession);
+		}
+		ChangeBallPossession(CalculationsManager.OtherSide(possession));
+	}
+
 	public void SetSelectedMove(string move)
 	{
 		selectedMove=move;
@@ -478,7 +492,7 @@ public class GameManager : MonoBehaviour
 			}
 			else if(nextAction.type==RestartActionType.PENALTY)
 			{
-				Invoke("Penalty Bitch", 4f/gameSpeed);
+				Invoke("ComputerPenalty", 4f/gameSpeed);
 			}
 			CPURestartMoveRemaining=true;
 		}
@@ -541,8 +555,11 @@ public class GameManager : MonoBehaviour
 	void EndCPURestartMove()
 	{
 		CPURestartMoveRemaining=false;
-		if(onCornerEnd!=null)
-			onCornerEnd();
+		if(nextAction.type==RestartActionType.CORNER)
+		{
+			if(onCornerEnd!=null)
+				onCornerEnd();
+		}
 	}
 
 	public void EndPlayerRestartMove()
@@ -667,6 +684,12 @@ public class GameManager : MonoBehaviour
 
 	public void ReduceFormationPoints(string formation, Side side)
 	{
+		if(playerTeam.attack+playerTeam.midfield+playerTeam.defence==0)
+			GameManager.instance.EndTheMatch();
+		else if(enemyTeam.attack+enemyTeam.midfield+enemyTeam.defence==0)
+			GameManager.instance.EndTheMatch();
+		
+
 		if(formation.Equals("attack")&&side==Side.PLAYER)
 		{
 			if(playerTeam.attack>=0)
@@ -710,6 +733,12 @@ public class GameManager : MonoBehaviour
 				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(enemyTeam), side);
 		}
 			
+	}
+
+	public void EndActionTree()
+	{
+		if(onActionTreeEnd!=null)
+			onActionTreeEnd();
 	}
 }
 	

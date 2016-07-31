@@ -103,7 +103,7 @@ public class ActionsList: MonoBehaviour
     {
         //FreeKick Player begin
         //udany begin
-        TreeAction udanyCelnyGol = new TreeAction(0.7f, null, true, "Piękny gol zdobyty po strzale z rzutu wolnego!", Goal);
+		TreeAction udanyCelnyGol = new TreeAction(0.7f, null, true, "Piękny gol zdobyty po strzale z rzutu wolnego!", GoalFreeKickPlayer);
         TreeAction udanyCelnyOdbijaDoPartnera = new TreeAction(0.15f, null, true, "Bramkarz broni, ale jeszcze nie koniec akcji...", ComputerShoot);
         TreeAction udanyCelnyOdbijaDoRywala = new TreeAction(0.25f, null, true, "Bramkarz broni! Piłka trafia do obrońców", EnemyBall);
         TreeAction udanyCelnyOdbijaZaLiniePrawyRozny = new TreeAction(0.5f, null, true, "Dobry rzut wolny, ale bramkarz wybil za linie. Prawy rozny", RightCorner);
@@ -166,7 +166,7 @@ public class ActionsList: MonoBehaviour
         //dribbling begin
         //udany begin
 		TreeAction udanyRywalWybija = new TreeAction(0.0f, null, true, "Świetny drybling! Rywal ratuje się wybiciem na aut", Out, checkTypes.BALL_ON_SIDES, 0.05f);
-        TreeAction udanyPrzejscie = new TreeAction(0.8f, null, true, "Świetny drybling! Zawodnik przesuwa się wgłąb boiska", DribbleSuccessful);
+        TreeAction udanyPrzejscie = new TreeAction(0.05f, null, true, "Świetny drybling! Zawodnik przesuwa się wgłąb boiska", DribbleSuccessful); //0.8f
 		TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Świetny drybling przerwany faulem. Nic strasznego. Wolny!", Foul);
 		TreeAction udanyFaulZwyklyKontuzja = new TreeAction(0.05f, null, true, "Świetny drybling przerwany faulem. Wygląda na kontuzję", FoulContusion);
 		TreeAction udanyFaulNaZoltaBezKontuzji = new TreeAction(0.85f, null, true, "Świetny drybling przerwany faulem. Będzie żółta kartka", FoulYellow);
@@ -177,7 +177,7 @@ public class ActionsList: MonoBehaviour
         TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja });
         TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja });
         TreeAction udanyFaulNaCzerwona = new TreeAction(0.05f, new TreeAction[] { udanyFaulNaCzerwonaBezKontuzji, udanyFaulNaCzerwonaKontuzja });
-		TreeAction udanyFaul = new TreeAction(0.2f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.15f);
+		TreeAction udanyFaul = new TreeAction(0.95f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.15f); //0/2f
         TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyRywalWybija, udanyPrzejscie, udanyFaul });
         //udany end
 
@@ -304,6 +304,13 @@ public class ActionsList: MonoBehaviour
 		GameManager.instance.Goal(true, Side.PLAYER);
 	}
 
+	public void GoalFreeKickPlayer()
+	{
+		GameManager.instance.EndActionTree();
+		EnemyBall();
+		GameManager.instance.Goal(true, Side.PLAYER);
+	}
+
 	public void RandomAdjacementField()
 	{
 		Vector2[] targets=new Vector2[]{new Vector2(1,1), Vector2.zero, new Vector2(1,-1)};
@@ -319,7 +326,7 @@ public class ActionsList: MonoBehaviour
 
 	public void LeftCorner()
 	{
-		GameManager.instance.Invoke("player.actionList.ActualLeftCorner", 4f/GameManager.instance.gameSpeed);
+		ActualLeftCorner();
 	}
 
 	public void ActualLeftCorner()
@@ -383,7 +390,7 @@ public class ActionsList: MonoBehaviour
 			moveType=RestartActionType.PENALTY;
 			move="Penalty";
 		}
-		if(CalculationsManager.IsPlayerStandingOnBall())
+		if(CalculationsManager.IsPlayerStandingOnBall()&&GameManager.instance.player.contusion==null&&!GameManager.instance.player.IsEnergyDepleted())
 			GameManager.instance.nextAction=new RestartAction(moveType, Side.PLAYER, true, GameManager.instance.ballPosition);
 		else
 			GameManager.instance.nextAction=new RestartAction(moveType, CalculationsManager.OtherSide(GameManager.instance.possession), false, GameManager.instance.ballPosition);

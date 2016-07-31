@@ -70,6 +70,7 @@ public class PitchManager : MonoBehaviour
 
 	void SetPlayerVisibility()
 	{
+		Debug.Log("Player is visible");
 		playerSprite.GetComponent<SpriteRenderer>().enabled=true;
 	}
 
@@ -196,8 +197,8 @@ public class PitchManager : MonoBehaviour
 
 	public void EndRestartMove()
 	{
-		if(!GameManager.instance.player.IsEnergyDepleted())
-			playerSprite.GetComponent<SpriteRenderer>().enabled=true;
+		if(!GameManager.instance.player.IsEnergyDepleted()&&GameManager.instance.player.contusion==null)
+			SetPlayerVisibility();
 		ball.GetComponent<SpriteRenderer>().enabled=true;
 
 		leftEnemyCorner.SetActive(false);

@@ -10,7 +10,7 @@ public class AnimationPlayer : MonoBehaviour {
 	{
 		animator=GetComponent<Animator>();
 		player=GameManager.instance.player;
-		player.onActionSuccess+=OnPlayerActionSuccess;
+		GameManager.instance.onActionTreeEnd+=OnPlayerActionSuccess;
 	}
 	
 	// Update is called once per frame

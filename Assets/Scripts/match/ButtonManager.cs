@@ -127,6 +127,8 @@ public class ButtonManager : MonoBehaviour
 				SetInteractable("headButton", true);
 			else if(GameManager.instance.nextAction.type==RestartActionType.FREEKICK)
 				SetInteractable("freekickButton", true);
+			else if(GameManager.instance.nextAction.type==RestartActionType.PENALTY)
+				SetInteractable("penaltyButton", true);
 			return;
 		}
 
