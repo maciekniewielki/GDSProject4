@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
 	public event Action onMakeMove;
 	public event Action onPenaltyBegin;
 	public event Action onActionTreeEnd;
+	public event Action onInitVariablesEnd;
 
 
 	private bool initEnded;
@@ -107,6 +108,9 @@ public class GameManager : MonoBehaviour
 		stats = new MatchStatistics(new Team("PlayerTeam", 1, 1, 1), new Team("EnemyTeam", 1, 1, 1));
 		playerTeam=stats.playerTeam;
 		enemyTeam=stats.enemyTeam;
+
+		if(onInitVariablesEnd!=null)
+			onInitVariablesEnd();
 	}
 
 	public void StartTheMatch()
@@ -116,7 +120,6 @@ public class GameManager : MonoBehaviour
 		gameStarted=true;
 		if(onMatchStart!=null)
 			onMatchStart();
-
 	}
 
 	public void EndTheMatch()

@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
+//[System.Serializable]
 public class MatchStatistics
 {
     public Dictionary<Vector2,int> fieldBallCount { get; set; }
@@ -10,28 +10,28 @@ public class MatchStatistics
     public int enemyTeamGoals { get; set; }
     public int playerTeamShots { get; set; }
     public int enemyTeamShots { get; set; }
-	public int tacklesSuccessful {get; set;}
-	public int tacklesUnsuccessfull {get; set;}
-	public int passesSuccessful {get; set;}
-	public int passesUnsuccessfull {get; set;}
-	public int crossesSuccessful {get; set;}
-	public int crossesUnsuccessfull {get; set;}
+	public int enemyTeamPossessionTurns;
+	public int playerTeamPossessionTurns;
 	public Team playerTeam;
 	public Team enemyTeam;
+	public Dictionary<string, Vector2> playerMoves { get; set; }
+
+	private string[] possiblePlayerMoves;
 
 	public MatchStatistics(Team playerTeam, Team enemyTeam)
     {
+		this.possiblePlayerMoves=new string[]{"Pass", "Dribble", "Tackle", "FinishHead", "Shoot", "LongShoot", "Cross", "Corner", "Out", "Head", "FreeKick", "Penalty"};
         this.fieldBallCount = new Dictionary<Vector2, int>();
+		this.playerMoves=new Dictionary<string, Vector2>();
+		foreach(string s in this.possiblePlayerMoves)
+			this.playerMoves.Add(s, new Vector2(0,0));
+			
         this.playerTeamGoals = 0;
         this.enemyTeamGoals = 0;
         this.playerTeamShots = 0;
         this.enemyTeamShots = 0;
-		this.passesSuccessful=0;
-		this.passesUnsuccessfull=0;
-		this.tacklesSuccessful=0;
-		this.tacklesUnsuccessfull=0;
-		this.crossesSuccessful=0;
-		this.crossesUnsuccessfull=0;
+		this.playerTeamPossessionTurns=0;
+		this.enemyTeamPossessionTurns=0;
 		this.playerTeam=playerTeam;
 		this.enemyTeam=enemyTeam;
     }
@@ -40,16 +40,14 @@ public class MatchStatistics
     public string ToString()
     {
         string s = "";
-        s += "Field Ball PossSession:\n";
-        foreach (KeyValuePair<Vector2, int> kvp in fieldBallCount)
-        {
-            s += string.Format("Position = {0}, count = {1}\n", kvp.Key, kvp.Value);
-        }
         s += "Player Team shots= " + playerTeamShots + ". Goals= " + playerTeamGoals + "\n";
         s += "Enemy Team shots= " + enemyTeamShots + ". Goals= " + enemyTeamGoals + "\n";
-		s += "Tackles: successful- " + tacklesSuccessful + ". Unsuccessful- " + tacklesUnsuccessfull +"\n";
-		s += "Passes: successful- " + passesSuccessful + ". Unsuccessful- " + passesUnsuccessfull +"\n";
-		s += "Crosses: successful- " + crossesSuccessful + ". Unsuccessful- " + crossesUnsuccessfull +"\n";
+		if(this.playerMoves==null)
+			Debug.Log("Kurwa");
+		foreach(KeyValuePair<string, Vector2> pair in this.playerMoves)
+		{
+			s+=string.Format("Skill = {0}, successful = {1}, total = {2}", pair.Key, pair.Value.x, pair.Value.y);
+		}
         return s;
     }
 
@@ -70,6 +68,8 @@ public class MatchStatistics
 	}
 
 }
+
+
 
 public enum Side
 {
