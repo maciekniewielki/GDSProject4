@@ -588,6 +588,7 @@ public class GameManager : MonoBehaviour
 				player.GetRedCard();
 		else
 		{
+			stats.AddCard(side, color);
 			if(color.Equals("red"))
 			{
 				if(position.x==1&&side==Side.PLAYER)
@@ -717,22 +718,22 @@ public class GameManager : MonoBehaviour
 		}
 		else if(formation.Equals("attack")&&side==Side.ENEMY)
 		{
-			if(playerTeam.attack>=0)
-				playerTeam.attack--;
+			if(enemyTeam.attack>=0)
+				enemyTeam.attack--;
 			else
 				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(enemyTeam), side);
 		}
 		else if(formation.Equals("midfield")&&side==Side.ENEMY)
 		{
-			if(playerTeam.midfield>=0)
-				playerTeam.midfield--;
+			if(enemyTeam.midfield>=0)
+				enemyTeam.midfield--;
 			else
 				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(enemyTeam), side);
 		}
 		else if(formation.Equals("defence")&&side==Side.ENEMY)
 		{
-			if(playerTeam.defence>=0)
-				playerTeam.defence--;
+			if(enemyTeam.defence>=0)
+				enemyTeam.defence--;
 			else
 				ReduceFormationPoints(CalculationsManager.GetFormationWithMostPoints(enemyTeam), side);
 		}

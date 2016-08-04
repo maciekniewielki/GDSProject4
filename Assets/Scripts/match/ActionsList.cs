@@ -217,7 +217,7 @@ public class ActionsList: MonoBehaviour
         //nieudany begin
 		TreeAction nieudanyGraczWybija = new TreeAction(0.0f, null, true, "Kiepski odbiór, trzeba ratować się wybiciem na aut", Out, checkTypes.BALL_ON_SIDES, 0.05f);
         TreeAction nieudanyMija = new TreeAction(0.75f, null, true, "Kiepski odbiór, akcja rywali trwa", EnemyBall);
-		TreeAction nieudanyFaulZwykly=new TreeAction(0.75f, null, true, "Kiepski odbiór, faulujemy rywala. Bez konsekwencji", Foul);
+		TreeAction nieudanyFaulZwykly=new TreeAction(0.75f, null, true, "Kiepski odbiór, faulujemy rywala. Bez konsekwencji", PlayerFoul);
 		TreeAction nieudanyFaulNaZolta=new TreeAction(0.2f, null, true, "Kiepski odbiór, faulujemy rywala. Żółta kartka", PlayerYellow);
 		TreeAction nieudanyFaulNaCzerwona = new TreeAction(0.05f, null, true, "Kiepski odbiór, faulujemy rywala. Czerwona kartka", PlayerRed);
 
@@ -391,7 +391,7 @@ public class ActionsList: MonoBehaviour
 
 	public void FreeKickAction()
 	{
-		GameManager.instance.stats.AddSetPiece(CalculationsManager.OtherSide(GameManager.instance.possession), RestartActionType.FREEKICK);
+		GameManager.instance.stats.AddSetPiece(GameManager.instance.possession, RestartActionType.FREEKICK);
 		GameManager.instance.logs.FlushTheBuffer();
 		RestartActionType moveType=RestartActionType.FREEKICK;
 		string move="Freekick";
@@ -416,9 +416,7 @@ public class ActionsList: MonoBehaviour
 
 	public void Foul()
 	{
-		GameManager.instance.stats.AddFoul(Side.PLAYER);
-		GameManager.instance.player.DoFoul();
-		GameManager.instance.ChangeBallPossession(Side.ENEMY);
+		GameManager.instance.stats.AddFoul(Side.ENEMY);
 		FreeKickAction();
 	}
 
@@ -426,7 +424,6 @@ public class ActionsList: MonoBehaviour
 	{
 		GameManager.instance.stats.AddFoul(Side.ENEMY);
 		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
 	}
 
@@ -434,8 +431,7 @@ public class ActionsList: MonoBehaviour
 	{
 		GameManager.instance.stats.AddFoul(Side.ENEMY);
 		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
-		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "yellow");
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "yellow");
 		FreeKickAction();
 	}
 
@@ -443,24 +439,21 @@ public class ActionsList: MonoBehaviour
 	{
 		GameManager.instance.stats.AddFoul(Side.ENEMY);
 		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
-		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "red");
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "red");
 		FreeKickAction();
 	}
 
 	public void FoulYellow()
 	{
 		GameManager.instance.stats.AddFoul(Side.ENEMY);
-		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "yellow");
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "yellow");
 		FreeKickAction();
 	}
 
 	public void FoulRed()
 	{
 		GameManager.instance.stats.AddFoul(Side.ENEMY);
-		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "red");
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
+		GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "red");
 		FreeKickAction();
 	}
 
@@ -469,7 +462,6 @@ public class ActionsList: MonoBehaviour
 		GameManager.instance.stats.AddFoul(Side.PLAYER);
 		GameManager.instance.player.DoFoul();
 		GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "yellow");
-		GameManager.instance.ChangeBallPossession(Side.ENEMY);
 		FreeKickAction();
 	}
 
@@ -478,9 +470,14 @@ public class ActionsList: MonoBehaviour
 		GameManager.instance.stats.AddFoul(Side.PLAYER);
 		GameManager.instance.player.DoFoul();
 		GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "red");
-		GameManager.instance.ChangeBallPossession(Side.ENEMY);
 		FreeKickAction();
 	}
 
+	public void PlayerFoul()
+	{
+		GameManager.instance.player.DoFoul();
+		GameManager.instance.stats.AddFoul(Side.PLAYER);
+		FreeKickAction();
+	}
 
 }

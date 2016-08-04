@@ -97,6 +97,7 @@ public class ButtonManager : MonoBehaviour
 			return;
 		SetInteractable("startButton", true);
 
+
 		if(GameManager.instance.currentMinute!=46)
 		{
 			if(GameManager.instance.gameStarted)
@@ -111,7 +112,7 @@ public class ButtonManager : MonoBehaviour
 				SetButtonText("startButton", "Play Match");
 		}
 			
-		if(GameManager.instance.IsGamePaused()||GameManager.instance.player.IsEnergyDepleted())
+		if(GameManager.instance.IsGamePaused()||GameManager.instance.player.IsEnergyDepleted()||GameManager.instance.player.contusion!=null||GameManager.instance.player.HasRed())
 			return;
 
 		if(!GameManager.instance.playerHasBall&&!GameManager.instance.playerRestartMoveRemaining&&!GameManager.instance.IsGamePaused()&&!GameManager.instance.player.movedThisTurn)
