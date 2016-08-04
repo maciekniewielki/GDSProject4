@@ -50,7 +50,7 @@ public class ActionsList: MonoBehaviour
     {
         //penalty begin
         //celny begin
-        TreeAction celnyBramkarzNieBroni = new TreeAction(0.75f, null, true, "Pewnie wykonana jedenastka!", Goal);
+		TreeAction celnyBramkarzNieBroni = new TreeAction(0.75f, null, true, "Pewnie wykonana jedenastka!", PlayerGoal);
         TreeAction celnyBramkarzChwyta = new TreeAction(0.1f, null, true, "Bramkarz broni! Źle wykonany karny!", EnemyBall);
         TreeAction celnyBramkarzWybija = new TreeAction(0.15f, null, true, "Nie ma gola! Bramkarz wyczuł strzelającego! Rzut rożny.", OurBall);
 
@@ -232,7 +232,7 @@ public class ActionsList: MonoBehaviour
 	{
 		//shoot begin
 		//celny begin
-		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", Goal);
+		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", PlayerGoal);
 		TreeAction celnyBroniChwyta=new TreeAction(0.3f, null, true, "Strzal celny, ale bramkarz lapie pilke", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoRywala=new TreeAction(0.15f, null, true, "Strzal celny, ale bramkarz wypiastkowal do swojego", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoNas=new TreeAction(0.85f, null, true, "Strzal celny, ale bramkarz wypiastkowal do nas", OurBall);
@@ -264,11 +264,11 @@ public class ActionsList: MonoBehaviour
 
 		//niecelny begin
 		TreeAction nieCelnyZaLinie=new TreeAction(0.85f, null, true, "Strzal byl niecelny, pilka poleciala za linie", EnemyBall);
-		TreeAction nieCelnySlupekDoBramki=new TreeAction(0.3f, null, true, "Strzal byl niecelny, ale pilka odbila sie od slupka do bramki", Goal);
+		TreeAction nieCelnySlupekDoBramki=new TreeAction(0.3f, null, true, "Strzal byl niecelny, ale pilka odbila sie od slupka do bramki", PlayerGoal);
 		TreeAction nieCelnySlupekOdbijaDoNas=new TreeAction(0.25f, null, true, "Strzal byl niecelny, ale pilka odbila sie od slupka do nas", OurBall);
 		TreeAction nieCelnySlupekOdbijaDoRywala=new TreeAction(0.25f, null, true, "Strzal byl niecelny, ale pilka odbila sie od slupka do rywali", EnemyBall);
 		TreeAction nieCelnySlupekOdbijaZaLinie=new TreeAction(0.5f, null, true, "Strzal byl niecelny, pilka odbila sie od slupka i poleciala za linie", EnemyBall);
-		TreeAction nieCelnyPoprzeczkaDoBramki=new TreeAction(0.2f, null, true, "Strzal byl niecelny, ale pilka odbila sie od poprzeczki do bramki", Goal);
+		TreeAction nieCelnyPoprzeczkaDoBramki=new TreeAction(0.2f, null, true, "Strzal byl niecelny, ale pilka odbila sie od poprzeczki do bramki", PlayerGoal);
 		TreeAction nieCelnyPoprzeczkaOdbijaDoNas=new TreeAction(0.1f, null, true, "Strzal byl niecelny, ale pilka odbila sie od poprzeczki do nas", OurBall);
 		TreeAction nieCelnyPoprzeczkaOdbijaDoRywala=new TreeAction(0.1f, null, true, "Strzal byl niecelny, ale pilka odbila sie od poprzeczki do rywali", EnemyBall);
 		TreeAction nieCelnyPoprzeczkaOdbijaZaLinie=new TreeAction(0.8f, null, true, "Strzal byl niecelny, pilka odbila sie od poprzeczki i poleciala za linie", EnemyBall);
@@ -298,10 +298,16 @@ public class ActionsList: MonoBehaviour
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 	}
 
-	public void Goal()
+	public void PlayerGoal()
 	{
 		EnemyBall();
 		GameManager.instance.Goal(true, Side.PLAYER);
+	}
+
+	public void Goal()
+	{
+		EnemyBall();
+		GameManager.instance.Goal(false, Side.PLAYER);
 	}
 
 	public void GoalFreeKickPlayer()
@@ -331,6 +337,7 @@ public class ActionsList: MonoBehaviour
 
 	public void ActualLeftCorner()
 	{
+		GameManager.instance.stats.AddSetPiece(Side.PLAYER, RestartActionType.CORNER);
 		GameManager.instance.SetSelectedMove("Corner");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
@@ -345,6 +352,7 @@ public class ActionsList: MonoBehaviour
 
 	public void ActualRightCorner()
 	{
+		GameManager.instance.stats.AddSetPiece(Side.PLAYER, RestartActionType.CORNER);
 		GameManager.instance.SetSelectedMove("Corner");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
@@ -364,6 +372,7 @@ public class ActionsList: MonoBehaviour
 
 	public void Out()
 	{
+		GameManager.instance.stats.AddSetPiece(Side.PLAYER, RestartActionType.OUT);
 		if(!CalculationsManager.IsPositionOnTheEdge(GameManager.instance.ballPosition))
 			return;
 		bool isPlayerPerforming=GameManager.instance.ballPosition==GameManager.instance.player.position;
@@ -382,6 +391,7 @@ public class ActionsList: MonoBehaviour
 
 	public void FreeKickAction()
 	{
+		GameManager.instance.stats.AddSetPiece(CalculationsManager.OtherSide(GameManager.instance.possession), RestartActionType.FREEKICK);
 		GameManager.instance.logs.FlushTheBuffer();
 		RestartActionType moveType=RestartActionType.FREEKICK;
 		string move="Freekick";
@@ -406,13 +416,15 @@ public class ActionsList: MonoBehaviour
 
 	public void Foul()
 	{
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
-		Debug.Log("Foul initiated");
+		GameManager.instance.stats.AddFoul(Side.PLAYER);
+		GameManager.instance.player.DoFoul();
+		GameManager.instance.ChangeBallPossession(Side.ENEMY);
 		FreeKickAction();
 	}
 
 	public void FoulContusion()
 	{
+		GameManager.instance.stats.AddFoul(Side.ENEMY);
 		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
@@ -420,6 +432,7 @@ public class ActionsList: MonoBehaviour
 
 	public void FoulContusionYellow()
 	{
+		GameManager.instance.stats.AddFoul(Side.ENEMY);
 		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
 		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "yellow");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
@@ -428,6 +441,7 @@ public class ActionsList: MonoBehaviour
 
 	public void FoulContusionRed()
 	{
+		GameManager.instance.stats.AddFoul(Side.ENEMY);
 		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
 		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "red");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
@@ -436,6 +450,7 @@ public class ActionsList: MonoBehaviour
 
 	public void FoulYellow()
 	{
+		GameManager.instance.stats.AddFoul(Side.ENEMY);
 		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "yellow");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
@@ -443,6 +458,7 @@ public class ActionsList: MonoBehaviour
 
 	public void FoulRed()
 	{
+		GameManager.instance.stats.AddFoul(Side.ENEMY);
 		GameManager.instance.Card(false, GameManager.instance.possession, GameManager.instance.ballPosition, "red");
 		GameManager.instance.ChangeBallPossession(Side.PLAYER);
 		FreeKickAction();
@@ -450,6 +466,8 @@ public class ActionsList: MonoBehaviour
 
 	public void PlayerYellow()
 	{
+		GameManager.instance.stats.AddFoul(Side.PLAYER);
+		GameManager.instance.player.DoFoul();
 		GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "yellow");
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);
 		FreeKickAction();
@@ -457,6 +475,8 @@ public class ActionsList: MonoBehaviour
 
 	public void PlayerRed()
 	{
+		GameManager.instance.stats.AddFoul(Side.PLAYER);
+		GameManager.instance.player.DoFoul();
 		GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "red");
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);
 		FreeKickAction();

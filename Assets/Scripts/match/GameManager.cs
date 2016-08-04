@@ -435,6 +435,7 @@ public class GameManager : MonoBehaviour
 
 	public void Miss(bool playerMiss, Side side)
 	{
+		stats.AddMiss(side, playerMiss);
 		if(playerMiss)
 		{
 			if(onPlayerMiss!=null)

@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
-//[System.Serializable]
+[System.Serializable]
 public class MatchStatistics
 {
     public Dictionary<Vector2,int> fieldBallCount { get; set; }
@@ -15,6 +15,18 @@ public class MatchStatistics
 	public Team playerTeam;
 	public Team enemyTeam;
 	public Dictionary<string, Vector2> playerMoves { get; set; }
+	public int playerTeamYellows;
+	public int enemyTeamYellows;
+	public int playerTeamReds;
+	public int enemyTeamReds;
+	public int playerTeamCorners;
+	public int enemyTeamCorners;
+	public int playerTeamFreeKicks;
+	public int enemyTeamFreeKicks;
+	public int playerTeamThrowIns;
+	public int enemyTeamThrowIns;
+	public int enemyTeamFouls;
+	public int playerTeamFouls;
 
 	private string[] possiblePlayerMoves;
 
@@ -65,6 +77,50 @@ public class MatchStatistics
 			enemyTeamGoals++;
 			enemyTeamShots++;
 		}
+	}
+
+	public void AddMiss(Side side, bool playerGoal)
+	{
+		if(side==Side.PLAYER)
+			playerTeamShots++;
+		else
+			enemyTeamShots++;
+	}
+
+	public void AddFoul(Side side)
+	{
+		if(side==Side.ENEMY)
+			enemyTeamFouls++;
+		else
+			playerTeamFouls++;
+	}
+
+	public void AddSetPiece(Side side, RestartActionType type)
+	{
+		if(type==RestartActionType.CORNER&&side==Side.ENEMY)
+			enemyTeamCorners++;
+		else if(type==RestartActionType.FREEKICK&&side==Side.ENEMY)
+			enemyTeamFreeKicks++;
+		else if(type==RestartActionType.OUT&&side==Side.ENEMY)
+			enemyTeamThrowIns++;
+		else if(type==RestartActionType.CORNER&&side==Side.PLAYER)
+			playerTeamCorners++;
+		else if(type==RestartActionType.FREEKICK&&side==Side.PLAYER)
+			playerTeamFreeKicks++;
+		else if(type==RestartActionType.OUT&&side==Side.PLAYER)
+			playerTeamThrowIns++;
+	}
+
+	public void AddCard(Side side, string card)
+	{
+		if(side==Side.PLAYER&&card.Equals("yellow"))
+			playerTeamYellows++;
+		else if(side==Side.PLAYER&&card.Equals("red"))
+			playerTeamReds++;
+		else if(side==Side.ENEMY&&card.Equals("red"))
+			enemyTeamReds++;
+		else if(side==Side.ENEMY&&card.Equals("yellow"))
+			enemyTeamYellows++;
 	}
 
 }

@@ -25,6 +25,9 @@ public class Player : MonoBehaviour
 	private int involveLevel;
 	private bool energyDepleted;
 	private bool hasYellow;
+	private bool hasRed;
+	private bool redBecauseYellow;
+	private int foulsCount;
 
 	void Awake()
 	{
@@ -434,13 +437,17 @@ public class Player : MonoBehaviour
 	public void GetYellowCard()
 	{
 		if(hasYellow)
+		{
+			redBecauseYellow=true;
 			GetRedCard();
+		}
 		else
 			hasYellow=true;
 	}
 
 	public void GetRedCard()
 	{
+		hasRed=true;
 		if(onEnergyDeplete!=null)
 			onEnergyDeplete();
 	}
@@ -450,5 +457,20 @@ public class Player : MonoBehaviour
 		contusion=cont;
 		if(onEnergyDeplete!=null)
 			onEnergyDeplete();
+	}
+
+	public bool HasYellow()
+	{
+		return hasYellow;
+	}
+
+	public bool HasRed()
+	{
+		return hasRed;
+	}
+
+	public void DoFoul()
+	{
+		foulsCount++;
 	}
 }
