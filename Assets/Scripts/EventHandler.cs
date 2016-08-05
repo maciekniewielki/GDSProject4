@@ -76,5 +76,7 @@ public class EventHandler : MonoBehaviour {
     public void SaveEverything()
     {
         Debug.Log("To kiedys bedzie cos robic");
+
+		SceneSwitcher.instance.SwitchSceneTo("playerMenu");
     }
 }
