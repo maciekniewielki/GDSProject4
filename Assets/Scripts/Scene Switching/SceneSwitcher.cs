@@ -11,8 +11,6 @@ public class SceneSwitcher : MonoBehaviour
 			Destroy(instance.gameObject);
 		if(instance==null)
 			instance=this;
-
-		DontDestroyOnLoad(gameObject);
 	}
 
 	public void SwitchSceneTo(string name)

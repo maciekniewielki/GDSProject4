@@ -19,3 +19,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/playerMenu.unity
   - enabled: 1
     path: Assets/_Scenes/individualTraining.unity
+  - enabled: 1
+    path: Assets/_Scenes/clubTraining.unity
+  - enabled: 1
+    path: Assets/_Scenes/careerStatisticsMenu.unity
