@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Stats
   - Attribute
+  - CareerManager
   layers:
   - Default
   - TransparentFX
