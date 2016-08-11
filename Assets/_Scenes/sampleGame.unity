@@ -5945,7 +5945,21 @@ MonoBehaviour:
   playerHasBall: 0
   noFightNextTurn: 0
   currentMinute: 0
-  stats: {}
+  stats:
+    enemyTeamPossessionTurns: 0
+    playerTeamPossessionTurns: 0
+    playerTeamYellows: 0
+    enemyTeamYellows: 0
+    playerTeamReds: 0
+    enemyTeamReds: 0
+    playerTeamCorners: 0
+    enemyTeamCorners: 0
+    playerTeamFreeKicks: 0
+    enemyTeamFreeKicks: 0
+    playerTeamThrowIns: 0
+    enemyTeamThrowIns: 0
+    enemyTeamFouls: 0
+    playerTeamFouls: 0
   player: {fileID: 1528338877}
   gameSpeed: 0
   logs: {fileID: 1996962978}
@@ -8385,7 +8399,7 @@ GameObject:
   - 222: {fileID: 1083897569}
   - 114: {fileID: 1083897568}
   m_Layer: 5
-  m_Name: Free Kick Taking
+  m_Name: Free Kicks
   m_TagString: Attribute
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11875,7 +11889,7 @@ GameObject:
   - 222: {fileID: 1466859383}
   - 114: {fileID: 1466859382}
   m_Layer: 5
-  m_Name: Penalty Taking
+  m_Name: Penalties
   m_TagString: Attribute
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16140,7 +16154,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f01e9e0543576f40a1c070fbd626c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endStatistics: {}
+  endStatistics:
+    enemyTeamPossessionTurns: 0
+    playerTeamPossessionTurns: 0
+    playerTeamYellows: 0
+    enemyTeamYellows: 0
+    playerTeamReds: 0
+    enemyTeamReds: 0
+    playerTeamCorners: 0
+    enemyTeamCorners: 0
+    playerTeamFreeKicks: 0
+    enemyTeamFreeKicks: 0
+    playerTeamThrowIns: 0
+    enemyTeamThrowIns: 0
+    enemyTeamFouls: 0
+    playerTeamFouls: 0
 --- !u!1 &2009304979
 GameObject:
   m_ObjectHideFlags: 0

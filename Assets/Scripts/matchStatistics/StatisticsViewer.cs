@@ -37,7 +37,7 @@ public class StatisticsViewer : MonoBehaviour
         playerTeamShotsDisplay.text = stats.playerTeamShots.ToString()+" - "+stats.enemyTeamShots.ToString();
         TeamNames.text = stats.playerTeam.name + " - " + stats.enemyTeam.name;
         PlayerGoals.text = "Goals: "+stats.playerGoals.ToString();
-        
+		PlayerName.text=CareerManager.gameInfo.playerStats.playerName+" "+CareerManager.gameInfo.playerStats.playerSurname;
     }
 
 }

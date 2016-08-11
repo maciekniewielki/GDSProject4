@@ -10,6 +10,16 @@ public class GameInformation
 	public int currentWeekDay;
 	public PlayerInfo playerStats;
 
+
+	public GameInformation (int currentRound=1, int currentWeekDay=0, PlayerInfo playerStats=default(PlayerInfo), bool wentToIndividualTraining=false, bool wentToClubTraining=false)
+	{
+		this.wentToIndividualTraining = wentToIndividualTraining;
+		this.wentToClubTraining = wentToClubTraining;
+		this.currentRound = currentRound;
+		this.currentWeekDay = currentWeekDay;
+		this.playerStats = playerStats;
+	}
+
 	override
 	public string ToString()
 	{

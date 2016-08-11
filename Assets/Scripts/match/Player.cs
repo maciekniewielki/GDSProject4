@@ -33,7 +33,9 @@ public class Player : MonoBehaviour
 	{
 		contusion=null;
 		involveLevel=1;
-		playerInfo=new PlayerInfo();
+
+		playerInfo=CareerManager.gameInfo.playerStats;
+		/*
 		Dictionary<string, Attribute> d=new Dictionary<string, Attribute>();
 		d.Add("Passing", new Attribute("Passing", 1));
 		d.Add("Crossing", new Attribute("Crossing", 1));
@@ -47,11 +49,13 @@ public class Player : MonoBehaviour
 		d.Add("Heading", new Attribute("Heading", 1));
 		d.Add("Free Kick Taking", new Attribute("Free Kick Taking", 1));
 		d.Add("Penalty Taking", new Attribute("Penalty Taking", 1));
-		playerInfo.SetPlayerAttributes(d);
+		playerInfo.SetPlayerAttributes(d);*/
 	}
 
 	void Start()
 	{
+		if(GameManager.instance==null)
+			return;
 		GameManager.instance.onTurnStart+=ResetMove;
 		GameManager.instance.onMatchStart+=InitPlayer;
 		GameManager.instance.onMatchEnd+=SetStartingPosition;
@@ -329,7 +333,7 @@ public class Player : MonoBehaviour
 	{
 		actionCompleted="FreeKick";
 		GameManager.instance.SetBallPosition(Vector2.right);
-		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Free Kick Taking").value, Vector2.right, Vector2.right))
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Free Kicks").value, Vector2.right, Vector2.right))
 		{
 			actionList.FreeKick.subActions[0].MakeAction();
 			if(onActionFail!=null)
@@ -348,7 +352,7 @@ public class Player : MonoBehaviour
 	public void Penalty()
 	{
 		actionCompleted="Penalty";
-		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Free Kick Taking").value, Vector2.right, Vector2.right))
+		if(!CalculationsManager.IsMoveSuccessful(playerInfo.GetAttribute("Penalties").value, Vector2.right, Vector2.right))
 		{
 			actionList.Penalty.subActions[0].MakeAction();
 			if(onActionFail!=null)

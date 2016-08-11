@@ -10,12 +10,22 @@ public class PlayerInfo
 
     public string playerName { get; set; }
     public string playerSurname { get; set; }
-    public string playerNationality { get; set; }
+    public int playerAge { get; set; }
 	public Dictionary<string, Attribute> playerAttributes;
 
 	public PlayerInfo()
 	{
 		playerAttributes=new Dictionary<string, Attribute>();
+	}
+
+	public PlayerInfo Clone()
+	{
+		PlayerInfo p=new PlayerInfo();
+		p.playerAge=playerAge;
+		p.playerName=playerName;
+		p.playerSurname=playerSurname;
+		p.playerAttributes=playerAttributes;
+		return p;
 	}
 
 	public Dictionary<string, Attribute> GetPlayerAttributes()
@@ -30,6 +40,19 @@ public class PlayerInfo
 	public Attribute GetAttribute(string name)
 	{
 		return playerAttributes[name];
+	}
+
+	override
+	public string ToString()
+	{
+		string s="";
+		s+="Name: "+playerName+"\n";
+		s+="Surname: "+playerSurname+"\n";
+		s+="Age: "+playerAge+"\n";
+		s+="Attributes: "+"\n";
+		foreach(KeyValuePair<string, Attribute> kvp in playerAttributes)
+			s+=kvp.Key+": "+kvp.Value+"\n";
+		return s;
 	}
 		
 

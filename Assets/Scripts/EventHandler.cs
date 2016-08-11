@@ -1,14 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class EventHandler : MonoBehaviour {
 	//TODO fix everything in character screen creation(fix the dictionary)
-    public Player player;
     public Text remainingPointsText;
     public GameObject attributesParent;
 	private Dictionary<string, Attribute> playerAttributes;
     private int remainingPoints = 20;
+	private PlayerInfo playerInfo;
+
+	void Awake()
+	{
+		playerInfo=new PlayerInfo();
+		CareerManager.gameInfo=new GameInformation();
+	}
 
 	void Start ()
     {
@@ -65,18 +72,26 @@ public class EventHandler : MonoBehaviour {
 
     public void SaveName(string name)
     {
-        player.playerInfo.playerName = name;
+        playerInfo.playerName = name;
         Debug.Log("Saved name: " + name);
     }
+	public void SaveAge(string a)
+	{
+		int age=int.Parse(a);
+		playerInfo.playerAge = age;
+		Debug.Log("Saved age: " + age);
+	}
     public void SaveSurname(string surname)
     {
-        player.playerInfo.playerSurname = surname;
+        playerInfo.playerSurname = surname;
         Debug.Log("Saved surname: " + surname);
     }
     public void SaveEverything()
     {
-        Debug.Log("To kiedys bedzie cos robic");
-
-		SceneSwitcher.instance.SwitchSceneTo("playerMenu");
+		playerInfo.playerAttributes=playerAttributes;
+		CareerManager.gameInfo.playerStats=playerInfo.Clone();
+		Debug.Log("Saving statistics: ");
+		Debug.Log(playerInfo.ToString());
+		SceneManager.LoadScene("playerMenu");
     }
 }
