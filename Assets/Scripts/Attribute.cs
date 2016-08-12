@@ -8,6 +8,7 @@ public class Attribute
 	public int value;
 	public int maxValue;
 	public int minValue;
+	public int currentExp;
 
 	override
 	public string ToString()
@@ -18,7 +19,7 @@ public class Attribute
 	public Attribute(string name, int value, int minValue, int maxValue)
 	{
 		this.name=name;
-		this.value=value;
+		SetStartingAttributeValueAndExp(value);
 		this.minValue=minValue;
 		this.maxValue=maxValue;
 	}
@@ -26,8 +27,24 @@ public class Attribute
 	public Attribute(string name, int value)
 	{
 		this.name=name;
-		this.value=value;
+		SetStartingAttributeValueAndExp(value);
 		this.minValue=5;
 		this.maxValue=20;
+	}
+
+	public void SetStartingAttributeValueAndExp(int value)
+	{
+		this.value=value;
+		this.currentExp=CalculationsManager.GetStartingExpByLevel(value);
+	}
+
+	public void IncrementStartingAttributeValue()
+	{
+		SetStartingAttributeValueAndExp(this.value+1);
+	}
+
+	public void DecrementStartingAttributeValue()
+	{
+		SetStartingAttributeValueAndExp(this.value-1);
 	}
 }

@@ -38,7 +38,7 @@ public class EventHandler : MonoBehaviour {
 		if(playerAttributes.ContainsKey(name))
 		{
 			if(playerAttributes[name].maxValue>=value&&value>=playerAttributes[name].minValue)
-				playerAttributes[name].value=value;
+				playerAttributes[name].SetStartingAttributeValueAndExp(value);
 		}
 		else
 		{
@@ -54,7 +54,8 @@ public class EventHandler : MonoBehaviour {
     {
 		if(playerAttributes[which.name].value<playerAttributes[which.name].maxValue&&remainingPoints>0)
         {
-            which.text=playerAttributes[which.name].name+": "+ ++playerAttributes[which.name].value;
+			playerAttributes[which.name].IncrementStartingAttributeValue();
+            which.text=playerAttributes[which.name].name+": "+playerAttributes[which.name].value;
             remainingPointsText.text="Remaining points: "+ --remainingPoints;
             
         }
@@ -64,7 +65,8 @@ public class EventHandler : MonoBehaviour {
     {
         if (playerAttributes[which.name].value>playerAttributes[which.name].minValue)
         {
-            which.text = playerAttributes[which.name].name + ": " + --playerAttributes[which.name].value;
+			playerAttributes[which.name].DecrementStartingAttributeValue();
+            which.text = playerAttributes[which.name].name + ": " + playerAttributes[which.name].value;
             remainingPointsText.text = "Remaining points: " + ++remainingPoints;
         }
 

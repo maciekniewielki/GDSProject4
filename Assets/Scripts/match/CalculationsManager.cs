@@ -3,17 +3,13 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 
-public class CalculationsManager: MonoBehaviour
+public class CalculationsManager
 {
 	//TODO make it work
 
 	private MatchStatistics stats;
 	private static Contusion[] contusions;
 
-	void Awake()
-	{
-		
-	}
 
 	public static Vector2[] GetPositions(string which, Vector2 where)
 	{
@@ -368,5 +364,30 @@ public class CalculationsManager: MonoBehaviour
 				return contusions[ii];
 		}
 		return contusions[8];
+	}
+
+	public static int GetLevelByExp(int exp)
+	{
+		int top=100;
+		int difference=100;
+		int level=1;
+		while(exp>top)
+		{
+			++level;
+			difference=(int)(difference*1.25f);
+			top+=difference+1;
+		}
+		return level;
+	}
+	public static int GetStartingExpByLevel(int level)
+	{
+		int bottom=0;
+		int difference=80;
+		for(int i=0;i<level-1;i++)
+		{
+			difference=(int)(difference*1.25f);
+			bottom+=difference+1;
+		}
+		return bottom;
 	}
 }

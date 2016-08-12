@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class CareerManager : MonoBehaviour 
 {
@@ -17,6 +18,10 @@ public class CareerManager : MonoBehaviour
 	private Text nextDayButtonText;
 	private bool wentToIndividualTraining;
 	private bool wentToClubTraining;
+	private GameObject attributesParent;
+	private Dictionary<string, Text> attributeNames;
+	private Dictionary<string, Text> attributeValues;
+	private Dictionary<string, Text> attributeExp;
 
 	void Awake()
 	{
@@ -50,6 +55,22 @@ public class CareerManager : MonoBehaviour
 		individualTraining=GameObject.Find("individualTraining").GetComponent<Button>();
 		clubTraining=GameObject.Find("clubTraining").GetComponent<Button>();
 		nextDayButtonText=GameObject.Find("nextDayButtonText").GetComponent<Text>();
+
+		attributesParent=GameObject.Find("Attributes");
+		attributeNames=new Dictionary<string, Text>();
+		attributeValues=new Dictionary<string, Text>();
+		attributeExp=new Dictionary<string, Text>();
+		foreach(KeyValuePair<string, Attribute> kvp in CareerManager.gameInfo.playerStats.playerAttributes)
+		{
+			Text name=attributesParent.transform.Find(kvp.Key).gameObject.GetComponent<Text>();
+			Text value=name.transform.FindChild("Value").gameObject.GetComponent<Text>();
+			Text exp=name.transform.FindChild("Exp").gameObject.GetComponent<Text>();
+			name.text=kvp.Key;
+			attributeNames.Add(kvp.Key, name);
+			attributeValues.Add(kvp.Key, value);
+			attributeExp.Add(kvp.Key, exp);
+		}
+		UpdateAttributeInfo();
 	}
 
 	void Update () 
@@ -101,6 +122,15 @@ public class CareerManager : MonoBehaviour
 				individualTraining.interactable=false;
 			else
 				individualTraining.interactable=true;
+		}
+	}
+
+	public void UpdateAttributeInfo()
+	{
+		foreach(KeyValuePair<string, Text> k in attributeNames)
+		{
+			attributeValues[k.Key].text=CareerManager.gameInfo.playerStats.GetAttribute(k.Key).value.ToString();
+			attributeExp[k.Key].text=CareerManager.gameInfo.playerStats.GetAttribute(k.Key).currentExp.ToString();
 		}
 	}
 
