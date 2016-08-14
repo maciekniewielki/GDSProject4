@@ -71,7 +71,7 @@ public class PitchManager : MonoBehaviour
 	void SetPlayerVisibility()
 	{
 		Debug.Log("Player is visible");
-		playerSprite.GetComponent<SpriteRenderer>().enabled=true;
+		playerSprite.GetComponent<Image>().enabled=true;
 	}
 
     int GetRandPos()
@@ -132,12 +132,12 @@ public class PitchManager : MonoBehaviour
 	void RemovePlayerSprite()
 	{
 		Debug.Log("Removed Player Sprite");
-		playerSprite.GetComponent<SpriteRenderer>().enabled=false;
+		playerSprite.GetComponent<Image>().enabled=false;
 	}
 
 	void RemoveBallSprite()
 	{
-		ball.GetComponent<SpriteRenderer>().enabled=false;
+		ball.GetComponent<Image>().enabled=false;
 	}
 
 	public void PrepareForRestartMove()
@@ -199,7 +199,7 @@ public class PitchManager : MonoBehaviour
 	{
 		if(!GameManager.instance.player.IsEnergyDepleted()&&GameManager.instance.player.contusion==null)
 			SetPlayerVisibility();
-		ball.GetComponent<SpriteRenderer>().enabled=true;
+		ball.GetComponent<Image>().enabled=true;
 
 		leftEnemyCorner.SetActive(false);
 		rightEnemyCorner.SetActive(false);

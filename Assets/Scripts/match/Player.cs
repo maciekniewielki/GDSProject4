@@ -34,22 +34,26 @@ public class Player : MonoBehaviour
 		contusion=null;
 		involveLevel=1;
 
-		playerInfo=CareerManager.gameInfo.playerStats;
-		/*
-		Dictionary<string, Attribute> d=new Dictionary<string, Attribute>();
-		d.Add("Passing", new Attribute("Passing", 1));
-		d.Add("Crossing", new Attribute("Crossing", 1));
-		d.Add("Finishing", new Attribute("Finishing",1));
-		d.Add("Tackling", new Attribute("Tackling", 1));
-		d.Add("Dribbling", new Attribute("Dribbling", 1));
-		d.Add("Long Shots", new Attribute("Long Shots", 1));
-		d.Add("Stamina", new Attribute("Stamina", 1));
-		d.Add("Corners", new Attribute("Corners", 1));
-		d.Add("Long Throws", new Attribute("Long Throws", 1));
-		d.Add("Heading", new Attribute("Heading", 1));
-		d.Add("Free Kick Taking", new Attribute("Free Kick Taking", 1));
-		d.Add("Penalty Taking", new Attribute("Penalty Taking", 1));
-		playerInfo.SetPlayerAttributes(d);*/
+		if(CareerManager.gameInfo!=null)
+			playerInfo=CareerManager.gameInfo.playerStats;
+		else
+			playerInfo=new PlayerInfo();
+		{
+			Dictionary<string, Attribute> d=new Dictionary<string, Attribute>();
+			d.Add("Passing", new Attribute("Passing", 1));
+			d.Add("Crossing", new Attribute("Crossing", 1));
+			d.Add("Finishing", new Attribute("Finishing",1));
+			d.Add("Tackling", new Attribute("Tackling", 1));
+			d.Add("Dribbling", new Attribute("Dribbling", 1));
+			d.Add("Long Shots", new Attribute("Long Shots", 1));
+			d.Add("Stamina", new Attribute("Stamina", 1));
+			d.Add("Corners", new Attribute("Corners", 1));
+			d.Add("Long Throws", new Attribute("Long Throws", 1));
+			d.Add("Heading", new Attribute("Heading", 1));
+			d.Add("Free Kicks", new Attribute("Free Kicks", 1));
+			d.Add("Penalties", new Attribute("Penalties", 1));
+			playerInfo.SetPlayerAttributes(d);
+		}
 	}
 
 	void Start()

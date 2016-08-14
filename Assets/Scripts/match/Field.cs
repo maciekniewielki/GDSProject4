@@ -1,20 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-[RequireComponent (typeof(SpriteRenderer))]
-public class Field : MonoBehaviour 
+public class Field : MonoBehaviour, IPointerClickHandler
 {
 	//TODO make it work
 
 	public Sprite passHighlight;
 	public Sprite notHighlighted;
 
-	private SpriteRenderer sRenderer;
+	private Image sRenderer;
 	private bool highlighted;
 
 	void Start()
 	{
-		sRenderer=GetComponent<SpriteRenderer>();
+		sRenderer=GetComponent<Image>();
 		sRenderer.sprite=notHighlighted;
 		UnHighlight();
 	}
@@ -34,6 +35,7 @@ public class Field : MonoBehaviour
 
 	void OnMouseDown()
 	{
+		Debug.Log("Clicked!");
 		if(!GameManager.instance.gameStarted)
 		{
 			GameManager.instance.player.MoveYourself(NameToVector(name));
@@ -62,4 +64,13 @@ public class Field : MonoBehaviour
 			y=-1;
 		return new Vector2((number-1)%3-1, y);
 	}
+
+	#region IPointerClickHandler implementation
+
+	public void OnPointerClick (PointerEventData eventData)
+	{
+		OnMouseDown();
+	}
+
+	#endregion
 }
