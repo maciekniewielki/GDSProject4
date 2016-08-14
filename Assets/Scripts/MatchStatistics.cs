@@ -28,11 +28,15 @@ public class MatchStatistics
 	public int enemyTeamFouls;
 	public int playerTeamFouls;
 
+	public int playerYellows;
+	public int playerReds;
+	public int playerFouls;
+
 	private string[] possiblePlayerMoves;
 
 	public MatchStatistics(Team playerTeam, Team enemyTeam)
     {
-		this.possiblePlayerMoves=new string[]{"Pass", "Dribble", "Tackle", "FinishHead", "Shoot", "LongShoot", "Cross", "Corner", "Out", "Head", "FreeKick", "Penalty"};
+		this.possiblePlayerMoves=new string[]{"Pass", "Dribble", "Tackle", "FinishHead", "Shoot", "LongShot", "Cross", "Corner", "Out", "Head", "FreeKick", "Penalty"};
         this.fieldBallCount = new Dictionary<Vector2, int>();
 		this.playerMoves=new Dictionary<string, Vector2>();
 		foreach(string s in this.possiblePlayerMoves)
@@ -54,8 +58,6 @@ public class MatchStatistics
         string s = "";
         s += "Player Team shots= " + playerTeamShots + ". Goals= " + playerTeamGoals + "\n";
         s += "Enemy Team shots= " + enemyTeamShots + ". Goals= " + enemyTeamGoals + "\n";
-		if(this.playerMoves==null)
-			Debug.Log("Kurwa");
 		foreach(KeyValuePair<string, Vector2> pair in this.playerMoves)
 		{
 			s+=string.Format("Skill = {0}, successful = {1}, total = {2}", pair.Key, pair.Value.x, pair.Value.y);

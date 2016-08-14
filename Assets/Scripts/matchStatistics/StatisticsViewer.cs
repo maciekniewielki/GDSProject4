@@ -17,7 +17,6 @@ public class StatisticsViewer : MonoBehaviour
 	void Start()
 	{
 		MatchStatistics stats= GameObject.Find("MatchStats").GetComponent<StatisticsManager>().endStatistics;
-
 		/*
 		Team playerTeam=new Team("Real Madrid", 1,1,1);
 		Team enemyTeam=new Team("Chelsea", 1,1,1);
@@ -27,6 +26,9 @@ public class StatisticsViewer : MonoBehaviour
 		*/
 
 		ViewStatistics(stats);
+		//Debug.Log(stats.playerMoves["Dribble"]);
+		//CalculationsManager.stripVector2(stats.playerMoves["Dribble"]);
+		//stats.playerMoves["Dribble"].x+"/"+stats.playerMoves["Dribble"].y;
 	}
 
 	public void ViewStatistics(MatchStatistics stats)

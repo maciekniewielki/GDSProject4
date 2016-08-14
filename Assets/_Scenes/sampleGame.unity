@@ -5960,6 +5960,9 @@ MonoBehaviour:
     enemyTeamThrowIns: 0
     enemyTeamFouls: 0
     playerTeamFouls: 0
+    playerYellows: 0
+    playerReds: 0
+    playerFouls: 0
   player: {fileID: 1528338877}
   gameSpeed: 0
   logs: {fileID: 1996962978}
@@ -16169,6 +16172,9 @@ MonoBehaviour:
     enemyTeamThrowIns: 0
     enemyTeamFouls: 0
     playerTeamFouls: 0
+    playerYellows: 0
+    playerReds: 0
+    playerFouls: 0
 --- !u!1 &2009304979
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
 		GameManager.instance.onTurnStart+=ResetMove;
 		GameManager.instance.onMatchStart+=InitPlayer;
 		GameManager.instance.onMatchEnd+=SetStartingPosition;
+		GameManager.instance.onMatchEnd+=SaveCardsAndFouls;
 
 	}
 
@@ -68,6 +69,18 @@ public class Player : MonoBehaviour
 		maxEnergy=playerInfo.playerAttributes["Stamina"].value*30;
 		SetEnergy(maxEnergy);
 		energyDepleted=false;
+	}
+
+	void SaveCardsAndFouls()
+	{
+		if(hasRed)
+			GameManager.instance.stats.playerReds=1;
+		if(hasYellow)
+			GameManager.instance.stats.playerYellows=1;
+		if(redBecauseYellow)
+			GameManager.instance.stats.playerYellows=2;
+
+		GameManager.instance.stats.playerFouls=foulsCount;
 	}
 
 	void SetStartingPosition()
@@ -194,7 +207,7 @@ public class Player : MonoBehaviour
 
 	public void LongShot()
 	{
-		actionCompleted="LongShoot";
+		actionCompleted="LongShot";
 		GameManager.instance.SetBallPosition(Vector2.right);
 		GameManager.instance.ChangeBallPossession(Side.ENEMY);	
 		int percent=playerInfo.GetAttribute("Long Shots").value*5;

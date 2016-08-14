@@ -10,6 +10,12 @@ public class CareerManager : MonoBehaviour
 	public int currentDay;
 	public int currentRound;
 	public static GameInformation gameInfo;
+	public GameObject clubTrainingPopUp;
+	public GameObject individualTrainingPopUp;
+	public Text clubTrainingAttributeName;
+	public Text clubTrainingAttributeExp;
+	public Text individualTrainingAttributeNames;
+	public GameObject individualTrainingButtonsParent;
 
 	private Text dayDisplay;
 	private Text roundDisplay;
@@ -22,6 +28,7 @@ public class CareerManager : MonoBehaviour
 	private Dictionary<string, Text> attributeNames;
 	private Dictionary<string, Text> attributeValues;
 	private Dictionary<string, Text> attributeExp;
+	private Dictionary<string, string[]> trainingResultsList;
 
 	void Awake()
 	{
@@ -60,6 +67,8 @@ public class CareerManager : MonoBehaviour
 		attributeNames=new Dictionary<string, Text>();
 		attributeValues=new Dictionary<string, Text>();
 		attributeExp=new Dictionary<string, Text>();
+		trainingResultsList=new Dictionary<string, string[]>();
+		trainingResultsList.Add("Dribble Through Cones", new string[]{"Dribbling", "Passing"});//TODO Edit
 		foreach(KeyValuePair<string, Attribute> kvp in CareerManager.gameInfo.playerStats.playerAttributes)
 		{
 			Text name=attributesParent.transform.Find(kvp.Key).gameObject.GetComponent<Text>();
@@ -73,10 +82,6 @@ public class CareerManager : MonoBehaviour
 		UpdateAttributeInfo();
 	}
 
-	void Update () 
-	{
-	
-	}
 
 	void PlayMatch()
 	{
@@ -93,11 +98,16 @@ public class CareerManager : MonoBehaviour
 		wentToIndividualTraining=false;
 		++currentDay;
 		currentDay%=7;
+
 		if(currentDay==0)
 		{
 			currentRound++;
+			SaveGame();
 			PlayMatch();
+			return;
 		}
+		individualTrainingAttributeNames.text="";
+		SaveGame();
 		CheckForDay();
 	}
 
@@ -136,16 +146,22 @@ public class CareerManager : MonoBehaviour
 
 	public void GoToIndividualTraining()
 	{
+		SetAllIndividualTrainingButtonsInteractable(true);
+		individualTrainingPopUp.SetActive(true);
 		wentToIndividualTraining=true;
-		SaveGame();
-		SceneManager.LoadScene("individualTraining");
+		CheckForDay();
 	}
 	public void GoToClubTraining()
 	{
+		string randomAttributeName=CalculationsManager.GetRandomAttributeName(gameInfo.playerStats);
+		int randomExp=Random.Range(150,201);
+		clubTrainingAttributeName.text="Training topic: "+randomAttributeName;
+		clubTrainingAttributeExp.text=""+randomExp;
+		gameInfo.playerStats.playerAttributes[randomAttributeName].AddExp(randomExp);
+		UpdateAttributeInfo();
+		clubTrainingPopUp.SetActive(true);
 		wentToClubTraining=true;
-		SaveGame();
-		SceneManager.LoadScene("clubTraining");
-
+		CheckForDay();
 	}
 
 	void SaveGame()
@@ -156,6 +172,47 @@ public class CareerManager : MonoBehaviour
 		gameInfo.currentWeekDay=currentDay;
 		Debug.Log("Saving game info:");
 		Debug.Log(gameInfo.ToString());
+	}
+
+	public void Click(string clickedTraining)
+	{
+		string []attributesToImprove=trainingResultsList[clickedTraining];
+		if(attributesToImprove.Length==1)
+		{
+			int randomExp=Random.Range(85,151);
+			individualTrainingAttributeNames.text=attributesToImprove[0]+": "+randomExp;
+			gameInfo.playerStats.playerAttributes[attributesToImprove[0]].AddExp(randomExp);
+		}
+		else if(attributesToImprove.Length==2)
+		{
+			int randomExpPrimary=Random.Range(65,106);
+			int randomExpSecondary=Random.Range(25,46);
+			individualTrainingAttributeNames.text=attributesToImprove[0]+": "+randomExpPrimary+"\n"+attributesToImprove[1]+": "+randomExpSecondary;
+			gameInfo.playerStats.playerAttributes[attributesToImprove[0]].AddExp(randomExpPrimary);
+			gameInfo.playerStats.playerAttributes[attributesToImprove[1]].AddExp(randomExpSecondary);
+		}
+		else
+		{
+			int randomExpPrimary=Random.Range(60,96);
+			int randomExpSecondary=Random.Range(25,41);
+			int randomExpTertiary=Random.Range(1,16);
+			individualTrainingAttributeNames.text=attributesToImprove[0]+": "+randomExpPrimary+"\n"
+												 +attributesToImprove[1]+": "+randomExpSecondary+"\n"
+												 +attributesToImprove[2]+": "+randomExpTertiary;
+			
+			gameInfo.playerStats.playerAttributes[attributesToImprove[0]].AddExp(randomExpPrimary);
+			gameInfo.playerStats.playerAttributes[attributesToImprove[1]].AddExp(randomExpSecondary);
+			gameInfo.playerStats.playerAttributes[attributesToImprove[2]].AddExp(randomExpTertiary);
+		}
+		SetAllIndividualTrainingButtonsInteractable(false);
+
+		UpdateAttributeInfo();
+	}
+
+	void SetAllIndividualTrainingButtonsInteractable(bool interactable)
+	{
+		foreach(Button b in individualTrainingButtonsParent.GetComponentsInChildren<Button>())
+			b.interactable=interactable;
 	}
 }
 

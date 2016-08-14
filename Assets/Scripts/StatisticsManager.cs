@@ -12,7 +12,7 @@ public class StatisticsManager : MonoBehaviour
 		GameManager.instance.onTurnEnd+=IncrementPossession;
 		GameManager.instance.player.onActionSuccess+=PlayerSuccess;
 		GameManager.instance.player.onActionFail+=PlayerFailed;
-		GameManager.instance.onMatchEnd+=SaveStatistics;
+		GameManager.instance.onMatchEnd+=Save;
 		GameManager.instance.onInitVariablesEnd+=CheckStats;
 		DontDestroyOnLoad(gameObject);
 	}
@@ -28,7 +28,11 @@ public class StatisticsManager : MonoBehaviour
 		endStatistics=GameManager.instance.stats;
 	}
 
-
+	void Save()
+	{
+		Invoke("SaveStatistics", 1f);
+	}
+		
 	void PlayerFailed()
 	{
 		string move=GameManager.instance.player.actionCompleted;

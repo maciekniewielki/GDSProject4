@@ -390,4 +390,23 @@ public class CalculationsManager
 		}
 		return bottom;
 	}
+
+	public static string GetRandomAttributeName(PlayerInfo playerInfo)
+	{
+		Dictionary<string, Attribute> a=playerInfo.playerAttributes;
+		int randNum=Random.Range(0,13);
+		int temp=-1;
+		foreach(KeyValuePair<string, Attribute> kvp in a)
+		{
+			temp++;
+			if(temp>=randNum)
+				return kvp.Key;
+		}
+		return "Stamina";
+	}
+
+	public static string stripVector2(Vector2 source)
+	{
+		return source.x+"/"+source.y;
+	}
 }

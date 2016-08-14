@@ -47,4 +47,10 @@ public class Attribute
 	{
 		SetStartingAttributeValueAndExp(this.value-1);
 	}
+
+	public void AddExp(int exp)
+	{
+		this.currentExp+=exp;
+		this.value=CalculationsManager.GetLevelByExp(this.currentExp);
+	}
 }
