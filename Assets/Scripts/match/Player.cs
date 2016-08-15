@@ -37,8 +37,8 @@ public class Player : MonoBehaviour
 		if(CareerManager.gameInfo!=null)
 			playerInfo=CareerManager.gameInfo.playerStats;
 		else
-			playerInfo=new PlayerInfo();
 		{
+			playerInfo=new PlayerInfo();
 			Dictionary<string, Attribute> d=new Dictionary<string, Attribute>();
 			d.Add("Passing", new Attribute("Passing", 1));
 			d.Add("Crossing", new Attribute("Crossing", 1));
