@@ -68,7 +68,19 @@ public class CareerManager : MonoBehaviour
 		attributeValues=new Dictionary<string, Text>();
 		attributeExp=new Dictionary<string, Text>();
 		trainingResultsList=new Dictionary<string, string[]>();
-		trainingResultsList.Add("Dribble Through Cones", new string[]{"Dribbling", "Passing"});//TODO Edit
+		trainingResultsList.Add("Dribble Through Cones", new string[]{"Dribbling", "Passing"});
+        trainingResultsList.Add("Individual Football Tennis", new string[] { "Stamina", "Passing" });
+        trainingResultsList.Add("One Leg Jumps", new string[] { "Stamina", "Dribbling" });
+        trainingResultsList.Add("Ladders Work", new string[] { "Dribbling", "Stamina" });
+        trainingResultsList.Add("First Touch", new string[] { "Passing", "Finishing", "Dribbling" });
+        trainingResultsList.Add("Pass & Recieve", new string[] { "Passing" });
+        trainingResultsList.Add("Heading Skills", new string[] { "Heading", "Passing" });
+        trainingResultsList.Add("Rondo", new string[] { "Tackling", "Passing" });
+        trainingResultsList.Add("Shooting", new string[] { "Finishing", "Long Shots", "Penalties" });
+        trainingResultsList.Add("Jogging", new string[] { "Stamina" });
+        trainingResultsList.Add("Corner Taking", new string[] { "Corners", "Crossing", "Free Kicks" });
+        trainingResultsList.Add("Free Kick Taking", new string[] { "Free Kicks", "Long Shots" });
+        trainingResultsList.Add("Gym", new string[] { "Long Throws", "Stamina" });
 		foreach(KeyValuePair<string, Attribute> kvp in CareerManager.gameInfo.playerStats.playerAttributes)
 		{
 			Text name=attributesParent.transform.Find(kvp.Key).gameObject.GetComponent<Text>();

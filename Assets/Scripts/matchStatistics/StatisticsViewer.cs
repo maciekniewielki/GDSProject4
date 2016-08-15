@@ -7,14 +7,32 @@ public class StatisticsViewer : MonoBehaviour
 	public Text playerTeamNameDisplay;
 	public Text enemyTeamNameDisplay;
 	public Text score;
-    public Text playerTeamShotsDisplay;
+    public Text TeamShots;
+    public Text TeamCorners;
+    public Text TeamFreeKicks;
+    public Text TeamThrowIns;
+    public Text TeamFouls;
+    public Text TeamYellows;
+    public Text TeamReds;
     public Text TeamNames;
     public Text ShotsSign;
     public Text PlayerName;
     public Text PlayerGoals;
-    public Text PlayerPassess;
+    public Text playerShots;
+    public Text playerLongShots;
+    public Text playerPassess;
+    public Text playerDribbles;
+    public Text playerTackles;
+    public Text playerCorners;
+    public Text playerFreeKicks;
+    public Text playerThrowIns;
+    public Text playerHeaders;
+    public Text playerFouls;
+    public Text playerYellows;
+    public Text playerReds;
+    
 
-	void Start()
+    void Start()
 	{
 		MatchStatistics stats= GameObject.Find("MatchStats").GetComponent<StatisticsManager>().endStatistics;
 		/*
@@ -36,10 +54,33 @@ public class StatisticsViewer : MonoBehaviour
 		playerTeamNameDisplay.text=stats.playerTeam.name;
 		enemyTeamNameDisplay.text=stats.enemyTeam.name;
 		score.text=stats.playerTeamGoals+":"+stats.enemyTeamGoals;
-        playerTeamShotsDisplay.text = stats.playerTeamShots.ToString()+" - "+stats.enemyTeamShots.ToString();
         TeamNames.text = stats.playerTeam.name + " - " + stats.enemyTeam.name;
-        PlayerGoals.text = "Goals: "+stats.playerGoals.ToString();
+
+        //Tabela statów drużyn
+        TeamShots.text = stats.playerTeamShots.ToString()+" - "+stats.enemyTeamShots.ToString();
+        TeamCorners.text = stats.playerTeamCorners.ToString() + " - " + stats.enemyTeamCorners.ToString();
+        TeamFreeKicks.text = stats.playerTeamFreeKicks.ToString() + " - " + stats.enemyTeamFreeKicks.ToString();
+        TeamThrowIns.text = stats.playerTeamThrowIns.ToString() + " - " + stats.enemyTeamThrowIns.ToString();
+        TeamFouls.text = stats.playerTeamFouls.ToString() + " - " + stats.enemyTeamFouls.ToString();
+        TeamYellows.text = stats.playerTeamYellows.ToString() + " - " + stats.enemyTeamYellows.ToString();
+        TeamReds.text = stats.playerTeamReds.ToString() + " - " + stats.enemyTeamReds.ToString();
+        
 		PlayerName.text=CareerManager.gameInfo.playerStats.playerName+" "+CareerManager.gameInfo.playerStats.playerSurname;
+        //Tabela statów piłkarza
+        PlayerGoals.text = "Goals: " + stats.playerGoals.ToString();
+        playerShots.text = "Shots: " + CalculationsManager.stripVector2(stats.playerMoves["Shoot"]);
+        playerLongShots.text = "Long Shots: " + CalculationsManager.stripVector2(stats.playerMoves["LongShot"]);
+        playerPassess.text = "Passess: "+CalculationsManager.stripVector2(stats.playerMoves["Pass"]);
+        playerDribbles.text = "Dribbles: " + CalculationsManager.stripVector2(stats.playerMoves["Dribble"]);
+        playerTackles.text = "Tackles: "+ CalculationsManager.stripVector2(stats.playerMoves["Tackle"]);
+        playerCorners.text = "Corners: "+ CalculationsManager.stripVector2(stats.playerMoves["Corner"]);
+        playerFreeKicks.text = "Free Kicks: "+ CalculationsManager.stripVector2(stats.playerMoves["FreeKick"]);
+        playerThrowIns.text = "Throw-ins: "+ CalculationsManager.stripVector2(stats.playerMoves["Out"]);
+        playerHeaders.text = "Headers: " + CalculationsManager.stripVector2(stats.playerMoves["Head"]);
+        playerFouls.text = "Fouls: " + stats.playerFouls.ToString();
+        playerYellows.text = "Yellow cards: " + stats.playerYellows.ToString();
+        playerReds.text = "Red cards: " + stats.playerReds.ToString();
+
     }
 
 }
