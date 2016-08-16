@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
 	public PlayerInfo playerInfo;
 	public int maxEnergy;
 	public ActionsList actionList;
-	public Vector2 preferredPosition;
 	public bool movedThisTurn;
 	public event Action onActionFail;
 	public event Action onActionSuccess;
@@ -64,7 +63,7 @@ public class Player : MonoBehaviour
 		GameManager.instance.onMatchStart+=InitPlayer;
 		GameManager.instance.onMatchEnd+=SetStartingPosition;
 		GameManager.instance.onMatchEnd+=SaveCardsAndFouls;
-
+		MoveYourself(playerInfo.preferredPosition);
 	}
 
 	void InitPlayer()
@@ -89,7 +88,7 @@ public class Player : MonoBehaviour
 
 	void SetStartingPosition()
 	{
-		MoveYourself(Vector2.zero);
+		MoveYourself(playerInfo.preferredPosition);
 	}
 
 	void ResetMove()

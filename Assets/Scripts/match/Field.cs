@@ -13,7 +13,7 @@ public class Field : MonoBehaviour, IPointerClickHandler
 	private Image sRenderer;
 	private bool highlighted;
 
-	void Start()
+	void Awake()
 	{
 		sRenderer=GetComponent<Image>();
 		sRenderer.sprite=notHighlighted;
@@ -39,7 +39,7 @@ public class Field : MonoBehaviour, IPointerClickHandler
 		if(!GameManager.instance.gameStarted)
 		{
 			GameManager.instance.player.MoveYourself(NameToVector(name));
-			GameManager.instance.player.preferredPosition=NameToVector(name);
+			GameManager.instance.player.playerInfo.preferredPosition=NameToVector(name);
 		}
 
 		Debug.Log("Clicked field: "+ NameToVector(name));

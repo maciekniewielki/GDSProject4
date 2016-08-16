@@ -252,7 +252,7 @@ public class CalculationsManager
 
 	public static bool CanPlayerTakeCorner()
 	{
-		if(GameManager.instance.player.preferredPosition==Vector2.up||GameManager.instance.player.preferredPosition==Vector2.down)
+		if(GameManager.instance.player.playerInfo.preferredPosition==Vector2.up||GameManager.instance.player.playerInfo.preferredPosition==Vector2.down)
 			return true;
 		else
 			return false;

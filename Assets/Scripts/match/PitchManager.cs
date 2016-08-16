@@ -48,9 +48,7 @@ public class PitchManager : MonoBehaviour
 		GameManager.instance.player.onActionFail+=UnHighlightEverything;
 		GameManager.instance.player.onActionSuccess+=UnHighlightEverything;
 	}
-
-	
-	// Update is called once per frame
+		
 
 		
     void InitPitch()

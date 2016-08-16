@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class EventHandler : MonoBehaviour {
-	//TODO fix everything in character screen creation(fix the dictionary)
+
+	public GameObject[] fields;
+	public string[] positionNames=new string[]{"LB", "LM", "LF", "CB", "CM", "CF", "RB", "RM", "RF"};
+	public Text selectedPositionText;
     public Text remainingPointsText;
     public GameObject attributesParent;
 	private Dictionary<string, Attribute> playerAttributes;
@@ -30,6 +33,7 @@ public class EventHandler : MonoBehaviour {
 			Debug.Log(attribute.name);
             text.text= attribute.name + ": " + 5;
         }
+		ClickedField(Vector2.zero);
             
     }
 
@@ -96,4 +100,31 @@ public class EventHandler : MonoBehaviour {
 		Debug.Log(playerInfo.ToString());
 		SceneManager.LoadScene("playerMenu");
     }
+
+	public void ClickedField(Vector2 which)
+	{
+		UnHighlightEverything();
+		HighlightField(which);
+		playerInfo.preferredPosition=which;
+		selectedPositionText.text="Position selected: "+positionNames[Flatten(which)];
+	}
+
+	void HighlightField(Vector2 which)
+	{
+		Debug.Log("Highlighting " + which);
+		int index=Flatten(which);
+		fields[index].GetComponent<charCreationField>().Highlight();
+
+	}
+
+	public void UnHighlightEverything()
+	{
+		foreach(GameObject g in fields)
+			g.GetComponent<charCreationField>().UnHighlight();
+	}
+
+	int Flatten(Vector2 w)
+	{
+		return (int)((-w.y+1)*3+w.x+1);
+	}
 }
