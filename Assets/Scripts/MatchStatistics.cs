@@ -32,7 +32,7 @@ public class MatchStatistics
 	public int playerReds;
 	public int playerFouls;
 
-	private string[] possiblePlayerMoves;
+	public string[] possiblePlayerMoves;
 
 	public MatchStatistics(Team playerTeam, Team enemyTeam)
     {

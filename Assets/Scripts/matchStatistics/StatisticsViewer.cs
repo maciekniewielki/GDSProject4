@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class StatisticsViewer : MonoBehaviour 
 {
@@ -31,19 +32,26 @@ public class StatisticsViewer : MonoBehaviour
     public Text playerFouls;
     public Text playerYellows;
     public Text playerReds;
+
+	public GameObject expGainedPrefab;
+
+	private MatchStatistics statisticsToView;
     
 
     void Start()
 	{
 		MatchStatistics stats= GameObject.Find("MatchStats").GetComponent<StatisticsManager>().endStatistics;
+
 		/*
 		Team playerTeam=new Team("Real Madrid", 1,1,1);
 		Team enemyTeam=new Team("Chelsea", 1,1,1);
 		MatchStatistics stats=new MatchStatistics(playerTeam, enemyTeam);
 		stats.playerTeamGoals=2;
 		stats.enemyTeamGoals=1;
-		*/
+		stats.playerMoves["Dribble"]=new Vector2(3,5);
+		CareerManager.gameInfo=new GameInformation(1, 0, new PlayerInfo());*/
 
+		statisticsToView=stats;
 		ViewStatistics(stats);
 		//Debug.Log(stats.playerMoves["Dribble"]);
 		//CalculationsManager.stripVector2(stats.playerMoves["Dribble"]);
@@ -69,20 +77,65 @@ public class StatisticsViewer : MonoBehaviour
 		PlayerName.text=CareerManager.gameInfo.playerStats.playerName+" "+CareerManager.gameInfo.playerStats.playerSurname;
         //Tabela statów piłkarza
         PlayerGoals.text = "Goals: " + stats.playerGoals.ToString();
-        playerShots.text = "Shots: " + CalculationsManager.stripVector2(stats.playerMoves["Shoot"]);
-        playerLongShots.text = "Long Shots: " + CalculationsManager.stripVector2(stats.playerMoves["LongShot"]);
-        playerPassess.text = "Passess: "+CalculationsManager.stripVector2(stats.playerMoves["Pass"]);
-        playerDribbles.text = "Dribbles: " + CalculationsManager.stripVector2(stats.playerMoves["Dribble"]);
-        playerTackles.text = "Tackles: "+ CalculationsManager.stripVector2(stats.playerMoves["Tackle"]);
-        playerCorners.text = "Corners: "+ CalculationsManager.stripVector2(stats.playerMoves["Corner"]);
-        playerFreeKicks.text = "Free Kicks: "+ CalculationsManager.stripVector2(stats.playerMoves["FreeKick"]);
-        playerThrowIns.text = "Throw-ins: "+ CalculationsManager.stripVector2(stats.playerMoves["Out"]);
-        playerHeaders.text = "Headers: " + CalculationsManager.stripVector2(stats.playerMoves["Head"]);
-        playerCrossing.text = "Crosses: "+ CalculationsManager.stripVector2(stats.playerMoves["Cross"]);
+        playerShots.text = "Shots: " + CalculationsManager.StripVector2(stats.playerMoves["Shoot"]);
+        playerLongShots.text = "Long Shots: " + CalculationsManager.StripVector2(stats.playerMoves["LongShot"]);
+        playerPassess.text = "Passess: "+CalculationsManager.StripVector2(stats.playerMoves["Pass"]);
+        playerDribbles.text = "Dribbles: " + CalculationsManager.StripVector2(stats.playerMoves["Dribble"]);
+        playerTackles.text = "Tackles: "+ CalculationsManager.StripVector2(stats.playerMoves["Tackle"]);
+        playerCorners.text = "Corners: "+ CalculationsManager.StripVector2(stats.playerMoves["Corner"]);
+        playerFreeKicks.text = "Free Kicks: "+ CalculationsManager.StripVector2(stats.playerMoves["FreeKick"]);
+        playerThrowIns.text = "Throw-ins: "+ CalculationsManager.StripVector2(stats.playerMoves["Out"]);
+        playerHeaders.text = "Headers: " + CalculationsManager.StripVector2(stats.playerMoves["Head"]);
+        playerCrossing.text = "Crosses: "+ CalculationsManager.StripVector2(stats.playerMoves["Cross"]);
         playerFouls.text = "Fouls: " + stats.playerFouls.ToString();
         playerYellows.text = "Yellow cards: " + stats.playerYellows.ToString();
         playerReds.text = "Red cards: " + stats.playerReds.ToString();
 
+		foreach(KeyValuePair<string, Vector2> kvp in stats.playerMoves)
+		{
+			Debug.Log("Penis");
+			CreateExpPopUp(kvp.Key);
+		}
+
     }
+
+	void CreateExpPopUp(string move)
+	{
+		Text statText;
+
+		if(move.Equals("Shoot"))
+			statText=playerShots;
+		else if(move.Equals("LongShot"))
+			statText=playerLongShots;
+		else if(move.Equals("Pass"))
+			statText=playerPassess;
+		else if(move.Equals("Dribble"))
+			statText=playerDribbles;
+		else if(move.Equals("Tackle"))
+			statText=playerTackles;
+		else if(move.Equals("Corner"))
+			statText=playerCorners;
+		else if(move.Equals("FreeKick"))
+			statText=playerFreeKicks;
+		else if(move.Equals("Out"))
+			statText=playerThrowIns;
+		else if(move.Equals("Head"))
+			statText=playerHeaders;
+		else if(move.Equals("Cross"))
+			statText=playerCrossing;
+		else 
+			return;
+
+		int expGained=CalculationsManager.GetExpBySkillUsage(statisticsToView.playerMoves[move]);
+		if(expGained<=0)
+			return;
+
+		Text text=Instantiate(expGainedPrefab).GetComponent<Text>();
+		text.transform.SetParent(GameObject.Find("Canvas").transform);
+		text.transform.position=statText.transform.position+Vector3.right*230;
+		text.text="+"+expGained+" Exp";
+
+		CareerManager.gameInfo.playerStats.playerAttributes[CalculationsManager.MoveNameToSkillName(move)].AddExp(expGained);
+	}
 
 }

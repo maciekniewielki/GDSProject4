@@ -405,8 +405,42 @@ public class CalculationsManager
 		return "Stamina";
 	}
 
-	public static string stripVector2(Vector2 source)
+	public static string StripVector2(Vector2 source)
 	{
 		return source.x+"/"+source.y;
+	}
+
+	public static int GetExpBySkillUsage(Vector2 usage)
+	{
+		if(usage.x==0||usage.y==0)
+			return 0;
+		else
+			return (int)(usage.x*50);
+	}
+
+	public static string MoveNameToSkillName(string moveName)
+	{
+		string skillName="";
+		if(moveName.Equals("Shoot"))
+			skillName="Finishing";
+		else if(moveName.Equals("LongShot"))
+			skillName="Long Shots";
+		else if(moveName.Equals("Pass"))
+			skillName="Passing";
+		else if(moveName.Equals("Dribble"))
+			skillName="Dribbling";
+		else if(moveName.Equals("Tackle"))
+			skillName="Tackling";
+		else if(moveName.Equals("Corner"))
+			skillName="Corners";
+		else if(moveName.Equals("FreeKick"))
+			skillName="Free Kicks";
+		else if(moveName.Equals("Out"))
+			skillName="Long Throws";
+		else if(moveName.Equals("Head"))
+			skillName="Heading";
+		else if(moveName.Equals("Cross"))
+			skillName="Crossing";
+		return skillName;
 	}
 }
