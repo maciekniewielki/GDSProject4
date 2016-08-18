@@ -24,6 +24,7 @@ public class StatisticsViewer : MonoBehaviour
     public Text playerDribbles;
     public Text playerTackles;
     public Text playerCorners;
+    public Text playerCrossing;
     public Text playerFreeKicks;
     public Text playerThrowIns;
     public Text playerHeaders;
@@ -77,6 +78,7 @@ public class StatisticsViewer : MonoBehaviour
         playerFreeKicks.text = "Free Kicks: "+ CalculationsManager.stripVector2(stats.playerMoves["FreeKick"]);
         playerThrowIns.text = "Throw-ins: "+ CalculationsManager.stripVector2(stats.playerMoves["Out"]);
         playerHeaders.text = "Headers: " + CalculationsManager.stripVector2(stats.playerMoves["Head"]);
+        playerCrossing.text = "Crosses: "+ CalculationsManager.stripVector2(stats.playerMoves["Cross"]);
         playerFouls.text = "Fouls: " + stats.playerFouls.ToString();
         playerYellows.text = "Yellow cards: " + stats.playerYellows.ToString();
         playerReds.text = "Red cards: " + stats.playerReds.ToString();
