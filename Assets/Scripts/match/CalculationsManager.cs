@@ -443,4 +443,10 @@ public class CalculationsManager
 			skillName="Crossing";
 		return skillName;
 	}
+
+	public static Vector2 GetMatchResultByTeams(Team left, Team right)
+	{
+		return new Vector2(Random.Range(0,4), Random.Range(0,4));
+	}
+
 }

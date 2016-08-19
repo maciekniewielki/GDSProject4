@@ -9,6 +9,7 @@ public class GameInformation
 	public int currentRound;
 	public int currentWeekDay;
 	public PlayerInfo playerStats;
+	public LeagueCalendar calendar;
 
 
 	public GameInformation (int currentRound=1, int currentWeekDay=0, PlayerInfo playerStats=default(PlayerInfo), bool wentToIndividualTraining=false, bool wentToClubTraining=false)

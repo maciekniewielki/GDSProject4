@@ -11,6 +11,8 @@ public class SceneSwitcher : MonoBehaviour
 			Destroy(instance.gameObject);
 		if(instance==null)
 			instance=this;
+
+		LeagueCalendar l=new LeagueCalendar(new Team[]{new Team("Haha"), new Team("Hehe"), new Team("Hihi"), new Team("Huhu")});
 	}
 
 	public void SwitchSceneTo(string name)

@@ -9,7 +9,7 @@ public class Team
 	public int midfieldYellowCards { get; set; }
 	public int attackYellowCards { get; set; }
 
-    public Team(string name, int defence, int midfield, int attack)
+    public Team(string name, int defence=1, int midfield=1, int attack=1)
     {
         this.name = name;
         this.defence = defence;

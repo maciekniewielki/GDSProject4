@@ -10,6 +10,7 @@ public class EventHandler : MonoBehaviour {
 	public Text selectedPositionText;
     public Text remainingPointsText;
     public GameObject attributesParent;
+	public Text teamsTextDropdown;
 	private Dictionary<string, Attribute> playerAttributes;
     private int remainingPoints = 20;
 	private PlayerInfo playerInfo;
@@ -34,6 +35,7 @@ public class EventHandler : MonoBehaviour {
             text.text= attribute.name + ": " + 5;
         }
 		ClickedField(Vector2.zero);
+		StartingTeamChanged();
             
     }
 
@@ -127,4 +129,10 @@ public class EventHandler : MonoBehaviour {
 	{
 		return (int)((-w.y+1)*3+w.x+1);
 	}
+		
+	public void StartingTeamChanged()
+	{
+		playerInfo.currentTeam= teamsTextDropdown.text;
+	}
 }
+
