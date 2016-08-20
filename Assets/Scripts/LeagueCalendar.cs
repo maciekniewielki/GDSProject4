@@ -8,34 +8,47 @@ public class LeagueCalendar
 
 	public LeagueCalendar(Team []teams)
 	{
-		MatchResultContainer[] matches=new MatchResultContainer[teams.Length*teams.Length-teams.Length];
 		weeks=new MatchWeek[teams.Length*2-2];
-		int iterator=0;
-		foreach(Team l in teams)
-			foreach(Team r in teams)
-			{
-				if(l.Equals(r))
-					continue;
-				matches[iterator]=new MatchResultContainer(l, r);
-				iterator++;
-			}
-		Debug.Log("Before shuffle: \n"+MatchesToString(matches));
-		ShuffleMatches(matches);
-		Debug.Log("After shuffle: \n"+MatchesToString(matches));
-		/*
-		int matchIter=0;
-		int weekIter=-1;
-		for(;matchIter<matches.Length;matchIter++)
+		MatchWeek[] firstMatches=GenerateWeeks(teams);
+		MatchWeek[] secondLegMatches=GenerateWeeks(teams);
+		foreach(MatchWeek w in secondLegMatches)
 		{
-			if(matchIter%teams.Length==0)
-			{
-				weeks[weekIter].matches=new MatchResultContainer[teams.Length/2];
-				weekIter++;
-			}
-			
-			
-		}*/
+			w.ReverseMatchSides();
+			w.weekNumber+=teams.Length-1;
+		}
+		for (int ii = 0; ii < teams.Length-1; ii++)
+		{
+			weeks[ii]=firstMatches[ii];
+			weeks[ii+teams.Length-1]=secondLegMatches[ii];
+		}
+	}
 
+	MatchWeek[] GenerateWeeks(Team []teams)
+	{
+		Team[] teamList=(Team[])teams.Clone();
+		int len=teamList.Length;
+		MatchWeek[] weeks=new MatchWeek[len-1];
+		for (int ii=0; ii<len-1;ii++)
+		{
+			weeks[ii]=new MatchWeek(teamList, ii+1);
+			ShuffleMatches(weeks[ii].matches);
+			DoOneCycle(teamList);
+		}
+
+		return weeks;
+	}
+
+
+
+	void DoOneCycle(Team[] teams)
+	{
+		Team temp=teams[1];
+		for (int ii = teams.Length-1; ii >= 2; ii--)
+		{
+			int newIndex=ii==teams.Length-1?1: ii+1; 
+			teams[newIndex]=teams[ii];
+		}
+		teams[2]=temp;
 	}
 
 	void ShuffleMatches(MatchResultContainer[] matches)
@@ -62,8 +75,19 @@ public class LeagueCalendar
 	{
 		string s="";
 		foreach(MatchWeek week in weeks)
-			foreach(MatchResultContainer container in week.matches)
-				s+=container.leftTeam.name+" - "+container.rightTeam.name+"\n";
+			s+=week.ToString();
 		return s;
 	}
+
+	public MatchWeek GetWeekByNumber(int index)
+	{
+		return weeks[index-1];
+	}
+
+	public void CalculateScoreForWeek(int which, string playerTeamName)
+	{
+		weeks[which-1].PlayAIMatches(playerTeamName);
+	}
+
+
 }

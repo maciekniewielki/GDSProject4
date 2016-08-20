@@ -26,6 +26,8 @@ public class StatisticsManager : MonoBehaviour
 	void SaveStatistics()
 	{
 		endStatistics=GameManager.instance.stats;
+		CareerManager.gameInfo.nextMatch.result=new Vector2(endStatistics.playerTeamGoals, endStatistics.enemyTeamGoals);
+
 	}
 
 	void Save()

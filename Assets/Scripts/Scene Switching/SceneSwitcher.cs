@@ -12,7 +12,8 @@ public class SceneSwitcher : MonoBehaviour
 		if(instance==null)
 			instance=this;
 
-		LeagueCalendar l=new LeagueCalendar(new Team[]{new Team("Haha"), new Team("Hehe"), new Team("Hihi"), new Team("Huhu")});
+		LeagueCalendar l=new LeagueCalendar(new Team[]{new Team("1"), new Team("2"), new Team("3"), new Team("4"), new Team("5"), new Team("6")});
+		Debug.Log(l.ToString());
 	}
 
 	public void SwitchSceneTo(string name)

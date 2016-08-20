@@ -16,6 +16,7 @@ public class CareerManager : MonoBehaviour
 	public Text clubTrainingAttributeExp;
 	public Text individualTrainingAttributeNames;
 	public GameObject individualTrainingButtonsParent;
+	public Text tableOfResults;
 
 	private Text dayDisplay;
 	private Text roundDisplay;
@@ -46,6 +47,7 @@ public class CareerManager : MonoBehaviour
 		}
 		InitVariables();
 		CheckForDay();
+		Debug.Log(gameInfo.calendar);
 	}
 
 	void InitVariables()
@@ -91,6 +93,8 @@ public class CareerManager : MonoBehaviour
 			attributeValues.Add(kvp.Key, value);
 			attributeExp.Add(kvp.Key, exp);
 		}
+		if(currentRound>1)
+			tableOfResults.text=gameInfo.calendar.GetWeekByNumber(currentRound-1).ToString();
 		UpdateAttributeInfo();
 	}
 
@@ -100,6 +104,8 @@ public class CareerManager : MonoBehaviour
 		GameObject possibleStats=GameObject.Find("MatchStats");
 		if(possibleStats!=null)
 			Destroy(possibleStats);
+		gameInfo.calendar.CalculateScoreForWeek(currentRound-1, gameInfo.playerStats.currentTeam);
+		gameInfo.nextMatch=gameInfo.calendar.GetWeekByNumber(currentRound-1).GetPlayerMatch(gameInfo.playerStats.currentTeam);
 		SaveGame();
 		SceneManager.LoadScene("sampleGame");
 	}

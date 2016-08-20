@@ -90,6 +90,9 @@ public class GameManager : MonoBehaviour
 	void Start () 
 	{
 		player=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		if(!CareerManager.gameInfo.nextMatch.leftTeam.name.Equals(CareerManager.gameInfo.playerStats.currentTeam))
+			CareerManager.gameInfo.nextMatch.ReverseSides();
+		stats = new MatchStatistics(CareerManager.gameInfo.nextMatch.leftTeam, CareerManager.gameInfo.nextMatch.rightTeam);
 	}
 
 	void InitVariables()
@@ -105,7 +108,7 @@ public class GameManager : MonoBehaviour
 
 		noFightNextTurn=false;
 		SetBallPosition(new Vector2(0,0));
-		stats = new MatchStatistics(new Team("PlayerTeam", 1, 1, 1), new Team("EnemyTeam", 1, 1, 1));
+
 		playerTeam=stats.playerTeam;
 		enemyTeam=stats.enemyTeam;
 

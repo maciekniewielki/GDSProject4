@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System;
+using System.Linq;
 
 public class EventHandler : MonoBehaviour {
 
@@ -11,6 +13,7 @@ public class EventHandler : MonoBehaviour {
     public Text remainingPointsText;
     public GameObject attributesParent;
 	public Text teamsTextDropdown;
+	public Dropdown teamsDropdown;
 	private Dictionary<string, Attribute> playerAttributes;
     private int remainingPoints = 20;
 	private PlayerInfo playerInfo;
@@ -36,6 +39,7 @@ public class EventHandler : MonoBehaviour {
         }
 		ClickedField(Vector2.zero);
 		StartingTeamChanged();
+
             
     }
 
@@ -96,6 +100,11 @@ public class EventHandler : MonoBehaviour {
     }
     public void SaveEverything()
     {
+		Team[] teams=new Team[teamsDropdown.options.Count];
+		string[] teamNames=teamsDropdown.options.Select(o => o.text).ToArray();
+		for (int ii = 0; ii < teamNames.Length; ii++)
+			teams[ii]=new Team(teamNames[ii]);
+		CareerManager.gameInfo.calendar=new LeagueCalendar(teams);
 		playerInfo.playerAttributes=playerAttributes;
 		CareerManager.gameInfo.playerStats=playerInfo.Clone();
 		Debug.Log("Saving statistics: ");
