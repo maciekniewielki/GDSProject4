@@ -17,6 +17,7 @@ public class EventHandler : MonoBehaviour {
 	private Dictionary<string, Attribute> playerAttributes;
     private int remainingPoints = 20;
 	private PlayerInfo playerInfo;
+	private Team[] teams;
 
 	void Awake()
 	{
@@ -26,6 +27,9 @@ public class EventHandler : MonoBehaviour {
 
 	void Start ()
     {
+		teams=GenerateTeamLevels();
+		teamsDropdown.ClearOptions();
+		teamsDropdown.AddOptions(teams.Select(t => t.name).ToList<string>());
 		playerAttributes=new Dictionary<string, Attribute>();
 		foreach (Transform transform in attributesParent.GetComponentsInChildren<Transform>())
         {
@@ -100,10 +104,11 @@ public class EventHandler : MonoBehaviour {
     }
     public void SaveEverything()
     {
+		/*
 		Team[] teams=new Team[teamsDropdown.options.Count];
 		string[] teamNames=teamsDropdown.options.Select(o => o.text).ToArray();
 		for (int ii = 0; ii < teamNames.Length; ii++)
-			teams[ii]=new Team(teamNames[ii]);
+			teams[ii]=new Team(teamNames[ii]);*/
 		CareerManager.gameInfo.calendar=new LeagueCalendar(teams);
 		playerInfo.playerAttributes=playerAttributes;
 		CareerManager.gameInfo.playerStats=playerInfo.Clone();
@@ -142,6 +147,16 @@ public class EventHandler : MonoBehaviour {
 	public void StartingTeamChanged()
 	{
 		playerInfo.currentTeamName= teamsTextDropdown.text;
+	}
+
+	Team[] GenerateTeamLevels()
+	{
+		List<Team> teams=new List<Team>();;
+		teams.Add(new Team("Tutaj wpisz nazwe druzyny", 1,1,1));
+		teams.Add(new Team("Tutaj kolejna", 1,1,1));
+		teams.Add(new Team("Jeszcze jedna druzyna", 1,1,1));
+		teams.Add(new Team("I jeszcze jedna", 1,1,1));
+		return teams.ToArray();
 	}
 }
 
