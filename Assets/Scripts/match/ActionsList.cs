@@ -52,7 +52,7 @@ public class ActionsList: MonoBehaviour
     {
         //penalty begin
         //celny begin
-		TreeAction celnyBramkarzNieBroni = new TreeAction(0.75f, null, true, "Pewnie wykonana jedenastka!", PlayerGoal);
+		TreeAction celnyBramkarzNieBroni = new TreeAction(0.75f, null, true, "Pewnie wykonana jedenastka!", CelnyKarny);
         TreeAction celnyBramkarzChwyta = new TreeAction(0.1f, null, true, "Bramkarz broni! Źle wykonany karny!", EnemyBall);
         TreeAction celnyBramkarzWybija = new TreeAction(0.15f, null, true, "Nie ma gola! Bramkarz wyczuł strzelającego! Rzut rożny.", OurBall);
 
@@ -168,8 +168,8 @@ public class ActionsList: MonoBehaviour
         //dribbling begin
         //udany begin
 		TreeAction udanyRywalWybija = new TreeAction(0.0f, null, true, "Świetny drybling! Rywal ratuje się wybiciem na aut", Out, checkTypes.BALL_ON_SIDES, 0.05f);
-        TreeAction udanyPrzejscie = new TreeAction(0.8f, null, true, "Świetny drybling! Zawodnik przesuwa się wgłąb boiska", DribbleSuccessful); //0.8f
-		TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Świetny drybling przerwany faulem. Nic strasznego. Wolny!", Foul);
+        TreeAction udanyPrzejscie = new TreeAction(0.8f, null, true, "Świetny drybling! Zawodnik przesuwa się wgłąb boiska", UdanyDrybling); //0.8f
+		TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Świetny drybling przerwany faulem. Nic strasznego. Wolny!", NormalnyFaul);
 		TreeAction udanyFaulZwyklyKontuzja = new TreeAction(0.05f, null, true, "Świetny drybling przerwany faulem. Wygląda na kontuzję", FoulContusion);
 		TreeAction udanyFaulNaZoltaBezKontuzji = new TreeAction(0.85f, null, true, "Świetny drybling przerwany faulem. Będzie żółta kartka", FoulYellow);
 		TreeAction udanyFaulNaZoltaKontuzja = new TreeAction(0.15f, null, true, "Świetny drybling przerwany faulem. Jest żółta kartka i kontuzja", FoulContusionYellow);
@@ -546,4 +546,21 @@ public class ActionsList: MonoBehaviour
 		PlayerGoal();
 	}
 
+    public void CelnyKarny()
+    {
+        GameManager.instance.playAnimation("penalties_succesful");
+        PlayerGoal();
+    }
+
+    public void UdanyDrybling()
+    {
+        GameManager.instance.playAnimation("dribbling_succesful");
+        DribbleSuccessful();
+    }
+
+    public void NormalnyFaul()
+    {
+        GameManager.instance.playAnimation("foul_normal");
+        Foul();
+    }
 }
