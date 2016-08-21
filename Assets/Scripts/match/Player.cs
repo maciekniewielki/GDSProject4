@@ -221,14 +221,14 @@ public class Player : MonoBehaviour
 			if(onActionSuccess!=null)
 				onActionSuccess();
 			//GameManager.instance.Goal(true, Side.PLAYER);
-			actionList.shoot.subActions[1].MakeAction();
+			actionList.longShoot.subActions[1].MakeAction();
 		}
 		else
 		{
 			if(onActionFail!=null)
 				onActionFail();
 			//GameManager.instance.Miss(true, Side.ENEMY);	
-			actionList.shoot.subActions[0].MakeAction();
+			actionList.longShoot.subActions[0].MakeAction();
 		}
 		GameManager.instance.noFightNextTurn=true;
 		GameManager.instance.playerHasBall=false;
