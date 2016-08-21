@@ -8,9 +8,11 @@ public class Team
 	public int defenceYellowCards { get; set; }
 	public int midfieldYellowCards { get; set; }
 	public int attackYellowCards { get; set; }
+	public int pointsInLeague;
 
     public Team(string name, int defence=1, int midfield=1, int attack=1)
     {
+		this.pointsInLeague=0;
         this.name = name;
         this.defence = defence;
         this.midfield = midfield;
@@ -19,4 +21,14 @@ public class Team
 		this.midfieldYellowCards=0;
 		this.attackYellowCards=0;
     }
+
+	public void AddPoints(int points)
+	{
+		pointsInLeague+=points;
+	}
+
+	public void ResetPoints()
+	{
+		pointsInLeague=0;
+	}
 }

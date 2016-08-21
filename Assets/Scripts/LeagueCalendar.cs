@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class LeagueCalendar
 {
 	public string leagueName;
 	public MatchWeek[] weeks;
+	public Team[] teams;
 
 	public LeagueCalendar(Team []teams)
 	{
+		this.teams=teams;
 		weeks=new MatchWeek[teams.Length*2-2];
 		MatchWeek[] firstMatches=GenerateWeeks(teams);
 		MatchWeek[] secondLegMatches=GenerateWeeks(teams);
@@ -89,5 +92,33 @@ public class LeagueCalendar
 		weeks[which-1].PlayAIMatches(playerTeamName);
 	}
 
+	public void AddPointsForWeek(int week)
+	{
+		weeks[week-1].AddPointsForLeague();
+	}
 
+	public string ConvertToLeagueTableString()
+	{
+		System.Array.Sort(teams, delegate(Team x, Team y) {
+			return y.pointsInLeague-x.pointsInLeague;
+		});
+
+		int[] nameLengths= teams.Select(t => t.name.Length).ToArray();
+		int maxNameLength= nameLengths.Max();
+
+		string s="";
+		for (int ii = 0; ii < teams.Length; ii++)
+		{
+			s+=(ii+1)+". ";
+			if(ii<=8)
+				s+=" ";
+			s+=teams[ii].name;
+			for (int jj = 0; jj < maxNameLength-teams[ii].name.Length+1; jj++)
+				s+=" ";
+			s+=teams[ii].pointsInLeague+"\n";
+		}
+			
+			
+		return s;
+	}
 }

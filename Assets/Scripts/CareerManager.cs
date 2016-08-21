@@ -17,6 +17,8 @@ public class CareerManager : MonoBehaviour
 	public Text individualTrainingAttributeNames;
 	public GameObject individualTrainingButtonsParent;
 	public Text tableOfResults;
+	public Text leagueTableDisplay;
+	public Text playerName;
 
 	private Text dayDisplay;
 	private Text roundDisplay;
@@ -48,6 +50,7 @@ public class CareerManager : MonoBehaviour
 		InitVariables();
 		CheckForDay();
 		Debug.Log(gameInfo.calendar);
+		playerName.text=CareerManager.gameInfo.playerStats.playerName+" "+CareerManager.gameInfo.playerStats.playerSurname;
 	}
 
 	void InitVariables()
@@ -94,7 +97,11 @@ public class CareerManager : MonoBehaviour
 			attributeExp.Add(kvp.Key, exp);
 		}
 		if(currentRound>1)
+		{
+			gameInfo.calendar.AddPointsForWeek(currentRound-1);
 			tableOfResults.text=gameInfo.calendar.GetWeekByNumber(currentRound-1).ToString();
+			leagueTableDisplay.text=gameInfo.calendar.ConvertToLeagueTableString();
+		}
 		UpdateAttributeInfo();
 	}
 
@@ -104,8 +111,8 @@ public class CareerManager : MonoBehaviour
 		GameObject possibleStats=GameObject.Find("MatchStats");
 		if(possibleStats!=null)
 			Destroy(possibleStats);
-		gameInfo.calendar.CalculateScoreForWeek(currentRound-1, gameInfo.playerStats.currentTeam);
-		gameInfo.nextMatch=gameInfo.calendar.GetWeekByNumber(currentRound-1).GetPlayerMatch(gameInfo.playerStats.currentTeam);
+		gameInfo.calendar.CalculateScoreForWeek(currentRound-1, gameInfo.playerStats.currentTeamName);
+		gameInfo.nextMatch=gameInfo.calendar.GetWeekByNumber(currentRound-1).GetPlayerMatch(gameInfo.playerStats.currentTeamName);
 		SaveGame();
 		SceneManager.LoadScene("sampleGame");
 	}

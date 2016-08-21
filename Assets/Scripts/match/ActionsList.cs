@@ -166,7 +166,7 @@ public class ActionsList: MonoBehaviour
         //dribbling begin
         //udany begin
 		TreeAction udanyRywalWybija = new TreeAction(0.0f, null, true, "Świetny drybling! Rywal ratuje się wybiciem na aut", Out, checkTypes.BALL_ON_SIDES, 0.05f);
-        TreeAction udanyPrzejscie = new TreeAction(0.8f, null, true, "Świetny drybling! Zawodnik przesuwa się wgłąb boiska", DribbleSuccessful);
+        TreeAction udanyPrzejscie = new TreeAction(0.8f, null, true, "Świetny drybling! Zawodnik przesuwa się wgłąb boiska", DribbleSuccessful); //0.8f
 		TreeAction udanyFaulZwyklyBezKontuzji = new TreeAction(0.95f, null, true, "Świetny drybling przerwany faulem. Nic strasznego. Wolny!", Foul);
 		TreeAction udanyFaulZwyklyKontuzja = new TreeAction(0.05f, null, true, "Świetny drybling przerwany faulem. Wygląda na kontuzję", FoulContusion);
 		TreeAction udanyFaulNaZoltaBezKontuzji = new TreeAction(0.85f, null, true, "Świetny drybling przerwany faulem. Będzie żółta kartka", FoulYellow);
@@ -177,7 +177,7 @@ public class ActionsList: MonoBehaviour
         TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja });
         TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja });
         TreeAction udanyFaulNaCzerwona = new TreeAction(0.05f, new TreeAction[] { udanyFaulNaCzerwonaBezKontuzji, udanyFaulNaCzerwonaKontuzja });
-		TreeAction udanyFaul = new TreeAction(0.2f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.15f);
+		TreeAction udanyFaul = new TreeAction(0.2f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.15f); //0.2f
         TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyRywalWybija, udanyPrzejscie, udanyFaul });
         //udany end
 
@@ -232,7 +232,7 @@ public class ActionsList: MonoBehaviour
 	{
 		//shoot begin
 		//celny begin
-		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", PlayerGoal);
+		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", CelnyGol);
 		TreeAction celnyBroniChwyta=new TreeAction(0.3f, null, true, "Strzal celny, ale bramkarz lapie pilke", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoRywala=new TreeAction(0.15f, null, true, "Strzal celny, ale bramkarz wypiastkowal do swojego", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoNas=new TreeAction(0.85f, null, true, "Strzal celny, ale bramkarz wypiastkowal do nas", OurBall);
@@ -312,7 +312,7 @@ public class ActionsList: MonoBehaviour
 
 	public void GoalFreeKickPlayer()
 	{
-		GameManager.instance.EndActionTree();
+		GameManager.instance.playAnimation("free_kick_successful");
 		EnemyBall();
 		GameManager.instance.Goal(true, Side.PLAYER);
 	}
@@ -478,6 +478,12 @@ public class ActionsList: MonoBehaviour
 		GameManager.instance.player.DoFoul();
 		GameManager.instance.stats.AddFoul(Side.PLAYER);
 		FreeKickAction();
+	}
+
+	public void CelnyGol()
+	{
+		GameManager.instance.playAnimation("celny_gol");
+		PlayerGoal();
 	}
 
 }

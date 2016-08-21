@@ -55,8 +55,11 @@ public class GameManager : MonoBehaviour
 	public event Action onFreeKickBegin;
 	public event Action onMakeMove;
 	public event Action onPenaltyBegin;
-	public event Action onActionTreeEnd;
+	public event Action onActionTreeSetPieceEnd;
+	public event Action onActionTreeNormalActionEnd;
 	public event Action onInitVariablesEnd;
+	public delegate void animatorDelegate(string animationToPlay);
+	public animatorDelegate playAnimation;
 
 
 	private bool initEnded;
@@ -90,9 +93,10 @@ public class GameManager : MonoBehaviour
 	void Start () 
 	{
 		player=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		if(!CareerManager.gameInfo.nextMatch.leftTeam.name.Equals(CareerManager.gameInfo.playerStats.currentTeam))
-			CareerManager.gameInfo.nextMatch.ReverseSides();
-		stats = new MatchStatistics(CareerManager.gameInfo.nextMatch.leftTeam, CareerManager.gameInfo.nextMatch.rightTeam);
+		if(CareerManager.gameInfo.nextMatch==null||!CareerManager.gameInfo.nextMatch.leftTeam.name.Equals(CareerManager.gameInfo.playerStats.currentTeamName))
+			stats = new MatchStatistics(CareerManager.gameInfo.nextMatch.rightTeam, CareerManager.gameInfo.nextMatch.leftTeam);
+		else
+			stats = new MatchStatistics(CareerManager.gameInfo.nextMatch.leftTeam, CareerManager.gameInfo.nextMatch.rightTeam);
 	}
 
 	void InitVariables()
@@ -743,10 +747,16 @@ public class GameManager : MonoBehaviour
 			
 	}
 
-	public void EndActionTree()
+	public void EndActionTreeSetPiece()
 	{
-		if(onActionTreeEnd!=null)
-			onActionTreeEnd();
+		if(onActionTreeSetPieceEnd!=null)
+			onActionTreeSetPieceEnd();
+	}
+
+	public void EndNormalActionTree()
+	{
+		if(onActionTreeNormalActionEnd!=null)
+			onActionTreeNormalActionEnd();
 	}
 }
 	

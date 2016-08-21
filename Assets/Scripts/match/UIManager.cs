@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class UIManager : MonoBehaviour {
 
 	public Text goalsTextDisplay;
+	public Text homeTeamDisplay;
+	public Text awayTeamDisplay;
 	public Text timerDisplay;
 	public Slider energySlider;
 
@@ -52,7 +54,14 @@ public class UIManager : MonoBehaviour {
 
 	void UpdateUI()
 	{
-		goalsTextDisplay.text=GameManager.instance.stats.playerTeam.name+" "+GameManager.instance.stats.playerTeamGoals+":"+GameManager.instance.stats.enemyTeamGoals+" "+GameManager.instance.stats.enemyTeam.name;
+		homeTeamDisplay.text=CareerManager.gameInfo.nextMatch.leftTeam.name;
+		awayTeamDisplay.text=CareerManager.gameInfo.nextMatch.rightTeam.name;
+		string goalsDisplay="";
+		if(CareerManager.gameInfo.playerStats.currentTeamName.Equals(CareerManager.gameInfo.nextMatch.leftTeam.name))
+			goalsDisplay=GameManager.instance.stats.playerTeamGoals+":"+GameManager.instance.stats.enemyTeamGoals;
+		else
+			goalsDisplay=GameManager.instance.stats.enemyTeamGoals+":"+GameManager.instance.stats.playerTeamGoals;
+		goalsTextDisplay.text=goalsDisplay;
 		timerDisplay.text=GameManager.instance.currentMinute+"'";
 	}
 

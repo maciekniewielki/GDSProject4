@@ -1,16 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AnimationPlayer : MonoBehaviour {
 
 	private Animator animator;
 	private Player player;
+	private Dictionary<string, string[]> animationGroups;
+
 	// Use this for initialization
 	void Start () 
 	{
+		animationGroups=new Dictionary<string, string[]>();
 		animator=GetComponent<Animator>();
 		player=GameManager.instance.player;
-		GameManager.instance.onActionTreeEnd+=OnPlayerActionSuccess;
+		GameManager.instance.onActionTreeSetPieceEnd+=OnPlayerSetPieceActionSuccess;
+		GameManager.instance.onActionTreeNormalActionEnd+=OnPlayerNormalActionSuccess;
+		GameManager.instance.playAnimation+=PlayAnimation;
+
+		animationGroups.Add("free_kick_successful", new string[]{"free_kick_successful"});
+		animationGroups.Add("celny_gol", new string[]{"celny_gol_1"});
 	}
 	
 	// Update is called once per frame
@@ -27,12 +36,30 @@ public class AnimationPlayer : MonoBehaviour {
 		}
 	}
 
-	void OnPlayerActionSuccess()
+	void OnPlayerSetPieceActionSuccess()
 	{
 		if(player.actionCompleted.Equals("FreeKick"))
 		{
 			GameManager.instance.HardPause();
 			animator.Play("free_kick_successful");
 		}
+	}
+
+	void OnPlayerNormalActionSuccess()
+	{
+		
+	}
+
+	string GetRandomStringByGroupName(string groupName)
+	{
+		string[] names=animationGroups[groupName];
+		return names[Random.Range(0, names.Length)];
+	}
+
+	void PlayAnimation(string animationGroupName)
+	{
+		string name=GetRandomStringByGroupName(animationGroupName);
+		animator.Play(name);
+		GameManager.instance.HardPause();
 	}
 }

@@ -13,7 +13,7 @@ public class PlayerInfo
     public int playerAge { get; set; }
 	public Dictionary<string, Attribute> playerAttributes;
 	public Vector2 preferredPosition;
-	public string currentTeam;
+	public string currentTeamName;
 
 	public PlayerInfo()
 	{
@@ -28,7 +28,7 @@ public class PlayerInfo
 		p.playerSurname=playerSurname;
 		p.playerAttributes=playerAttributes;
 		p.preferredPosition=preferredPosition;
-		p.currentTeam=currentTeam;
+		p.currentTeamName=currentTeamName;
 		return p;
 	}
 

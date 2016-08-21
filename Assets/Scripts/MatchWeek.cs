@@ -5,9 +5,11 @@ public class MatchWeek
 {
 	public int weekNumber;
 	public MatchResultContainer[] matches;
+	public bool addedPoints;
 
 	public MatchWeek(Team[] teams, int weekNumber=1)
 	{
+		addedPoints=false;
 		this.weekNumber=weekNumber;
 		matches=new MatchResultContainer[teams.Length/2];
 		for (int ii = 0; ii < teams.Length/2; ii++)
@@ -42,9 +44,21 @@ public class MatchWeek
 	public MatchResultContainer GetPlayerMatch(string playerTeamName)
 	{
 		foreach(MatchResultContainer mrc in matches)
+		{
+			Debug.Log("Sprawdzam ."+mrc.leftTeam.name+". i ."+mrc.rightTeam.name+". z druzyna gracza: ."+playerTeamName+".");
 			if(mrc.ContainsTeamName(playerTeamName))
 				return mrc;
+		}
 		return null;
+	}
+
+	public void AddPointsForLeague()
+	{
+		if(addedPoints)
+			return;
+		foreach(MatchResultContainer m in matches)
+			m.AddPointsForMatch();
+		addedPoints=true;
 	}
 		
 }

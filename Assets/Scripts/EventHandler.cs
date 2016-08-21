@@ -141,7 +141,7 @@ public class EventHandler : MonoBehaviour {
 		
 	public void StartingTeamChanged()
 	{
-		playerInfo.currentTeam= teamsTextDropdown.text;
+		playerInfo.currentTeamName= teamsTextDropdown.text;
 	}
 }
 

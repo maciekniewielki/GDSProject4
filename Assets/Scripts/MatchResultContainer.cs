@@ -37,8 +37,20 @@ public class MatchResultContainer
 
 	public bool ContainsTeamName(string teamName)
 	{
-		return leftTeam.name.Equals(teamName)||rightTeam.Equals(teamName);
+		return leftTeam.name.Equals(teamName)||rightTeam.name.Equals(teamName);
 	}
 
+	public void AddPointsForMatch()
+	{
+		if(result.x>result.y)
+			leftTeam.AddPoints(3);
+		else if(result.y>result.x)
+			rightTeam.AddPoints(3);
+		else
+		{
+			leftTeam.AddPoints(1);
+			rightTeam.AddPoints(1);
+		}
+	}
 
 }
