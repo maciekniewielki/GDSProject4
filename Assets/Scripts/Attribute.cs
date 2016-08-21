@@ -53,4 +53,13 @@ public class Attribute
 		this.currentExp+=exp;
 		this.value=CalculationsManager.GetLevelByExp(this.currentExp);
 	}
+
+	public float GetCurrentExpPercent()
+	{
+		float currentLevelExp=CalculationsManager.GetStartingExpByLevel(value);
+		float nextLevelExp=CalculationsManager.GetStartingExpByLevel(value+1);
+		float percent=(currentExp-currentLevelExp)*100f/(nextLevelExp-currentLevelExp);
+
+		return percent;
+	}
 }
