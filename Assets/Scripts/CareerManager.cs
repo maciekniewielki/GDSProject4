@@ -30,7 +30,7 @@ public class CareerManager : MonoBehaviour
 	private GameObject attributesParent;
 	private Dictionary<string, Text> attributeNames;
 	private Dictionary<string, Text> attributeValues;
-	private Dictionary<string, Text> attributeExp;
+	private Dictionary<string, Slider> attributeExp;
 	private Dictionary<string, string[]> trainingResultsList;
 
 	void Awake()
@@ -71,7 +71,7 @@ public class CareerManager : MonoBehaviour
 		attributesParent=GameObject.Find("Attributes");
 		attributeNames=new Dictionary<string, Text>();
 		attributeValues=new Dictionary<string, Text>();
-		attributeExp=new Dictionary<string, Text>();
+		attributeExp=new Dictionary<string, Slider>();
 		trainingResultsList=new Dictionary<string, string[]>();
 		trainingResultsList.Add("Dribble Through Cones", new string[]{"Dribbling", "Passing"});
         trainingResultsList.Add("Individual Football Tennis", new string[] { "Stamina", "Passing" });
@@ -90,7 +90,7 @@ public class CareerManager : MonoBehaviour
 		{
 			Text name=attributesParent.transform.Find(kvp.Key).gameObject.GetComponent<Text>();
 			Text value=name.transform.FindChild("Value").gameObject.GetComponent<Text>();
-			Text exp=name.transform.FindChild("Exp").gameObject.GetComponent<Text>();
+			Slider exp=name.transform.FindChild("Exp").gameObject.GetComponent<Slider>();
 			name.text=kvp.Key;
 			attributeNames.Add(kvp.Key, name);
 			attributeValues.Add(kvp.Key, value);
@@ -165,7 +165,7 @@ public class CareerManager : MonoBehaviour
 		foreach(KeyValuePair<string, Text> k in attributeNames)
 		{
 			attributeValues[k.Key].text=CareerManager.gameInfo.playerStats.GetAttribute(k.Key).value.ToString();
-			attributeExp[k.Key].text=CareerManager.gameInfo.playerStats.GetAttribute(k.Key).currentExp.ToString();
+			attributeExp[k.Key].value=CareerManager.gameInfo.playerStats.GetAttribute(k.Key).GetCurrentExpPercent();
 		}
 	}
 
