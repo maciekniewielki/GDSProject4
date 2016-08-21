@@ -19,6 +19,7 @@ public class CareerManager : MonoBehaviour
 	public Text tableOfResults;
 	public Text leagueTableDisplay;
 	public Text playerName;
+	public Image playerNameBackground;
 
 	private Text dayDisplay;
 	private Text roundDisplay;
@@ -103,6 +104,8 @@ public class CareerManager : MonoBehaviour
 			leagueTableDisplay.text=gameInfo.calendar.ConvertToLeagueTableString();
 		}
 		UpdateAttributeInfo();
+		playerName.color=CareerManager.gameInfo.playerStats.currentTeam.textColor;
+		playerNameBackground.color=CareerManager.gameInfo.playerStats.currentTeam.bgColor;
 	}
 
 

@@ -5814,6 +5814,7 @@ MonoBehaviour:
   tableOfResults: {fileID: 1866336923}
   leagueTableDisplay: {fileID: 1250044355}
   playerName: {fileID: 532688064}
+  playerNameBackground: {fileID: 284341888}
 --- !u!1 &1122254489
 GameObject:
   m_ObjectHideFlags: 0
