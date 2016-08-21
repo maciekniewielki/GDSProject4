@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 	void Start () 
 	{
 		player=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		if(CareerManager.gameInfo.nextMatch==null||!CareerManager.gameInfo.nextMatch.leftTeam.name.Equals(CareerManager.gameInfo.playerStats.currentTeamName))
+		if(CareerManager.gameInfo.nextMatch==null||!CareerManager.gameInfo.nextMatch.leftTeam.name.Equals(CareerManager.gameInfo.playerStats.currentTeam.name))
 			stats = new MatchStatistics(CareerManager.gameInfo.nextMatch.rightTeam, CareerManager.gameInfo.nextMatch.leftTeam);
 		else
 			stats = new MatchStatistics(CareerManager.gameInfo.nextMatch.leftTeam, CareerManager.gameInfo.nextMatch.rightTeam);

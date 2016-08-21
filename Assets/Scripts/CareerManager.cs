@@ -111,8 +111,8 @@ public class CareerManager : MonoBehaviour
 		GameObject possibleStats=GameObject.Find("MatchStats");
 		if(possibleStats!=null)
 			Destroy(possibleStats);
-		gameInfo.calendar.CalculateScoreForWeek(currentRound-1, gameInfo.playerStats.currentTeamName);
-		gameInfo.nextMatch=gameInfo.calendar.GetWeekByNumber(currentRound-1).GetPlayerMatch(gameInfo.playerStats.currentTeamName);
+		gameInfo.calendar.CalculateScoreForWeek(currentRound-1, gameInfo.playerStats.currentTeam.name);
+		gameInfo.nextMatch=gameInfo.calendar.GetWeekByNumber(currentRound-1).GetPlayerMatch(gameInfo.playerStats.currentTeam.name);
 		SaveGame();
 		SceneManager.LoadScene("sampleGame");
 	}

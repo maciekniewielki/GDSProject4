@@ -7126,8 +7126,12 @@ MonoBehaviour:
     playerTeamPossessionTurns: 0
     playerTeam:
       pointsInLeague: 0
+      bgColor: {r: 0, g: 0, b: 0, a: 0}
+      textColor: {r: 0, g: 0, b: 0, a: 0}
     enemyTeam:
       pointsInLeague: 0
+      bgColor: {r: 0, g: 0, b: 0, a: 0}
+      textColor: {r: 0, g: 0, b: 0, a: 0}
     playerTeamYellows: 0
     enemyTeamYellows: 0
     playerTeamReds: 0
@@ -7147,8 +7151,12 @@ MonoBehaviour:
   player: {fileID: 1528338877}
   playerTeam:
     pointsInLeague: 0
+    bgColor: {r: 0, g: 0, b: 0, a: 0}
+    textColor: {r: 0, g: 0, b: 0, a: 0}
   enemyTeam:
     pointsInLeague: 0
+    bgColor: {r: 0, g: 0, b: 0, a: 0}
+    textColor: {r: 0, g: 0, b: 0, a: 0}
   gameSpeed: 0
   logs: {fileID: 1996962978}
   playerRestartMoveRemaining: 0
@@ -14383,7 +14391,10 @@ MonoBehaviour:
   position: {x: 0, y: 0}
   playerInfo:
     preferredPosition: {x: 0, y: 0}
-    currentTeam: 
+    currentTeam:
+      pointsInLeague: 0
+      bgColor: {r: 0, g: 0, b: 0, a: 0}
+      textColor: {r: 0, g: 0, b: 0, a: 0}
   maxEnergy: 0
   actionList: {fileID: 744601401}
   movedThisTurn: 0
@@ -17395,8 +17406,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalsTextDisplay: {fileID: 487601077}
-  homeTeamDisplay: {fileID: 2124362732}
-  awayTeamDisplay: {fileID: 2110820726}
+  homeTeamTextDisplay: {fileID: 2124362732}
+  awayTeamTextDisplay: {fileID: 2110820726}
+  homeTeamDisplay: {fileID: 1009706135}
+  awayTeamDisplay: {fileID: 2027140574}
   timerDisplay: {fileID: 440135854}
   energySlider: {fileID: 1919644087}
 --- !u!4 &1944452011
@@ -18349,8 +18362,12 @@ MonoBehaviour:
     playerTeamPossessionTurns: 0
     playerTeam:
       pointsInLeague: 0
+      bgColor: {r: 0, g: 0, b: 0, a: 0}
+      textColor: {r: 0, g: 0, b: 0, a: 0}
     enemyTeam:
       pointsInLeague: 0
+      bgColor: {r: 0, g: 0, b: 0, a: 0}
+      textColor: {r: 0, g: 0, b: 0, a: 0}
     playerTeamYellows: 0
     enemyTeamYellows: 0
     playerTeamReds: 0

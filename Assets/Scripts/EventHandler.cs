@@ -146,16 +146,18 @@ public class EventHandler : MonoBehaviour {
 		
 	public void StartingTeamChanged()
 	{
-		playerInfo.currentTeamName= teamsTextDropdown.text;
+		foreach(Team t in teams)
+			if(t.name.Equals(teamsTextDropdown.text))
+				playerInfo.currentTeam=t;
 	}
 
 	Team[] GenerateTeamLevels()
 	{
 		List<Team> teams=new List<Team>();;
-		teams.Add(new Team("Tutaj wpisz nazwe druzyny", 1,1,1));
-		teams.Add(new Team("Tutaj kolejna", 1,1,1));
-		teams.Add(new Team("Jeszcze jedna druzyna", 1,1,1));
-		teams.Add(new Team("I jeszcze jedna", 1,1,1));
+		teams.Add(new Team("Manchester United", 1,1,1, new Color(0xff/255f,0x00/255f,0x00/255f), new Color(0xff/255f,0xff/255f,0xff/255f)));
+		teams.Add(new Team("Manchester City", 1,1,1, new Color(0x00/255f,0xff/255f,0xff/255f), new Color(0x00/255f,0x00/255f,0x00/255f)));
+		//teams.Add(new Team("Jeszcze jedna druzyna", 1,1,1));
+		//teams.Add(new Team("I jeszcze jedna", 1,1,1));
 		return teams.ToArray();
 	}
 }

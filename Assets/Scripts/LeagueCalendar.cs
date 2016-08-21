@@ -35,7 +35,8 @@ public class LeagueCalendar
 		{
 			weeks[ii]=new MatchWeek(teamList, ii+1);
 			ShuffleMatches(weeks[ii].matches);
-			DoOneCycle(teamList);
+			if(ii!=len-2)
+				DoOneCycle(teamList);
 		}
 
 		return weeks;

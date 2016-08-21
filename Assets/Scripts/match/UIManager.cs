@@ -6,8 +6,10 @@ using System.Collections.Generic;
 public class UIManager : MonoBehaviour {
 
 	public Text goalsTextDisplay;
-	public Text homeTeamDisplay;
-	public Text awayTeamDisplay;
+	public Text homeTeamTextDisplay;
+	public Text awayTeamTextDisplay;
+	public Image homeTeamDisplay;
+	public Image awayTeamDisplay;
 	public Text timerDisplay;
 	public Slider energySlider;
 
@@ -42,6 +44,12 @@ public class UIManager : MonoBehaviour {
 			attributes.Add(k.Key, found);
 			attributeValues.Add(k.Key, found.transform.FindChild("Value").gameObject.GetComponent<Text>());
 		}
+
+		homeTeamDisplay.color=CareerManager.gameInfo.nextMatch.leftTeam.bgColor;
+		awayTeamDisplay.color=CareerManager.gameInfo.nextMatch.rightTeam.bgColor;
+		homeTeamTextDisplay.color=CareerManager.gameInfo.nextMatch.leftTeam.textColor;
+		awayTeamTextDisplay.color=CareerManager.gameInfo.nextMatch.rightTeam.textColor;
+		UpdateUI();
 	}
 
 	public void UpdateAttributes()
@@ -54,10 +62,10 @@ public class UIManager : MonoBehaviour {
 
 	void UpdateUI()
 	{
-		homeTeamDisplay.text=CareerManager.gameInfo.nextMatch.leftTeam.name;
-		awayTeamDisplay.text=CareerManager.gameInfo.nextMatch.rightTeam.name;
+		homeTeamTextDisplay.text=CareerManager.gameInfo.nextMatch.leftTeam.name;
+		awayTeamTextDisplay.text=CareerManager.gameInfo.nextMatch.rightTeam.name;
 		string goalsDisplay="";
-		if(CareerManager.gameInfo.playerStats.currentTeamName.Equals(CareerManager.gameInfo.nextMatch.leftTeam.name))
+		if(CareerManager.gameInfo.playerStats.currentTeam.name.Equals(CareerManager.gameInfo.nextMatch.leftTeam.name))
 			goalsDisplay=GameManager.instance.stats.playerTeamGoals+":"+GameManager.instance.stats.enemyTeamGoals;
 		else
 			goalsDisplay=GameManager.instance.stats.enemyTeamGoals+":"+GameManager.instance.stats.playerTeamGoals;

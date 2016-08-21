@@ -1,4 +1,6 @@
-﻿[System.Serializable]
+﻿using UnityEngine;
+
+[System.Serializable]
 public class Team
 {
     public string name {get; set; }
@@ -9,8 +11,10 @@ public class Team
 	public int midfieldYellowCards { get; set; }
 	public int attackYellowCards { get; set; }
 	public int pointsInLeague;
+	public Color bgColor;
+	public Color textColor;
 
-    public Team(string name, int defence=1, int midfield=1, int attack=1)
+	public Team(string name, int defence=1, int midfield=1, int attack=1, Color bgColor=default(Color), Color textColor=default(Color))
     {
 		this.pointsInLeague=0;
         this.name = name;
@@ -20,6 +24,8 @@ public class Team
 		this.defenceYellowCards=0;
 		this.midfieldYellowCards=0;
 		this.attackYellowCards=0;
+		this.bgColor=bgColor;
+		this.textColor=textColor;
     }
 
 	public void AddPoints(int points)
