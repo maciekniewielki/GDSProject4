@@ -449,4 +449,9 @@ public class CalculationsManager
 		return new Vector2(Random.Range(0,4), Random.Range(0,4));
 	}
 
+    public static float GetPercentageOfFirstValue(int first, int second)
+    {
+        return first * 1f / (first + second);
+    }
+
 }

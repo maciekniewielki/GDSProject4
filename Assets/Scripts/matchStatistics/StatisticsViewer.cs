@@ -8,13 +8,31 @@ public class StatisticsViewer : MonoBehaviour
 	public Text playerTeamNameDisplay;
 	public Text enemyTeamNameDisplay;
 	public Text score;
-    public Text TeamShots;
-    public Text TeamCorners;
-    public Text TeamFreeKicks;
-    public Text TeamThrowIns;
-    public Text TeamFouls;
-    public Text TeamYellows;
-    public Text TeamReds;
+
+    public Text playerTeamShots;
+    public Text playerTeamCorners;
+    public Text playerTeamFreeKicks;
+    public Text playerTeamThrowIns;
+    public Text playerTeamFouls;
+    public Text playerTeamYellows;
+    public Text playerTeamReds;
+
+    public Slider TeamShots;
+    public Slider TeamCorners;
+    public Slider TeamFreeKicks;
+    public Slider TeamThrowIns;
+    public Slider TeamFouls;
+    public Slider TeamYellows;
+    public Slider TeamReds;
+
+    public Text enemyTeamShots;
+    public Text enemyTeamCorners;
+    public Text enemyTeamFreeKicks;
+    public Text enemyTeamThrowIns;
+    public Text enemyTeamFouls;
+    public Text enemyTeamYellows;
+    public Text enemyTeamReds;
+
     public Text TeamNames;
     public Text ShotsSign;
     public Text PlayerName;
@@ -66,15 +84,31 @@ public class StatisticsViewer : MonoBehaviour
         TeamNames.text = stats.playerTeam.name + " - " + stats.enemyTeam.name;
 
         //Tabela statów drużyn
-        TeamShots.text = stats.playerTeamShots.ToString()+" - "+stats.enemyTeamShots.ToString();
-        TeamCorners.text = stats.playerTeamCorners.ToString() + " - " + stats.enemyTeamCorners.ToString();
-        TeamFreeKicks.text = stats.playerTeamFreeKicks.ToString() + " - " + stats.enemyTeamFreeKicks.ToString();
-        TeamThrowIns.text = stats.playerTeamThrowIns.ToString() + " - " + stats.enemyTeamThrowIns.ToString();
-        TeamFouls.text = stats.playerTeamFouls.ToString() + " - " + stats.enemyTeamFouls.ToString();
-        TeamYellows.text = stats.playerTeamYellows.ToString() + " - " + stats.enemyTeamYellows.ToString();
-        TeamReds.text = stats.playerTeamReds.ToString() + " - " + stats.enemyTeamReds.ToString();
-        
-		PlayerName.text=CareerManager.gameInfo.playerStats.playerName+" "+CareerManager.gameInfo.playerStats.playerSurname;
+        TeamShots.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamShots,stats.enemyTeamShots);
+        TeamCorners.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamCorners, stats.enemyTeamCorners);
+        TeamFreeKicks.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamFreeKicks, stats.enemyTeamFreeKicks);
+        TeamThrowIns.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamThrowIns, stats.enemyTeamThrowIns);
+        TeamFouls.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamFouls, stats.enemyTeamFouls);
+        TeamYellows.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamYellows, stats.enemyTeamYellows);
+        TeamReds.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamReds, stats.enemyTeamReds);
+
+        playerTeamShots.text = stats.playerTeamShots.ToString();
+        playerTeamCorners.text = stats.playerTeamCorners.ToString();
+        playerTeamFreeKicks.text = stats.playerTeamFreeKicks.ToString();
+        playerTeamThrowIns.text = stats.playerTeamThrowIns.ToString();
+        playerTeamFouls.text = stats.playerTeamFouls.ToString();
+        playerTeamYellows.text = stats.playerTeamYellows.ToString();
+        playerTeamReds.text = stats.playerTeamReds.ToString();
+
+        enemyTeamShots.text = stats.enemyTeamShots.ToString();
+        enemyTeamCorners.text = stats.enemyTeamCorners.ToString();
+        enemyTeamFreeKicks.text = stats.enemyTeamFreeKicks.ToString();
+        enemyTeamThrowIns.text= stats.enemyTeamThrowIns.ToString();
+        enemyTeamFouls.text = stats.enemyTeamFouls.ToString();
+        enemyTeamYellows.text = stats.enemyTeamYellows.ToString();
+        enemyTeamReds.text = stats.enemyTeamReds.ToString();
+
+        PlayerName.text=CareerManager.gameInfo.playerStats.playerName+" "+CareerManager.gameInfo.playerStats.playerSurname;
         //Tabela statów piłkarza
         PlayerGoals.text = "Goals: " + stats.playerGoals.ToString();
         playerShots.text = "Shots: " + CalculationsManager.StripVector2(stats.playerMoves["Shoot"]);
