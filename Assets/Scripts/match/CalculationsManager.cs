@@ -454,4 +454,31 @@ public class CalculationsManager
         return first * 1f / (first + second);
     }
 
+    public static decimal CalculatePlayerRating(MatchStatistics stats)
+    {
+        int movesTriedCount=0;
+        float percentSum=0;
+        foreach (KeyValuePair<string, Vector2> kvp in stats.playerMoves)
+        {
+            if (kvp.Value.y == 0)
+                continue;
+            ++movesTriedCount;
+            percentSum += kvp.Value.x / kvp.Value.y;
+        }
+
+        float baseScore;
+        if (movesTriedCount == 0)
+            baseScore = 0f;
+        else
+            baseScore = 100 * percentSum / movesTriedCount;
+        baseScore += stats.playerGoals * 20;
+        baseScore -= stats.playerFouls * 2.5f;
+        baseScore -= stats.playerYellows * 10;
+        baseScore -= stats.playerReds * 30;
+
+        baseScore = Mathf.Clamp(baseScore, 10, 100);
+
+        return decimal.Round((decimal)baseScore/10, 1);
+    }
+
 }

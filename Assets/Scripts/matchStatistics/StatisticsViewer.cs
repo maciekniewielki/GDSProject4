@@ -8,6 +8,7 @@ public class StatisticsViewer : MonoBehaviour
 	public Text playerTeamNameDisplay;
 	public Text enemyTeamNameDisplay;
 	public Text score;
+    public Text ratingText;
 
     public Text playerTeamShots;
     public Text playerTeamCorners;
@@ -54,10 +55,12 @@ public class StatisticsViewer : MonoBehaviour
 	public GameObject expGainedPrefab;
 
 	private MatchStatistics statisticsToView;
-    
+    private Slider[] comparisonBars;
 
     void Start()
 	{
+        comparisonBars = new Slider[] { TeamShots, TeamCorners, TeamFreeKicks, TeamThrowIns, TeamFouls, TeamYellows, TeamReds };
+
 		MatchStatistics stats= GameObject.Find("MatchStats").GetComponent<StatisticsManager>().endStatistics;
 
 		/*
@@ -78,10 +81,17 @@ public class StatisticsViewer : MonoBehaviour
 
 	public void ViewStatistics(MatchStatistics stats)
 	{
-		playerTeamNameDisplay.text=stats.playerTeam.name;
+        foreach (Slider s in comparisonBars)
+        {
+            s.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = stats.playerTeam.bgColor;
+            s.transform.Find("Background").GetComponent<Image>().color = stats.enemyTeam.bgColor;
+        }
+
+        playerTeamNameDisplay.text=stats.playerTeam.name;
 		enemyTeamNameDisplay.text=stats.enemyTeam.name;
 		score.text=stats.playerTeamGoals+":"+stats.enemyTeamGoals;
         TeamNames.text = stats.playerTeam.name + " - " + stats.enemyTeam.name;
+        ratingText.text = CalculationsManager.CalculatePlayerRating(stats).ToString();
 
         //Tabela statów drużyn
         TeamShots.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamShots,stats.enemyTeamShots);
@@ -126,10 +136,7 @@ public class StatisticsViewer : MonoBehaviour
         playerReds.text = "Red cards: " + stats.playerReds.ToString();
 
 		foreach(KeyValuePair<string, Vector2> kvp in stats.playerMoves)
-		{
-			Debug.Log("Penis");
 			CreateExpPopUp(kvp.Key);
-		}
 
     }
 
