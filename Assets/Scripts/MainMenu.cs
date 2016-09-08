@@ -73,4 +73,9 @@ public class MainMenu : MonoBehaviour
 		SaveLoad.currentlySelectedProfile = which;
 		SceneManager.LoadScene("charCreation");
 	}
+
+	public void QuitGameClicked()
+	{
+		Application.Quit();
+	}
 }
