@@ -5,15 +5,18 @@ using System.Collections.Generic;
 
 [System.Serializable]
 public class PlayerInfo
-{//
+{
 	//TODO add some more functionality
 
     public string playerName { get; set; }
     public string playerSurname { get; set; }
     public int playerAge { get; set; }
 	public Dictionary<string, Attribute> playerAttributes;
-	public Vector2 preferredPosition;
+	public SerializableVector2 preferredPosition;
 	public Team currentTeam;
+
+    private float preferredX;
+    private float preferredY;
 
 	public PlayerInfo()
 	{
@@ -29,6 +32,8 @@ public class PlayerInfo
 		p.playerAttributes=playerAttributes;
 		p.preferredPosition=preferredPosition;
 		p.currentTeam=currentTeam;
+        p.preferredX = preferredX;
+        p.preferredY = preferredY;
 		return p;
 	}
 

@@ -11,8 +11,8 @@ public class Team
 	public int midfieldYellowCards { get; set; }
 	public int attackYellowCards { get; set; }
 	public int pointsInLeague;
-	public Color bgColor;
-	public Color textColor;
+	public SerializableColor bgColor;
+	public SerializableColor textColor;
 
 	public Team(string name, int defence=1, int midfield=1, int attack=1, Color bgColor=default(Color), Color textColor=default(Color))
     {

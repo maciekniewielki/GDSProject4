@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+[System.Serializable]
 public class MatchResultContainer
 {
 	public Team leftTeam;
 	public Team rightTeam;
-	public Vector2 result;
+	public SerializableVector2 result;
 
 	public MatchResultContainer(Team leftTeam, Team rightTeam)
 	{
@@ -21,10 +21,8 @@ public class MatchResultContainer
 	public string ToString()
 	{
 		string s="";
-		if(result!=null)
-			s+=leftTeam.name+" "+result.x+":"+result.y+" "+rightTeam.name;
-		else
-			s+=leftTeam.name+" : "+rightTeam.name;
+
+		s+=leftTeam.name+" : "+rightTeam.name;
 		return s+"\n";
 	}
 

@@ -198,6 +198,7 @@ public class CareerManager : MonoBehaviour
 		gameInfo.wentToIndividualTraining=wentToIndividualTraining;
 		gameInfo.currentRound=currentRound;
 		gameInfo.currentWeekDay=currentDay;
+		SaveLoad.SaveGame();
 		Debug.Log("Saving game info:");
 		Debug.Log(gameInfo.ToString());
 	}

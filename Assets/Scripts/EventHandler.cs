@@ -114,6 +114,7 @@ public class EventHandler : MonoBehaviour {
 		CareerManager.gameInfo.playerStats=playerInfo.Clone();
 		Debug.Log("Saving statistics: ");
 		Debug.Log(playerInfo.ToString());
+        SaveLoad.SaveGame();
 		SceneManager.LoadScene("playerMenu");
     }
 
@@ -127,7 +128,6 @@ public class EventHandler : MonoBehaviour {
 
 	void HighlightField(Vector2 which)
 	{
-		Debug.Log("Highlighting " + which);
 		int index=Flatten(which);
 		fields[index].GetComponent<charCreationField>().Highlight();
 

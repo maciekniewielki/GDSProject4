@@ -33,7 +33,6 @@ public class charCreationField : MonoBehaviour, IPointerClickHandler
 
 	void OnMouseDown()
 	{
-		Debug.Log("Clicked!");
 		eventHandler.ClickedField(NameToVector(name));
 		
 	}

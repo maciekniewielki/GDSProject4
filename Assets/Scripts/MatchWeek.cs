@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+[System.Serializable]
 public class MatchWeek
 {
 	public int weekNumber;
@@ -45,7 +45,6 @@ public class MatchWeek
 	{
 		foreach(MatchResultContainer mrc in matches)
 		{
-			Debug.Log("Sprawdzam ."+mrc.leftTeam.name+". i ."+mrc.rightTeam.name+". z druzyna gracza: ."+playerTeamName+".");
 			if(mrc.ContainsTeamName(playerTeamName))
 				return mrc;
 		}
