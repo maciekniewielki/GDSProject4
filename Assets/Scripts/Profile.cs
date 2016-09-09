@@ -48,5 +48,10 @@ public class Profile
 	{
 		return lastSaveTime;
 	}
+
+	public void SetName(string name)
+	{
+		this.name = name;
+	}
 }
 

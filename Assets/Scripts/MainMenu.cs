@@ -8,6 +8,9 @@ public class MainMenu : MonoBehaviour
     public Text startButtonText;
 	public GameObject savePopUp;
 	public GameObject[] profiles;
+	public GameObject fade;
+	public GameObject profileNamePopUp;
+	public GameObject fadeAnchor;
 
 	void Awake()
 	{
@@ -52,30 +55,45 @@ public class MainMenu : MonoBehaviour
 		savePopUp.SetActive(true);
     }
 
+	public void SetCurrentProfileName(string name)
+	{
+		if(name.Equals(""))
+			return;
+		SaveLoad.savedProfiles[SaveLoad.currentlySelectedProfile].SetName(name);
+		StartNewGame();
+	}
 
 	public void ChooseSaveGame(int which)
 	{
+		SaveLoad.currentlySelectedProfile = which;
 		if(SaveLoad.CheckIfProfileIsEmpty(which))
-			StartNewGameOnProfile(which);
+		{
+			fade.transform.SetParent(fadeAnchor.transform);
+			fade.SetActive(true);
+			profileNamePopUp.SetActive(true);
+		}
 		else
 			ContinueGameOnProfile(which);
 	}
 
 	void ContinueGameOnProfile(int which)
 	{
-		SaveLoad.currentlySelectedProfile = which;
 		CareerManager.gameInfo = SaveLoad.LoadGame(which);
 		SceneManager.LoadScene("playerMenu");
 	}
 
 	void StartNewGameOnProfile(int which)
 	{
-		SaveLoad.currentlySelectedProfile = which;
 		SceneManager.LoadScene("charCreation");
 	}
 
 	public void QuitGameClicked()
 	{
 		Application.Quit();
+	}
+
+	public void StartNewGame()
+	{
+		SceneManager.LoadScene("charCreation");
 	}
 }

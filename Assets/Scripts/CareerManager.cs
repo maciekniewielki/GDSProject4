@@ -26,8 +26,6 @@ public class CareerManager : MonoBehaviour
 	private Button individualTraining;
 	private Button clubTraining;
 	private Text nextDayButtonText;
-	private bool wentToIndividualTraining;
-	private bool wentToClubTraining;
 	private GameObject attributesParent;
 	private Dictionary<string, Text> attributeNames;
 	private Dictionary<string, Text> attributeValues;
@@ -58,8 +56,6 @@ public class CareerManager : MonoBehaviour
 	{
 		currentDay=gameInfo.currentWeekDay;
 		currentRound=gameInfo.currentRound;
-		wentToClubTraining=gameInfo.wentToClubTraining;
-		wentToIndividualTraining=gameInfo.wentToIndividualTraining;
 		Debug.Log("Loading game info: ");
 		Debug.Log(gameInfo.ToString());
 
@@ -106,6 +102,7 @@ public class CareerManager : MonoBehaviour
 		UpdateAttributeInfo();
 		playerName.color=CareerManager.gameInfo.playerStats.currentTeam.textColor;
 		playerNameBackground.color=CareerManager.gameInfo.playerStats.currentTeam.bgColor;
+		CheckForDay();
 	}
 
 
@@ -122,8 +119,8 @@ public class CareerManager : MonoBehaviour
 
 	public void BeginNextDay()
 	{
-		wentToClubTraining=false;
-		wentToIndividualTraining=false;
+		gameInfo.wentToClubTraining=false;
+		gameInfo.wentToIndividualTraining=false;
 		++currentDay;
 		currentDay%=7;
 
@@ -152,11 +149,11 @@ public class CareerManager : MonoBehaviour
 		else
 		{
 			nextDayButtonText.text="Next Day";
-			if(wentToClubTraining)
+			if(gameInfo.wentToClubTraining)
 				clubTraining.interactable=false;
 			else
 				clubTraining.interactable=true;
-			if(wentToIndividualTraining)
+			if(gameInfo.wentToIndividualTraining)
 				individualTraining.interactable=false;
 			else
 				individualTraining.interactable=true;
@@ -176,7 +173,7 @@ public class CareerManager : MonoBehaviour
 	{
 		SetAllIndividualTrainingButtonsInteractable(true);
 		individualTrainingPopUp.SetActive(true);
-		wentToIndividualTraining=true;
+		gameInfo.wentToIndividualTraining=true;
 		CheckForDay();
 	}
 	public void GoToClubTraining()
@@ -188,14 +185,12 @@ public class CareerManager : MonoBehaviour
 		gameInfo.playerStats.playerAttributes[randomAttributeName].AddExp(randomExp);
 		UpdateAttributeInfo();
 		clubTrainingPopUp.SetActive(true);
-		wentToClubTraining=true;
+		gameInfo.wentToClubTraining=true;
 		CheckForDay();
 	}
 
 	void SaveGame()
 	{
-		gameInfo.wentToClubTraining=wentToClubTraining;
-		gameInfo.wentToIndividualTraining=wentToIndividualTraining;
 		gameInfo.currentRound=currentRound;
 		gameInfo.currentWeekDay=currentDay;
 		SaveLoad.SaveGame();

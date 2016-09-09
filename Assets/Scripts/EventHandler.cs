@@ -154,26 +154,26 @@ public class EventHandler : MonoBehaviour {
 	Team[] GenerateTeamLevels()
 	{
 		List<Team> teams=new List<Team>();;
-		teams.Add(new Team("Man Utd", 5,5,5, new Color(0xff/255f,0x00/255f,0x00/255f), new Color(0xff/255f,0xff/255f,0xff/255f)));
-		teams.Add(new Team("Man City", 5,5,5, new Color(0x00/255f,0xff/255f,0xff/255f), new Color(0x00/255f,0x00/255f,0x00/255f)));
-		teams.Add(new Team("Liverpool", 4,5,5,new Color(0xff / 255f, 0x00 / 255f, 0x00 / 255f), new Color(0xff / 255f, 0xff / 255f, 0xff / 255f)));
-        teams.Add(new Team("Chelsea", 5,5,4, new Color(0x56 / 255f, 0x89 / 255f, 0x255 / 255f), new Color(0xff / 255f, 0xff / 255f, 0xff / 255f)));
-        teams.Add(new Team("Hull City", 1, 2, 1, new Color(0x255 / 255f, 0x189 / 255f, 0x76 / 255f), new Color(0x00 / 255f, 0x00 / 255f, 0x00 / 255f)));
-        teams.Add(new Team("Swansea" , 3, 2, 2, new Color(0xff / 255f, 0xff / 255f, 0xff / 255f), new Color(0, 255, 0)));
-        teams.Add(new Team("West Bromwich", 2, 2, 2, new Color(255, 255, 255), new Color(0, 0, 128)));
-        teams.Add(new Team("Everton", 3, 4, 3, new Color(0, 0, 128), new Color(255, 255, 255)));
-        teams.Add(new Team("Middlesbrough", 3, 3, 3, new Color(220, 20, 60), new Color(255, 255, 255)));
-        teams.Add(new Team("Southampton", 3, 3, 3, new Color(255, 0, 0), new Color(255, 255, 255)));
-        teams.Add(new Team("Stoke", 2, 2, 3, new Color(255, 69, 0), new Color(255, 255, 255)));
-        teams.Add(new Team("Tottenham", 4, 4, 4, new Color(255, 255, 255), new Color(0, 0, 0)));
-        teams.Add(new Team("Watford", 2, 2, 3, new Color(255, 255, 0), new Color(255, 0, 0)));
-        teams.Add(new Team("Arsenal", 4, 5, 5, new Color(255, 0, 0), new Color(255, 255, 255)));
-        teams.Add(new Team("Leicester", 4, 4, 4, new Color(0, 0, 205), new Color(255, 255, 255)));
-        teams.Add(new Team("Sunderland", 3, 2, 3, new Color(255, 255, 255), new Color(178, 34, 34)));
-        teams.Add(new Team("West Ham", 4, 3, 3, new Color(0, 191, 255), new Color(178, 34, 34)));
-        teams.Add(new Team("Burnley", 2, 2, 1, new Color(0, 255, 255), new Color(139, 0, 0)));
-        teams.Add(new Team("Crystal Palace", 1, 1, 2, new Color(0, 0, 255), new Color(255, 0, 0)));
-        teams.Add(new Team("Bournemouth", 1, 2, 1, new Color(255, 69, 0), new Color(255, 0, 0)));
+		teams.Add(new Team("Man Utd", 5,5,5, new SerializableColor(255,00,00), new SerializableColor(255,255,255)));
+		teams.Add(new Team("Man City", 5,5,5, new SerializableColor(00,255,255), new SerializableColor(00,00,00)));
+		teams.Add(new Team("Liverpool", 4,5,5,new SerializableColor(255 , 00 , 00 ), new SerializableColor(255 , 255 , 255 )));
+        teams.Add(new Team("Chelsea", 5,5,4, new SerializableColor(56 , 89 , 255 ), new SerializableColor(255 , 255 , 255 )));
+        teams.Add(new Team("Hull City", 1, 2, 1, new SerializableColor(255 , 189 , 76 ), new SerializableColor(00 , 00 , 00 )));
+        teams.Add(new Team("Swansea" , 3, 2, 2, new SerializableColor(255 , 255 , 255 ), new SerializableColor(0, 255, 0)));
+        teams.Add(new Team("West Bromwich", 2, 2, 2, new SerializableColor(255, 255, 255), new SerializableColor(0, 0, 128)));
+        teams.Add(new Team("Everton", 3, 4, 3, new SerializableColor(0, 0, 128), new SerializableColor(255, 255, 255)));
+        teams.Add(new Team("Middlesbrough", 3, 3, 3, new SerializableColor(220, 20, 60), new SerializableColor(255, 255, 255)));
+        teams.Add(new Team("Southampton", 3, 3, 3, new SerializableColor(255, 0, 0), new SerializableColor(255, 255, 255)));
+        teams.Add(new Team("Stoke", 2, 2, 3, new SerializableColor(255, 69, 0), new SerializableColor(255, 255, 255)));
+        teams.Add(new Team("Tottenham", 4, 4, 4, new SerializableColor(255, 255, 255), new SerializableColor(0, 0, 0)));
+        teams.Add(new Team("Watford", 2, 2, 3, new SerializableColor(255, 255, 0), new SerializableColor(255, 0, 0)));
+        teams.Add(new Team("Arsenal", 4, 5, 5, new SerializableColor(255, 0, 0), new SerializableColor(255, 255, 255)));
+        teams.Add(new Team("Leicester", 4, 4, 4, new SerializableColor(0, 0, 205), new SerializableColor(255, 255, 255)));
+        teams.Add(new Team("Sunderland", 3, 2, 3, new SerializableColor(255, 255, 255), new SerializableColor(178, 34, 34)));
+        teams.Add(new Team("West Ham", 4, 3, 3, new SerializableColor(0, 191, 255), new SerializableColor(178, 34, 34)));
+        teams.Add(new Team("Burnley", 2, 2, 1, new SerializableColor(0, 255, 255), new SerializableColor(139, 0, 0)));
+        teams.Add(new Team("Crystal Palace", 1, 1, 2, new SerializableColor(0, 0, 255), new SerializableColor(255, 0, 0)));
+        teams.Add(new Team("Bournemouth", 1, 2, 1, new SerializableColor(255, 69, 0), new SerializableColor(255, 0, 0)));
         return teams.ToArray();
 	}
 }
