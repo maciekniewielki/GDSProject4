@@ -22,7 +22,7 @@ public class MatchResultContainer
 	{
 		string s="";
 
-		s+=leftTeam.name+" : "+rightTeam.name;
+		s+=leftTeam.name+" "+result.x+":"+result.y+" "+rightTeam.name;
 		return s+"\n";
 	}
 

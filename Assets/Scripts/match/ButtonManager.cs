@@ -3,41 +3,42 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 
-public class ButtonManager : MonoBehaviour 
+public class ButtonManager : MonoBehaviour
 {
 	//TODO add finishshoot implementation
 
 	public GameObject buttonParent;
 
 	private Dictionary<string, Button> buttons;
-	private string[] stageButtons={"passButton", "crossButton", "dribbleButton", "moveButton", "outButton"};
+	private string[] stageButtons = { "passButton", "crossButton", "dribbleButton", "moveButton", "outButton" };
 	private PitchManager pitch;
 
 	private bool shortOut;
 
-	void Start () 
+	void Start()
 	{
-		GameManager.instance.onFreeKickBegin+=SetFreeKickButtonToPressed;
-		GameManager.instance.onTurnStart+=SetCurrentlyAvailable;
-		GameManager.instance.onCornerEnd+=SetCurrentlyAvailable;
-		GameManager.instance.onCornerBegin+=OnRestartMoveBegin;
-		GameManager.instance.onOutBegin+=OnRestartMoveBegin;
-		GameManager.instance.onPlayerTurnEnd+=SetCurrentlyAvailable;
-		GameManager.instance.onPlayerTurnStart+=SetCurrentlyAvailable;
-		GameManager.instance.onMatchEnd+=SetCurrentlyAvailable;
-		GameManager.instance.onPause+=OnGamePause;
-		GameManager.instance.onUnpause+=OnGamePause;
-		GameManager.instance.onHardPause+=OnGamePause;
-		GameManager.instance.onHardUnpause+=OnGamePause;
-		GameManager.instance.onHalfTime+=OnHalfTime;
-		pitch=GameObject.Find("Pitch").GetComponent<PitchManager>();
-		buttons=new Dictionary<string, Button>();
-		foreach(Button g in buttonParent.transform.GetComponentsInChildren<Button>() )
+		GameManager.instance.onFreeKickBegin += SetFreeKickButtonToPressed;
+		GameManager.instance.onTurnStart += SetCurrentlyAvailable;
+		GameManager.instance.onCornerEnd += SetCurrentlyAvailable;
+		GameManager.instance.onCornerBegin += OnRestartMoveBegin;
+		GameManager.instance.onOutBegin += OnRestartMoveBegin;
+		GameManager.instance.onPlayerTurnEnd += SetCurrentlyAvailable;
+		GameManager.instance.onPlayerTurnStart += SetCurrentlyAvailable;
+		GameManager.instance.onMatchEnd += SetCurrentlyAvailable;
+		GameManager.instance.onMatchEnd += TurnOffTheStartButton;
+		GameManager.instance.onPause += OnGamePause;
+		GameManager.instance.onUnpause += OnGamePause;
+		GameManager.instance.onHardPause += OnGamePause;
+		GameManager.instance.onHardUnpause += OnGamePause;
+		GameManager.instance.onHalfTime += OnHalfTime;
+		pitch = GameObject.Find("Pitch").GetComponent<PitchManager>();
+		buttons = new Dictionary<string, Button>();
+		foreach(Button g in buttonParent.transform.GetComponentsInChildren<Button>())
 			buttons.Add(g.name, g);
 
 		InitButtons();
 	}
-		
+
 	public void InitButtons()
 	{
 		SetButtonText("startButton", "Play match");
@@ -47,7 +48,7 @@ public class ButtonManager : MonoBehaviour
 	{
 		SetCurrentlyAvailable();
 	}
-		
+
 	void OnHalfTime()
 	{
 		OnGamePause();
@@ -56,28 +57,28 @@ public class ButtonManager : MonoBehaviour
 
 	void OnRestartMoveBegin()
 	{
-		if(GameManager.instance.nextAction.isPlayerPerforming&&GameManager.instance.nextAction.type==RestartActionType.CORNER)
+		if(GameManager.instance.nextAction.isPlayerPerforming && GameManager.instance.nextAction.type == RestartActionType.CORNER)
 			SetInteractable("cornerButton", true);
-		else if(GameManager.instance.nextAction.isPlayerPerforming&&GameManager.instance.nextAction.type==RestartActionType.OUT)
+		else if(GameManager.instance.nextAction.isPlayerPerforming && GameManager.instance.nextAction.type == RestartActionType.OUT)
 			SetInteractable("outButton", true);
 	}
 
 	public void SetInteractableToAll(bool val)
 	{
 		foreach(KeyValuePair<string, Button> pair in buttons)
-			pair.Value.interactable=val;
+			pair.Value.interactable = val;
 	}
 
 	public void SetInteractable(string which, bool val)
 	{
-		buttons[which].interactable=val;
+		buttons[which].interactable = val;
 	}
 
 	public void SetColorToPressed(string which)
 	{
-		ColorBlock colors=buttons[which].colors;
-		colors.pressedColor=colors.normalColor;
-		buttons[which].colors=colors;
+		ColorBlock colors = buttons[which].colors;
+		colors.pressedColor = colors.normalColor;
+		buttons[which].colors = colors;
 	}
 
 	public void SetFreeKickButtonToPressed()
@@ -87,7 +88,7 @@ public class ButtonManager : MonoBehaviour
 
 	public void SetButtonText(string which, string txt)
 	{
-		buttons[which].GetComponentInChildren<Text>().text=txt;
+		buttons[which].GetComponentInChildren<Text>().text = txt;
 	}
 
 	public void SetCurrentlyAvailable()
@@ -98,7 +99,7 @@ public class ButtonManager : MonoBehaviour
 		SetInteractable("startButton", true);
 
 
-		if(GameManager.instance.currentMinute!=46)
+		if(GameManager.instance.currentMinute != 46)
 		{
 			if(GameManager.instance.gameStarted)
 			{
@@ -112,23 +113,23 @@ public class ButtonManager : MonoBehaviour
 				SetButtonText("startButton", "Play Match");
 		}
 			
-		if(GameManager.instance.IsGamePaused()||GameManager.instance.player.IsEnergyDepleted()||GameManager.instance.player.contusion!=null||GameManager.instance.player.HasRed())
+		if(GameManager.instance.IsGamePaused() || GameManager.instance.player.IsEnergyDepleted() || GameManager.instance.player.contusion != null || GameManager.instance.player.HasRed())
 			return;
 
-		if(!GameManager.instance.playerHasBall&&!GameManager.instance.playerRestartMoveRemaining&&!GameManager.instance.IsGamePaused()&&!GameManager.instance.player.movedThisTurn)
+		if(!GameManager.instance.playerHasBall && !GameManager.instance.playerRestartMoveRemaining && !GameManager.instance.IsGamePaused() && !GameManager.instance.player.movedThisTurn)
 			SetInteractable("moveButton", true);
 
 		if(GameManager.instance.IsPlayerWaitingForRestart())
 		{
-			if(GameManager.instance.nextAction.type==RestartActionType.CORNER)
+			if(GameManager.instance.nextAction.type == RestartActionType.CORNER)
 				SetInteractable("cornerButton", true);
-			else if(GameManager.instance.nextAction.type==RestartActionType.OUT)
+			else if(GameManager.instance.nextAction.type == RestartActionType.OUT)
 				SetInteractable("outButton", true);
-			else if(GameManager.instance.nextAction.type==RestartActionType.HEAD)
+			else if(GameManager.instance.nextAction.type == RestartActionType.HEAD)
 				SetInteractable("headButton", true);
-			else if(GameManager.instance.nextAction.type==RestartActionType.FREEKICK)
+			else if(GameManager.instance.nextAction.type == RestartActionType.FREEKICK)
 				SetInteractable("freekickButton", true);
-			else if(GameManager.instance.nextAction.type==RestartActionType.PENALTY)
+			else if(GameManager.instance.nextAction.type == RestartActionType.PENALTY)
 				SetInteractable("penaltyButton", true);
 			return;
 		}
@@ -154,9 +155,9 @@ public class ButtonManager : MonoBehaviour
 
 	public void Click(string which)
 	{
-		if((which.First().ToString().ToUpper()+which.Substring(1)).Remove(which.Length-6).Equals("Head"))
+		if((which.First().ToString().ToUpper() + which.Substring(1)).Remove(which.Length - 6).Equals("Head"))
 		{
-			if(GameManager.instance.nextAction.source==Vector2.right)
+			if(GameManager.instance.nextAction.source == Vector2.right)
 				GameManager.instance.MakeMove("Head", Vector2.right);
 			else
 			{
@@ -192,17 +193,17 @@ public class ButtonManager : MonoBehaviour
 			{
 				pitch.UnHighlightEverything();
 				SetInteractable(which, false);
-				move=(which.First().ToString().ToUpper()+which.Substring(1)).Remove(which.Length-6);
+				move = (which.First().ToString().ToUpper() + which.Substring(1)).Remove(which.Length - 6);
 			}
 			else
 			{
-				shortOut=!shortOut;
+				shortOut = !shortOut;
 				if(shortOut)
-					move="Out";
+					move = "Out";
 				else
-					move="LongOut";
+					move = "LongOut";
 			}
-			Debug.Log("Selected move: "+move);
+			Debug.Log("Selected move: " + move);
 
 			if(move.Equals("Move"))
 				GameManager.instance.Pause();
@@ -212,6 +213,11 @@ public class ButtonManager : MonoBehaviour
 
 		}
 		
+	}
+
+	void TurnOffTheStartButton()
+	{
+		SetInteractable("startButton", false);
 	}
 
 }

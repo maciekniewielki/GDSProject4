@@ -23,6 +23,7 @@ public class CareerManager : MonoBehaviour
 
 	private Text dayDisplay;
 	private Text roundDisplay;
+	private Text SeasonDisplay;
 	private Button individualTraining;
 	private Button clubTraining;
 	private Text nextDayButtonText;
@@ -61,6 +62,7 @@ public class CareerManager : MonoBehaviour
 
 		roundDisplay=GameObject.Find("roundDisplay").GetComponent<Text>();
 		dayDisplay=GameObject.Find("dayDisplay").GetComponent<Text>();
+		SeasonDisplay = GameObject.Find("seasonDisplay").GetComponent<Text>();
 		individualTraining=GameObject.Find("individualTraining").GetComponent<Button>();
 		clubTraining=GameObject.Find("clubTraining").GetComponent<Button>();
 		nextDayButtonText=GameObject.Find("nextDayButtonText").GetComponent<Text>();
@@ -138,6 +140,7 @@ public class CareerManager : MonoBehaviour
 
 	void CheckForDay()
 	{
+		SeasonDisplay.text = "Season " + gameInfo.currentSeason;
 		roundDisplay.text="Round " + currentRound;
 		dayDisplay.text=week[currentDay];
 		if(currentDay==6)
@@ -237,6 +240,11 @@ public class CareerManager : MonoBehaviour
 	{
 		foreach(Button b in individualTrainingButtonsParent.GetComponentsInChildren<Button>())
 			b.interactable=interactable;
+	}
+
+	public static bool CheckForLeagueEnd()
+	{
+		return gameInfo.currentRound >= gameInfo.calendar.weeks.Length+1;
 	}
 }
 

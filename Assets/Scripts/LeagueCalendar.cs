@@ -11,6 +11,7 @@ public class LeagueCalendar
 	public LeagueCalendar(Team []teams)
 	{
 		this.teams=teams;
+		ResetTeamsScore();
 		weeks=new MatchWeek[teams.Length*2-2];
 		MatchWeek[] firstMatches=GenerateWeeks(teams);
 		MatchWeek[] secondLegMatches=GenerateWeeks(teams);
@@ -121,5 +122,11 @@ public class LeagueCalendar
 			
 			
 		return s;
+	}
+
+	public void ResetTeamsScore()
+	{
+		foreach(Team t in teams)
+			t.pointsInLeague = 0;
 	}
 }

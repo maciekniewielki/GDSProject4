@@ -109,7 +109,7 @@ public class EventHandler : MonoBehaviour {
 		string[] teamNames=teamsDropdown.options.Select(o => o.text).ToArray();
 		for (int ii = 0; ii < teamNames.Length; ii++)
 			teams[ii]=new Team(teamNames[ii]);*/
-		CareerManager.gameInfo.calendar=new LeagueCalendar(teams);
+		CareerManager.gameInfo.calendar=new LeagueCalendar(new Team[]{teams[0], teams[1]});
 		playerInfo.playerAttributes=playerAttributes;
 		CareerManager.gameInfo.playerStats=playerInfo.Clone();
 		Debug.Log("Saving statistics: ");

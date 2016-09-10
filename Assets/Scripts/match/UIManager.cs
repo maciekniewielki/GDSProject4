@@ -3,7 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class UIManager : MonoBehaviour {
+public class UIManager : MonoBehaviour 
+{
 
 	public Text goalsTextDisplay;
 	public Text homeTeamTextDisplay;
@@ -83,5 +84,5 @@ public class UIManager : MonoBehaviour {
 	{
 		energySlider.value=GameManager.instance.player.GetEnergy();
 	}
-		
+
 }

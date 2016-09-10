@@ -18,4 +18,12 @@ public class SceneSwitcher : MonoBehaviour
 		SceneManager.LoadScene(name);
 	}
 
+	public void SwitchSceneToPlayerMenuAndCheckForLeagueEnd()
+	{
+		if(CareerManager.CheckForLeagueEnd())
+			SceneManager.LoadScene("leagueEndStatistics");
+		else
+			SwitchSceneTo("playerMenu");
+	}
+
 }
