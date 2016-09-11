@@ -451,7 +451,10 @@ public class CalculationsManager
 
     public static float GetPercentageOfFirstValue(int first, int second)
     {
-        return first * 1f / (first + second);
+        if (first == 0 && second == 0)
+            return 0.5f;
+        else
+            return first * 1f / (first + second);
     }
 
     public static decimal CalculatePlayerRating(MatchStatistics stats)

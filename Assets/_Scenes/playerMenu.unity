@@ -13,7 +13,7 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 7
+  serializedVersion: 6
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 7
+  serializedVersion: 6
   m_GIWorkflowMode: 1
+  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -53,22 +53,17 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 4
+    serializedVersion: 3
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
-    m_AO: 0
     m_AOMaxDistance: 1
-    m_CompAOExponent: 0
-    m_CompAOExponentDirect: 0
     m_Padding: 2
+    m_CompAOExponent: 0
     m_LightmapParameters: {fileID: 0}
-    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
-    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
   m_LightingDataAsset: {fileID: 0}
@@ -649,8 +644,8 @@ RectTransform:
   m_RootOrder: 10
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 64, y: 446.25}
-  m_SizeDelta: {x: 415, y: 127.5}
+  m_AnchoredPosition: {x: 187, y: 446.25}
+  m_SizeDelta: {x: 662, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &134543966
 MonoBehaviour:
@@ -4376,7 +4371,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 960306107}
   m_HandleRect: {fileID: 0}
@@ -4387,7 +4382,18 @@ MonoBehaviour:
   m_Value: 30.9
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &898919543
@@ -5729,8 +5735,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000022888, y: 37}
-  m_SizeDelta: {x: 374, y: 52}
+  m_AnchoredPosition: {x: -145, y: 32}
+  m_SizeDelta: {x: 324, y: 52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1073928883
 MonoBehaviour:
@@ -6219,13 +6225,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   week:
-  - Monday
-  - Tuesday
-  - Wednesday
-  - Thursday
-  - Friday
-  - Saturday
-  - Sunday
+  - 4d6f6e646179
+  - 54756573646179
+  - 5765646e6573646179
+  - 5468757273646179
+  - 467269646179
+  - 5361747572646179
+  - 53756e646179
   currentDay: 0
   currentRound: 0
   clubTrainingPopUp: {fileID: 740741174}
@@ -6238,6 +6244,13 @@ MonoBehaviour:
   leagueTableDisplay: {fileID: 1250044355}
   playerName: {fileID: 532688064}
   playerNameBackground: {fileID: 284341888}
+  dayDisplay: {fileID: 0}
+  roundDisplay: {fileID: 0}
+  SeasonDisplay: {fileID: 0}
+  individualTraining: {fileID: 0}
+  clubTraining: {fileID: 0}
+  nextDayButtonText: {fileID: 0}
+  attributesParent: {fileID: 0}
 --- !u!1 &1122254489
 GameObject:
   m_ObjectHideFlags: 0
@@ -7169,8 +7182,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 417, y: 0}
-  m_SizeDelta: {x: 307, y: 95}
+  m_AnchoredPosition: {x: 171, y: 0}
+  m_SizeDelta: {x: 282, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1277520151
 MonoBehaviour:
@@ -7193,11 +7206,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 5
-    m_MaxSize: 50
+    m_MaxSize: 60
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -10695,8 +10708,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015258789, y: -26.00003}
-  m_SizeDelta: {x: 374, y: 52}
+  m_AnchoredPosition: {x: -144.99998, y: -26.00003}
+  m_SizeDelta: {x: 324, y: 52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1916047311
 MonoBehaviour:
