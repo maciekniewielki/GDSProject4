@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class CareerManager : MonoBehaviour 
 {
-	public string[] week=new string[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    public string[] week;
 	public int currentDay;
 	public int currentRound;
 	public static GameInformation gameInfo;
@@ -35,7 +35,9 @@ public class CareerManager : MonoBehaviour
 
 	void Awake()
 	{
-		if(GameObject.FindGameObjectsWithTag("CareerManager").Length>1)
+        week = new string[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+        if (GameObject.FindGameObjectsWithTag("CareerManager").Length>1)
 			Destroy(this.gameObject);
 	}
 
@@ -143,6 +145,7 @@ public class CareerManager : MonoBehaviour
 		SeasonDisplay.text = "Season " + gameInfo.currentSeason;
 		roundDisplay.text="Round " + currentRound;
 		dayDisplay.text=week[currentDay];
+        Debug.Log(week[currentDay]);
 		if(currentDay==6)
 		{
 			individualTraining.interactable=false;
@@ -167,8 +170,16 @@ public class CareerManager : MonoBehaviour
 	{
 		foreach(KeyValuePair<string, Text> k in attributeNames)
 		{
-			attributeValues[k.Key].text=CareerManager.gameInfo.playerStats.GetAttribute(k.Key).value.ToString();
-			attributeExp[k.Key].value=CareerManager.gameInfo.playerStats.GetAttribute(k.Key).GetCurrentExpPercent();
+            Attribute currentAttribute = CareerManager.gameInfo.playerStats.GetAttribute(k.Key);
+            attributeValues[k.Key].text=currentAttribute.value.ToString();
+
+            if (currentAttribute.IsLastLevelReached())
+            {
+                attributeExp[k.Key].value = 0f;
+                attributeExp[k.Key].transform.Find("Background").GetComponent<Image>().color = new Color(0f, 0f, 1f);
+            }
+            else
+                attributeExp[k.Key].value = currentAttribute.GetCurrentExpPercent();
 		}
 	}
 

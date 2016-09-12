@@ -51,6 +51,7 @@ public class StatisticsViewer : MonoBehaviour
     public Text playerFouls;
     public Text playerYellows;
     public Text playerReds;
+    public Text playerTurnsOnPitch;
 
 	public GameObject expGainedPrefab;
 
@@ -74,9 +75,9 @@ public class StatisticsViewer : MonoBehaviour
 
 		statisticsToView=stats;
 		ViewStatistics(stats);
-		//Debug.Log(stats.playerMoves["Dribble"]);
-		//CalculationsManager.stripVector2(stats.playerMoves["Dribble"]);
-		//stats.playerMoves["Dribble"].x+"/"+stats.playerMoves["Dribble"].y;
+        //Debug.Log(stats.playerMoves["Dribble"]);
+        //CalculationsManager.stripVector2(stats.playerMoves["Dribble"]);
+        //stats.playerMoves["Dribble"].x+"/"+stats.playerMoves["Dribble"].y;
 	}
 
 	public void ViewStatistics(MatchStatistics stats)
@@ -120,6 +121,7 @@ public class StatisticsViewer : MonoBehaviour
 
         PlayerName.text=CareerManager.gameInfo.playerStats.playerName+" "+CareerManager.gameInfo.playerStats.playerSurname;
         //Tabela statów piłkarza
+        playerTurnsOnPitch.text = "Time Alive: " + stats.playerTurnsOnPitch;
         PlayerGoals.text = "Goals: " + stats.playerGoals.ToString();
         playerShots.text = "Shots: " + CalculationsManager.StripVector2(stats.playerMoves["Shoot"]);
         playerLongShots.text = "Long Shots: " + CalculationsManager.StripVector2(stats.playerMoves["LongShot"]);

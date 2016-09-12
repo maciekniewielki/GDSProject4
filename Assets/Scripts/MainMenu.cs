@@ -79,7 +79,10 @@ public class MainMenu : MonoBehaviour
 	void ContinueGameOnProfile(int which)
 	{
 		CareerManager.gameInfo = SaveLoad.LoadGame(which);
-		SceneManager.LoadScene("playerMenu");
+        if (CareerManager.CheckForLeagueEnd())
+            SceneManager.LoadScene("leagueEndStatistics");
+        else
+		    SceneManager.LoadScene("playerMenu");
 	}
 
 	void StartNewGameOnProfile(int which)

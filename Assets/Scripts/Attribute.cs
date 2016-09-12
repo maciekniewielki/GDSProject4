@@ -56,10 +56,18 @@ public class Attribute
 
 	public float GetCurrentExpPercent()
 	{
+        if (value >= maxValue)
+            return 100f;
+
 		float currentLevelExp=CalculationsManager.GetStartingExpByLevel(value);
 		float nextLevelExp=CalculationsManager.GetStartingExpByLevel(value+1);
 		float percent=(currentExp-currentLevelExp)*100f/(nextLevelExp-currentLevelExp);
 
 		return percent;
 	}
+
+    public bool IsLastLevelReached()
+    {
+        return value >= maxValue;
+    }
 }

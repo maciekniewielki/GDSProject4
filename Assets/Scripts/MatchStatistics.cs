@@ -31,6 +31,7 @@ public class MatchStatistics
 	public int playerYellows;
 	public int playerReds;
 	public int playerFouls;
+    public int playerTurnsOnPitch;
 
 	public string[] possiblePlayerMoves;
 
@@ -50,6 +51,7 @@ public class MatchStatistics
 		this.enemyTeamPossessionTurns=0;
 		this.playerTeam=playerTeam;
 		this.enemyTeam=enemyTeam;
+        this.playerTurnsOnPitch = 90;
     }
 
     override

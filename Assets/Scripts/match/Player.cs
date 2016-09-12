@@ -404,10 +404,13 @@ public class Player : MonoBehaviour
 
 	public void SetEnergy(float val)
 	{
+        if (energyDepleted)
+            return;
 		if(val<=0)
 		{
 			energy=0;
 			energyDepleted=true;
+            GameManager.instance.stats.playerTurnsOnPitch = GameManager.instance.currentMinute;
 			SetInvolvement(1);
 			if(onEnergyDeplete!=null)
 				onEnergyDeplete();
