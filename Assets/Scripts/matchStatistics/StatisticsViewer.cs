@@ -92,7 +92,10 @@ public class StatisticsViewer : MonoBehaviour
 		enemyTeamNameDisplay.text=stats.enemyTeam.name;
 		score.text=stats.playerTeamGoals+":"+stats.enemyTeamGoals;
         TeamNames.text = stats.playerTeam.name + " - " + stats.enemyTeam.name;
-        ratingText.text = CalculationsManager.CalculatePlayerRating(stats).ToString();
+        if (stats.playerTurnsOnPitch <= 15)
+            ratingText.text = "N/A";
+        else
+            ratingText.text = CalculationsManager.CalculatePlayerRating(stats).ToString();
 
         //Tabela statów drużyn
         TeamShots.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamShots,stats.enemyTeamShots);

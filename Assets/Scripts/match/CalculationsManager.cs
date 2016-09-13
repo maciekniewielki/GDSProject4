@@ -479,6 +479,8 @@ public class CalculationsManager
         baseScore -= stats.playerYellows * 10;
         baseScore -= stats.playerReds * 30;
 
+        baseScore *= (100 + (90 - stats.playerTurnsOnPitch)) / 100;
+
         baseScore = Mathf.Clamp(baseScore, 10, 100);
 
         return decimal.Round((decimal)baseScore/10, 1);
