@@ -26,7 +26,14 @@ public class StatisticsManager : MonoBehaviour
 	void SaveStatistics()
 	{
 		endStatistics=GameManager.instance.stats;
-		if(CareerManager.gameInfo.playerStats.currentTeam.name.Equals(CareerManager.gameInfo.nextMatch.leftTeam.name))
+        endStatistics.playerTeamShots += (int)(endStatistics.playerMoves["Shoot"].y + endStatistics.playerMoves["Long Shot"].y);
+        endStatistics.playerTeamCorners += (int)endStatistics.playerMoves["Corner"].y;
+        endStatistics.playerTeamFreeKicks += (int)endStatistics.playerMoves["FreeKick"].y;
+        endStatistics.playerTeamThrowIns += (int)endStatistics.playerMoves["Out"].y;
+        endStatistics.playerTeamFouls += GameManager.instance.player.GetFouls();
+        endStatistics.playerTeamYellows += GameManager.instance.player.GetYellowCards();
+        endStatistics.playerTeamReds += GameManager.instance.player.GetRedCards();
+        if (CareerManager.gameInfo.playerStats.currentTeam.name.Equals(CareerManager.gameInfo.nextMatch.leftTeam.name))
 			CareerManager.gameInfo.nextMatch.result=new Vector2(endStatistics.playerTeamGoals, endStatistics.enemyTeamGoals);
 		else
 			CareerManager.gameInfo.nextMatch.result=new Vector2(endStatistics.enemyTeamGoals, endStatistics.playerTeamGoals);

@@ -496,4 +496,27 @@ public class Player : MonoBehaviour
 	{
 		foulsCount++;
 	}
+
+    public int GetFouls()
+    {
+        return foulsCount;
+    }
+
+    public int GetYellowCards()
+    {
+        if (redBecauseYellow)
+            return 2;
+        else if (hasYellow)
+            return 1;
+        else
+            return 0;
+    }
+
+    public int GetRedCards()
+    {
+        if (hasRed)
+            return 1;
+        else
+            return 0;
+    }
 }
