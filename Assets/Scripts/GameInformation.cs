@@ -12,6 +12,7 @@ public class GameInformation
 	public PlayerInfo playerStats;
 	public LeagueCalendar calendar;
 	public MatchResultContainer nextMatch;
+    public CareerStatistics careerStatistics;
 
 
 	public GameInformation (int currentSeason=1, int currentRound=1, int currentWeekDay=0, PlayerInfo playerStats=default(PlayerInfo), bool wentToIndividualTraining=false, bool wentToClubTraining=false)
@@ -22,6 +23,7 @@ public class GameInformation
 		this.currentRound = currentRound;
 		this.currentWeekDay = currentWeekDay;
 		this.playerStats = playerStats;
+        this.careerStatistics = new CareerStatistics();
 	}
 
 	override

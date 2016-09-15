@@ -26,7 +26,7 @@ public class StatisticsManager : MonoBehaviour
 	void SaveStatistics()
 	{
 		endStatistics=GameManager.instance.stats;
-        endStatistics.playerTeamShots += (int)(endStatistics.playerMoves["Shoot"].y + endStatistics.playerMoves["Long Shot"].y);
+        endStatistics.playerTeamShots += (int)(endStatistics.playerMoves["Shoot"].y + endStatistics.playerMoves["LongShot"].y);
         endStatistics.playerTeamCorners += (int)endStatistics.playerMoves["Corner"].y;
         endStatistics.playerTeamFreeKicks += (int)endStatistics.playerMoves["FreeKick"].y;
         endStatistics.playerTeamThrowIns += (int)endStatistics.playerMoves["Out"].y;
@@ -37,6 +37,8 @@ public class StatisticsManager : MonoBehaviour
 			CareerManager.gameInfo.nextMatch.result=new Vector2(endStatistics.playerTeamGoals, endStatistics.enemyTeamGoals);
 		else
 			CareerManager.gameInfo.nextMatch.result=new Vector2(endStatistics.enemyTeamGoals, endStatistics.playerTeamGoals);
+
+        CareerManager.gameInfo.careerStatistics.UpdateInformation(endStatistics);
 	}
 
 	void Save()

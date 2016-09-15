@@ -23,4 +23,19 @@ public struct SerializableVector2
 	{
 		return new SerializableVector2(rValue.x, rValue.y);
 	}
+
+    public static SerializableVector2 operator+(SerializableVector2 leftValue ,SerializableVector2 rightValue)
+    {
+        return new SerializableVector2(leftValue.x + rightValue.x, leftValue.y + rightValue.y);
+    }
+
+    public static SerializableVector2 operator+(SerializableVector2 leftValue, Vector2 rightValue)
+    {
+        return new SerializableVector2(leftValue.x + rightValue.x, leftValue.y + rightValue.y);
+    }
+
+    public static SerializableVector2 operator+(Vector2 leftValue, SerializableVector2 rightValue)
+    {
+        return new SerializableVector2(leftValue.x + rightValue.x, leftValue.y + rightValue.y);
+    }
 }
