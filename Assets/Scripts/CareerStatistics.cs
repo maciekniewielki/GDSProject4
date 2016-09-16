@@ -8,6 +8,7 @@ public class CareerStatistics
     public int matchesPlayed;
     public Dictionary<string, SerializableVector2> playerMoves { get; set; }
     public int playerGoals { get; set; }
+
     public int playerYellows;
     public int playerReds;
     public int playerFouls;

@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class CareerStatisticsViewer : MonoBehaviour 
 {
+    public Text PlayerName;
+    public Text playerTeamName;
+
     public Text PlayerGoals;
     public Text playerShots;
     public Text playerPassess;
@@ -27,10 +30,13 @@ public class CareerStatisticsViewer : MonoBehaviour
 	{
         stats = CareerManager.gameInfo.careerStatistics;
         ViewStatistics(stats);
-	}
+    }
 
     void ViewStatistics(CareerStatistics s)
     {
+        PlayerName.text = CareerManager.gameInfo.playerStats.playerName + " " + CareerManager.gameInfo.playerStats.playerSurname;
+        playerTeamName.text = CareerManager.gameInfo.playerStats.currentTeam.name;
+
         playerTurnsOnPitch.text = "Minutes played: " + s.playerTurnsOnPitch;
         PlayerGoals.text = "Goals: " + s.playerGoals.ToString();
         playerShots.text = "Shots: " + CalculationsManager.StripVector2(s.playerMoves["Shoot"]);
