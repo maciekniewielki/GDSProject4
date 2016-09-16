@@ -18,8 +18,9 @@ public class EventHandler : MonoBehaviour {
     private int remainingPoints = 20;
 	private PlayerInfo playerInfo;
 	private Team[] teams;
+    public AudioSource kick;
 
-	void Awake()
+    void Awake()
 	{
 		playerInfo=new PlayerInfo();
 		CareerManager.gameInfo=new GameInformation();
@@ -71,7 +72,7 @@ public class EventHandler : MonoBehaviour {
 			playerAttributes[which.name].IncrementStartingAttributeValue();
             which.text=playerAttributes[which.name].name+": "+playerAttributes[which.name].value;
             remainingPointsText.text="Remaining points: "+ --remainingPoints;
-            
+            kick.Play();
         }
         
     }
@@ -82,6 +83,7 @@ public class EventHandler : MonoBehaviour {
 			playerAttributes[which.name].DecrementStartingAttributeValue();
             which.text = playerAttributes[which.name].name + ": " + playerAttributes[which.name].value;
             remainingPointsText.text = "Remaining points: " + ++remainingPoints;
+            kick.Play();
         }
 
     }
