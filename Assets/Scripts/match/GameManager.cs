@@ -288,49 +288,82 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(4f/gameSpeed);
 		EndComputerTurn();
 	}
-		
 
-	void ComputerAttack()
-	{
-		Vector2 destination=CalculationsManager.GetRandomAttackingPosition(ballPosition, possession);
-		SetBallPosition(destination);
-		if(onComputerAttack!=null)
-			onComputerAttack();
-	}
+    void EndComputerTurn()
+    {
+        EndTurn();
+    }
 
-	void EndComputerTurn()
-	{
-		EndTurn();
-	}
+    #region ComputerMoves
+    void ComputerAttack()
+    {
+        Comments.Log(CommentsEnum.COM_ATTACK);
 
-	public void ComputerShoot()
-	{
-		if(CalculationsManager.IsComputerShootSuccessful(possession))
-		{
-			Goal(false, possession);
-		}
-		else
-		{
-			Miss(false, possession);
-		}
-		ChangeBallPossession(CalculationsManager.OtherSide(possession));
-	}
-		
+        Vector2 destination = CalculationsManager.GetRandomAttackingPosition(ballPosition, possession);
+        SetBallPosition(destination);
+        if (onComputerAttack != null)
+            onComputerAttack();
+    }
 
-	public void ComputerPenalty()
-	{
-		if(CalculationsManager.IsComputerShootSuccessful(possession))
-		{
-			Goal(false, possession);
-		}
-		else
-		{
-			Miss(false, possession);
-		}
-		ChangeBallPossession(CalculationsManager.OtherSide(possession));
-	}
+    public void ComputerShoot()
+    {
+        if (CalculationsManager.IsComputerShootSuccessful(possession))
+        {
+            Comments.Log(CommentsEnum.COM_SHOOT_SUCCESS);
+            Goal(false, possession);
+        }
+        else
+        {
+            Comments.Log(CommentsEnum.COM_SHOOT_FAIL);
+            Miss(false, possession);
+        }
+        ChangeBallPossession(CalculationsManager.OtherSide(possession));
+    }
 
-	public void SetSelectedMove(string move)
+
+    public void ComputerPenalty()
+    {
+        if (CalculationsManager.IsComputerShootSuccessful(possession))
+        {
+            Comments.Log(CommentsEnum.COM_PENALTY_SUCCESS);
+            Goal(false, possession);
+        }
+        else
+        {
+            Comments.Log(CommentsEnum.COM_PENALTY_FAIL);
+            Miss(false, possession);
+        }
+        ChangeBallPossession(CalculationsManager.OtherSide(possession));
+    }
+
+    void ComputerCorner()
+    {
+        if (CalculationsManager.IsComputerCornerSuccessful(possession))
+        {
+            player.actionList.cornerCPU.subActions[1].MakeAction();
+        }
+        else
+        {
+            player.actionList.cornerCPU.subActions[0].MakeAction();
+        }
+        EndCPURestartMove();
+    }
+
+    void ComputerFreeKick()
+    {
+        if (CalculationsManager.IsComputerShootSuccessful(possession))
+        {
+            player.actionList.FreeKickCPU.subActions[1].MakeAction();
+        }
+        else
+        {
+            player.actionList.FreeKickCPU.subActions[0].MakeAction();
+        }
+        EndCPURestartMove();
+    } 
+    #endregion
+
+    public void SetSelectedMove(string move)
 	{
 		selectedMove=move;
 	}
@@ -535,32 +568,6 @@ public class GameManager : MonoBehaviour
 	{
 		SetBallPosition(Vector2.right);
 		Invoke("ComputerCorner", 4f/gameSpeed);
-	}
-
-	void ComputerCorner()
-	{
-		if(CalculationsManager.IsComputerCornerSuccessful(possession))
-		{
-			player.actionList.cornerCPU.subActions[1].MakeAction();
-		}
-		else
-		{
-			player.actionList.cornerCPU.subActions[0].MakeAction();
-		}
-		EndCPURestartMove();
-	}
-
-	void ComputerFreeKick()
-	{
-		if(CalculationsManager.IsComputerShootSuccessful(possession))
-		{
-			player.actionList.FreeKickCPU.subActions[1].MakeAction();
-		}
-		else
-		{
-			player.actionList.FreeKickCPU.subActions[0].MakeAction();
-		}
-		EndCPURestartMove();
 	}
 
 	void EndCPURestartMove()
