@@ -37,13 +37,13 @@ public class ActionsList: MonoBehaviour
 		TreeAction udanyDoPartneraStrzal=new TreeAction(1f, null, true, "Partner strzela noga po dosrodkowaniu", ComputerShoot, checkTypes.PLAYER_ON_PENALTY, 0.6f);
 
 		TreeAction udanyDoGracza=new TreeAction(0.0f, new TreeAction[]{udanyDoGraczaGlowa, udanyDoGraczaNoga}, false, "", null, checkTypes.PLAYER_ON_PENALTY, 0.4f);
-		TreeAction udany=new TreeAction(0.4f, new TreeAction[]{udanyDoGracza, udanyDoPartneraStrzal});
+		TreeAction udany=new TreeAction(0.4f, new TreeAction[]{udanyDoGracza, udanyDoPartneraStrzal}, false, "");
 		//celny end
 
 		//niecelny begin
 		TreeAction nieudany=new TreeAction(0.4f, null, true, "Przeciwnik przejmuje pilke", EnemyBall);
 		//niecelny end
-		cornerCPU=new TreeAction(2f, new TreeAction[]{nieudany, udany});
+		cornerCPU=new TreeAction(2f, new TreeAction[]{nieudany, udany}, false, "");
 		//niecelny end
 		//cornerCPUend
 	}
@@ -56,13 +56,13 @@ public class ActionsList: MonoBehaviour
         TreeAction celnyBramkarzChwyta = new TreeAction(0.1f, null, true, "Bramkarz broni! Źle wykonany karny!", EnemyBall);
         TreeAction celnyBramkarzWybija = new TreeAction(0.15f, null, true, "Nie ma gola! Bramkarz wyczuł strzelającego! Rzut rożny.", OurBall);
 
-        TreeAction celny = new TreeAction(0.4f, new TreeAction[] { celnyBramkarzNieBroni, celnyBramkarzChwyta, celnyBramkarzWybija });
+        TreeAction celny = new TreeAction(0.4f, new TreeAction[] { celnyBramkarzNieBroni, celnyBramkarzChwyta, celnyBramkarzWybija }, false, "");
         //celny end
 
         //niecelny begin
         TreeAction niecelny = new TreeAction(0.4f, null, true, "Pudło! Zmarnowany karny!", EnemyBall);
         //niecelny end
-        Penalty = new TreeAction(2f, new TreeAction[] { niecelny, celny });
+        Penalty = new TreeAction(2f, new TreeAction[] { niecelny, celny }, false, "");
         //penalty end
     }
 
@@ -75,15 +75,15 @@ public class ActionsList: MonoBehaviour
 		TreeAction udanyDrugiSektorDoGracza=new TreeAction(0.8f, null, true, "Gracz otrzymuje piłkę po długiej wrzutce z autu", OurBall);
         TreeAction udanyDrugiSektorDoPartnera=new TreeAction(0.2f, null, true, "Partnerzy otrzymują piłkę po długiej wrzutce z autu", OurBall);
 
-        TreeAction udanyPierwszySektor = new TreeAction(0.8f, new TreeAction[] { udanyPierwszySektorDoGracza, udanyPierwszySektorDoPartnera });
-        TreeAction udanyDrugiSektor = new TreeAction(0.2f, new TreeAction[] { udanyDrugiSektorDoGracza, udanyDrugiSektorDoPartnera });
-        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyPierwszySektor, udanyDrugiSektor });
+        TreeAction udanyPierwszySektor = new TreeAction(0.8f, new TreeAction[] { udanyPierwszySektorDoGracza, udanyPierwszySektorDoPartnera }, false, "");
+        TreeAction udanyDrugiSektor = new TreeAction(0.2f, new TreeAction[] { udanyDrugiSektorDoGracza, udanyDrugiSektorDoPartnera }, false, "");
+        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyPierwszySektor, udanyDrugiSektor }, false, "");
         //udany end
 
         //nieudany begin
         TreeAction nieudany = new TreeAction(0.4f, null, true, "Źle wykonany aut, rywal przy piłce", EnemyBall);
         //nieudany end
-        ThrowInCPU = new TreeAction(2f, new TreeAction[] { nieudany, udany });
+        ThrowInCPU = new TreeAction(2f, new TreeAction[] { nieudany, udany }, false, "");
         //ThrowInCPUend
     }
 
@@ -97,7 +97,7 @@ public class ActionsList: MonoBehaviour
         //nieudany begin
         TreeAction nieudany = new TreeAction(0.4f, null, true, "Zła wrzutka z autu, piłka trafia do rywali", EnemyBall);
         //nieudany end
-        ThrowIn = new TreeAction(2f, new TreeAction[] { nieudany, udany });
+        ThrowIn = new TreeAction(2f, new TreeAction[] { nieudany, udany }, false, "");
         //ThrowInPlayer end
     }
 
@@ -112,19 +112,19 @@ public class ActionsList: MonoBehaviour
         TreeAction udanyCelnyOdbijaZaLinieLewyRozny = new TreeAction(0.5f, null, true, "Dobry rzut wolny, ale bramkarz wybil za linie. Lewy rozny", LeftCorner);
         TreeAction udanyDoPartnera = new TreeAction(0.4f, null, true, "Dobre podanie z rzutu wolnego, partner przy piłce!", OurBall);
 
-        TreeAction udanyCelnyOdbijaZaLinie = new TreeAction(0.6f, new TreeAction[] { udanyCelnyOdbijaZaLinieLewyRozny, udanyCelnyOdbijaZaLiniePrawyRozny });
-        TreeAction udanyCelnyOdbija = new TreeAction(0.3f, new TreeAction[] { udanyCelnyOdbijaDoPartnera, udanyCelnyOdbijaDoRywala, udanyCelnyOdbijaZaLinie });
-        TreeAction udanyCelny = new TreeAction(0.6f, new TreeAction[] { udanyCelnyGol, udanyCelnyOdbija });
-        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyCelny, udanyDoPartnera });
+        TreeAction udanyCelnyOdbijaZaLinie = new TreeAction(0.6f, new TreeAction[] { udanyCelnyOdbijaZaLinieLewyRozny, udanyCelnyOdbijaZaLiniePrawyRozny }, false, "");
+        TreeAction udanyCelnyOdbija = new TreeAction(0.3f, new TreeAction[] { udanyCelnyOdbijaDoPartnera, udanyCelnyOdbijaDoRywala, udanyCelnyOdbijaZaLinie }, false, "");
+        TreeAction udanyCelny = new TreeAction(0.6f, new TreeAction[] { udanyCelnyGol, udanyCelnyOdbija }, false, "");
+        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyCelny, udanyDoPartnera }, false, "");
         //udany end
 
         //nieudany begin
         TreeAction nieudanyBramkarzLapie = new TreeAction(0.8f, null, true, "Nieudany rzut wolny, piłka w rękach bramkarza", EnemyBall);
         TreeAction nieudanyDoRywala = new TreeAction(0.2f, null, true, "Nieudany rzut wolny, piłka trafia do rywali", EnemyBall);
 
-        TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyBramkarzLapie, nieudanyDoRywala });
+        TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyBramkarzLapie, nieudanyDoRywala }, false, "");
         //nieudany end
-        FreeKick = new TreeAction(2f, new TreeAction[] { nieudany, udany });
+        FreeKick = new TreeAction(2f, new TreeAction[] { nieudany, udany }, false, "");
         //FreeKick Player end
     }
 
@@ -144,22 +144,22 @@ public class ActionsList: MonoBehaviour
 		TreeAction udanyDoPartneraStrzal = new TreeAction(1f, null, true, "Podanie z wolnego do partnera, ten oddaje strzał!", ComputerShoot, checkTypes.PLAYER_ON_PENALTY, 0.3f);
 
 		TreeAction udanyCelnyOdbijaDruzynaGracz = new TreeAction(0.0f, new TreeAction[] { udanyCelnyOdbijaDruzynaGraczGlowa, udanyCelnyOdbijaDruzynaGraczNoga }, false, "", null, checkTypes.PLAYER_ON_PENALTY, 0.7f);
-        TreeAction udanyCelnyOdbijaDruzyna = new TreeAction(0.15f, new TreeAction[] { udanyCelnyOdbijaDruzynaGracz, udanyCelnyOdbijaDruzynaPartner });
-        TreeAction udanyCelnyOdbijaZaLinie = new TreeAction(0.6f, new TreeAction[] { udanyCelnyOdbijaZaLinieLewyRozny, udanyCelnyOdbijaZaLiniePrawyRozny });
-        TreeAction udanyCelnyOdbija = new TreeAction(0.3f, new TreeAction[] { udanyCelnyOdbijaDruzyna, udanyCelnyOdbijaDoRywala, udanyCelnyOdbijaZaLinie });
-        TreeAction udanyCelny = new TreeAction(0.6f, new TreeAction[] { udanyCelnyGol, udanyCelnyOdbija });
+        TreeAction udanyCelnyOdbijaDruzyna = new TreeAction(0.15f, new TreeAction[] { udanyCelnyOdbijaDruzynaGracz, udanyCelnyOdbijaDruzynaPartner }, false, "");
+        TreeAction udanyCelnyOdbijaZaLinie = new TreeAction(0.6f, new TreeAction[] { udanyCelnyOdbijaZaLinieLewyRozny, udanyCelnyOdbijaZaLiniePrawyRozny }, false, "");
+        TreeAction udanyCelnyOdbija = new TreeAction(0.3f, new TreeAction[] { udanyCelnyOdbijaDruzyna, udanyCelnyOdbijaDoRywala, udanyCelnyOdbijaZaLinie }, false, "");
+        TreeAction udanyCelny = new TreeAction(0.6f, new TreeAction[] { udanyCelnyGol, udanyCelnyOdbija }, false, "");
 		TreeAction udanyDoPartneraGracz = new TreeAction(0.0f, new TreeAction[] { udanyDoPartneraGraczGlowa, udanyDoPartneraGraczNoga }, false, "", null, checkTypes.PLAYER_ON_PENALTY, 0.7f);
-        TreeAction udanyDoPartnera = new TreeAction(0.4f, new TreeAction[] { udanyDoPartneraGracz, udanyDoPartneraStrzal });
-        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyCelny, udanyDoPartnera });
+        TreeAction udanyDoPartnera = new TreeAction(0.4f, new TreeAction[] { udanyDoPartneraGracz, udanyDoPartneraStrzal }, false, "");
+        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyCelny, udanyDoPartnera }, false, "");
         //udany end
 
         //nieudany begin
         TreeAction nieudanyBramkarzLapie = new TreeAction(0.8f, null, true, "Nieudany rzut wolny, piłka w rękach bramkarza", EnemyBall);
         TreeAction nieudanyDoRywala = new TreeAction(0.2f, null, true, "Nieudany rzut wolny, piłka trafia do rywali", EnemyBall);
 
-        TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyBramkarzLapie, nieudanyDoRywala });
+        TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyBramkarzLapie, nieudanyDoRywala }, false, "");
         //nieudany end
-        FreeKickCPU = new TreeAction(2f, new TreeAction[] { nieudany, udany });
+        FreeKickCPU = new TreeAction(2f, new TreeAction[] { nieudany, udany }, false, "");
         //FreeKickCPU end
     }
 
@@ -176,11 +176,11 @@ public class ActionsList: MonoBehaviour
 		TreeAction udanyFaulNaCzerwonaBezKontuzji = new TreeAction(0.7f, null, true, "Świetny drybling przerwany faulem. Będzie czerwona kartka!", FoulRed);
 		TreeAction udanyFaulNaCzerwonaKontuzja = new TreeAction(0.3f, null, true, "Świetny drybling przerwany faulem. Jest czerwona kartka i kontuzja", FoulContusionRed);
 
-        TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja });
-        TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja });
-        TreeAction udanyFaulNaCzerwona = new TreeAction(0.05f, new TreeAction[] { udanyFaulNaCzerwonaBezKontuzji, udanyFaulNaCzerwonaKontuzja });
+        TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja }, false, "");
+        TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja }, false, "");
+        TreeAction udanyFaulNaCzerwona = new TreeAction(0.05f, new TreeAction[] { udanyFaulNaCzerwonaBezKontuzji, udanyFaulNaCzerwonaKontuzja }, false, "");
 		TreeAction udanyFaul = new TreeAction(0.2f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.15f); //0.2f
-        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyRywalWybija, udanyPrzejscie, udanyFaul });
+        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyRywalWybija, udanyPrzejscie, udanyFaul }, false, "");
         //udany end
 
         //nieudany begin
@@ -190,9 +190,9 @@ public class ActionsList: MonoBehaviour
         TreeAction nieudanyKopaninaPartner = new TreeAction(0.5f, null, true, "Kiepski drybling, piłka szczęśliwie trafia po odbiciu do partnera", OurBall);
 
 		TreeAction nieudanyKopanina = new TreeAction(0.25f, new TreeAction[] { nieudanyKopaninaRywal, nieudanyKopaninaPartner }, false, "", null, checkTypes.BALL_ON_SIDES, 0.2f);
-        TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyGraczWybija, nieudanyStrata, nieudanyKopanina });
+        TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyGraczWybija, nieudanyStrata, nieudanyKopanina }, false, "");
         //nieudany end
-        Dribbling = new TreeAction(2f, new TreeAction[] { nieudany, udany });
+        Dribbling = new TreeAction(2f, new TreeAction[] { nieudany, udany }, false, "");
         //dribbling end
     }
 
@@ -209,11 +209,11 @@ public class ActionsList: MonoBehaviour
 		TreeAction udanyFaulNaCzerwonaBezKontuzji = new TreeAction(0.7f, null, true, "Rywal nas fauluje w walce. Będzie czerwona kartka!", FoulRed);
 		TreeAction udanyFaulNaCzerwonaKontuzja = new TreeAction(0.3f, null, true, "Rywal nas fauluje w walce. Jest czerwona kartka i kontuzja", FoulContusionRed);
 
-        TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja });
-        TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja });
-        TreeAction udanyFaulNaCzerwona = new TreeAction(0.05f, new TreeAction[] { udanyFaulNaCzerwonaBezKontuzji, udanyFaulNaCzerwonaKontuzja });
+        TreeAction udanyFaulZwykly = new TreeAction(0.75f, new TreeAction[] { udanyFaulZwyklyBezKontuzji, udanyFaulZwyklyKontuzja }, false, "");
+        TreeAction udanyFaulNaZolta = new TreeAction(0.2f, new TreeAction[] { udanyFaulNaZoltaBezKontuzji, udanyFaulNaZoltaKontuzja }, false, "");
+        TreeAction udanyFaulNaCzerwona = new TreeAction(0.05f, new TreeAction[] { udanyFaulNaCzerwonaBezKontuzji, udanyFaulNaCzerwonaKontuzja }, false, "");
 		TreeAction udanyFaul = new TreeAction(0.2f, new TreeAction[] { udanyFaulZwykly, udanyFaulNaZolta, udanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.15f);
-        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyRywalWybija, udanyOdbior, udanyFaul });
+        TreeAction udany = new TreeAction(0.6f, new TreeAction[] { udanyRywalWybija, udanyOdbior, udanyFaul }, false, "");
         //udany end
 
         //nieudany begin
@@ -224,9 +224,9 @@ public class ActionsList: MonoBehaviour
 		TreeAction nieudanyFaulNaCzerwona = new TreeAction(0.05f, null, true, "Kiepski odbiór, faulujemy rywala. Czerwona kartka", PlayerRed);
 
 		TreeAction nieudanyFaul = new TreeAction(0.25f, new TreeAction[] { nieudanyFaulZwykly, nieudanyFaulNaZolta, nieudanyFaulNaCzerwona }, false, "", null, checkTypes.BALL_ON_SIDES, 0.2f);
-        TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyGraczWybija, nieudanyMija, nieudanyFaul });
+        TreeAction nieudany = new TreeAction(0.4f, new TreeAction[] { nieudanyGraczWybija, nieudanyMija, nieudanyFaul }, false, "");
         //nieudany end
-        Tackle = new TreeAction(2f, new TreeAction[] { nieudany, udany });
+        Tackle = new TreeAction(2f, new TreeAction[] { nieudany, udany }, false, "");
         //Tackle end
     }
 
@@ -234,7 +234,13 @@ public class ActionsList: MonoBehaviour
 	{
 		//shoot begin
 		//celny begin
-		TreeAction celnyGol=new TreeAction(0.55f, null, true, "Bramkarz nie wybronil, gooool!", CelnyGol);
+		TreeAction celnyGol=new TreeAction(0.55f, null, true, new string[] 
+        {
+            "Bramkarz nie wybronil, gooool!",
+            "Goooool!",
+            "Gol!",
+            "Pilka w siatce!"
+        }, CelnyGol);
 		TreeAction celnyBroniChwyta=new TreeAction(0.3f, null, true, "Strzal celny, ale bramkarz lapie pilke", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoRywala=new TreeAction(0.15f, null, true, "Strzal celny, ale bramkarz wypiastkowal do swojego", EnemyBall);
 		TreeAction celnyBroniPiastkujeDoNas=new TreeAction(0.85f, null, true, "Strzal celny, ale bramkarz wypiastkowal do nas", OurBall);
@@ -252,16 +258,16 @@ public class ActionsList: MonoBehaviour
 		TreeAction celnyTrafiaNaszegoOpanowuje=new TreeAction(0.15f, null, true, "Strzal celny, ale pilka trafia naszego, ktory ja opanowuje", OurBall);
 		TreeAction celnyTrafiaNaszegoOdbicieDoSektorowObok=new TreeAction(0.1f, null, true, "Strzal celny, ale pilka trafia naszego i leci na jedno z otaczajacych pol", RandomAdjacementField);
 
-		TreeAction celnyBroniPiastkuje=new TreeAction(0.1f, new TreeAction[]{celnyBroniPiastkujeDoNas, celnyBroniPiastkujeDoRywala});
-		TreeAction celnyBroniOdbija=new TreeAction(0.25f, new TreeAction[]{celnyBroniOdbijaDoNas, celnyBroniOdbijaDoRywala});
-		TreeAction celnyBroniZaLinie=new TreeAction(0.35f, new TreeAction[]{celnyBroniZaLinieRoznyLewy, celnyBroniZaLinieRoznyPrawy});
-		TreeAction celnyTrafiaRywalaZaLinie=new TreeAction(0.6f, new TreeAction[]{celnyTrafiaRywalaZaLinieLewyRozny, celnyTrafiaRywalaZaLiniePrawyRozny});
+		TreeAction celnyBroniPiastkuje=new TreeAction(0.1f, new TreeAction[]{celnyBroniPiastkujeDoNas, celnyBroniPiastkujeDoRywala}, false, "");
+		TreeAction celnyBroniOdbija=new TreeAction(0.25f, new TreeAction[]{celnyBroniOdbijaDoNas, celnyBroniOdbijaDoRywala}, false, "");
+		TreeAction celnyBroniZaLinie=new TreeAction(0.35f, new TreeAction[]{celnyBroniZaLinieRoznyLewy, celnyBroniZaLinieRoznyPrawy}, false, "");
+		TreeAction celnyTrafiaRywalaZaLinie=new TreeAction(0.6f, new TreeAction[]{celnyTrafiaRywalaZaLinieLewyRozny, celnyTrafiaRywalaZaLiniePrawyRozny}, false, "");
 
-		TreeAction celnyBroni=new TreeAction(0.25f, new TreeAction[]{celnyBroniChwyta, celnyBroniPiastkuje, celnyBroniOdbija, celnyBroniZaLinie});
-		TreeAction celnyTrafiaRywala=new TreeAction(0.15f, new TreeAction[]{celnyTrafiaRywalaZaLinie, celnyTrafiaRywalaOpanowuje, celnyTrafiaRywalaDoNas, celnyTrafiaRywalaOdbicieDoSektorowObok});
-		TreeAction celnyTrafiaNaszego=new TreeAction(0.05f, new TreeAction[]{celnyTrafiaNaszegoZaLinie, celnyTrafiaNaszegoDoRywala, celnyTrafiaNaszegoOpanowuje, celnyTrafiaNaszegoOdbicieDoSektorowObok});
+		TreeAction celnyBroni=new TreeAction(0.25f, new TreeAction[]{celnyBroniChwyta, celnyBroniPiastkuje, celnyBroniOdbija, celnyBroniZaLinie}, false, "");
+		TreeAction celnyTrafiaRywala=new TreeAction(0.15f, new TreeAction[]{celnyTrafiaRywalaZaLinie, celnyTrafiaRywalaOpanowuje, celnyTrafiaRywalaDoNas, celnyTrafiaRywalaOdbicieDoSektorowObok}, false, "");
+		TreeAction celnyTrafiaNaszego=new TreeAction(0.05f, new TreeAction[]{celnyTrafiaNaszegoZaLinie, celnyTrafiaNaszegoDoRywala, celnyTrafiaNaszegoOpanowuje, celnyTrafiaNaszegoOdbicieDoSektorowObok}, false, "");
 
-		TreeAction celny=new TreeAction(0.5f, new TreeAction[]{celnyGol, celnyBroni, celnyTrafiaRywala, celnyTrafiaNaszego});
+		TreeAction celny=new TreeAction(0.5f, new TreeAction[]{celnyGol, celnyBroni, celnyTrafiaRywala, celnyTrafiaNaszego}, false, "");
 		//celny end
 
 		//niecelny begin
@@ -275,16 +281,16 @@ public class ActionsList: MonoBehaviour
 		TreeAction nieCelnyPoprzeczkaOdbijaDoRywala=new TreeAction(0.1f, null, true, "Strzal byl niecelny, ale pilka odbila sie od poprzeczki do rywali", EnemyBall);
 		TreeAction nieCelnyPoprzeczkaOdbijaZaLinie=new TreeAction(0.8f, null, true, "Strzal byl niecelny, pilka odbila sie od poprzeczki i poleciala za linie", EnemyBall);
 
-		TreeAction nieCelnySlupekOdbija=new TreeAction(0.7f, new TreeAction[]{nieCelnySlupekOdbijaDoNas, nieCelnySlupekOdbijaDoRywala, nieCelnySlupekOdbijaZaLinie});
-		TreeAction nieCelnyPoprzeczkaOdbija=new TreeAction(0.8f, new TreeAction[]{nieCelnyPoprzeczkaOdbijaDoNas, nieCelnyPoprzeczkaOdbijaDoRywala, nieCelnyPoprzeczkaOdbijaZaLinie});
+		TreeAction nieCelnySlupekOdbija=new TreeAction(0.7f, new TreeAction[]{nieCelnySlupekOdbijaDoNas, nieCelnySlupekOdbijaDoRywala, nieCelnySlupekOdbijaZaLinie}, false, "");
+		TreeAction nieCelnyPoprzeczkaOdbija=new TreeAction(0.8f, new TreeAction[]{nieCelnyPoprzeczkaOdbijaDoNas, nieCelnyPoprzeczkaOdbijaDoRywala, nieCelnyPoprzeczkaOdbijaZaLinie}, false, "");
 
-		TreeAction nieCelnySlupek=new TreeAction(0.1f, new TreeAction[]{nieCelnySlupekOdbija, nieCelnySlupekDoBramki});
-		TreeAction nieCelnyPoprzeczka=new TreeAction(0.05f, new TreeAction[]{nieCelnyPoprzeczkaOdbija, nieCelnyPoprzeczkaDoBramki});
+		TreeAction nieCelnySlupek=new TreeAction(0.1f, new TreeAction[]{nieCelnySlupekOdbija, nieCelnySlupekDoBramki}, false, "");
+		TreeAction nieCelnyPoprzeczka=new TreeAction(0.05f, new TreeAction[]{nieCelnyPoprzeczkaOdbija, nieCelnyPoprzeczkaDoBramki}, false, "");
 
-		TreeAction nieCelny=new TreeAction(0.5f, new TreeAction[]{nieCelnyZaLinie, nieCelnySlupek, nieCelnyPoprzeczka});
+		TreeAction nieCelny=new TreeAction(0.5f, new TreeAction[]{nieCelnyZaLinie, nieCelnySlupek, nieCelnyPoprzeczka}, false, "");
 		//niecelny end
 
-		shoot=new TreeAction(2f, new TreeAction[]{nieCelny, celny});
+		shoot=new TreeAction(2f, new TreeAction[]{nieCelny, celny}, false, "");
 		//shoot end
 	}
 
@@ -310,16 +316,16 @@ public class ActionsList: MonoBehaviour
 		TreeAction celnyTrafiaNaszegoOpanowuje=new TreeAction(0.15f, null, true, "Strzal celny, ale pilka trafia naszego, ktory ja opanowuje", OurBall);
 		TreeAction celnyTrafiaNaszegoOdbicieDoSektorowObok=new TreeAction(0.1f, null, true, "Strzal celny, ale pilka trafia naszego i leci na jedno z otaczajacych pol", RandomAdjacementField);
 
-		TreeAction celnyBroniPiastkuje=new TreeAction(0.1f, new TreeAction[]{celnyBroniPiastkujeDoNas, celnyBroniPiastkujeDoRywala});
-		TreeAction celnyBroniOdbija=new TreeAction(0.25f, new TreeAction[]{celnyBroniOdbijaDoNas, celnyBroniOdbijaDoRywala});
-		TreeAction celnyBroniZaLinie=new TreeAction(0.35f, new TreeAction[]{celnyBroniZaLinieRoznyLewy, celnyBroniZaLinieRoznyPrawy});
-		TreeAction celnyTrafiaRywalaZaLinie=new TreeAction(0.6f, new TreeAction[]{celnyTrafiaRywalaZaLinieLewyRozny, celnyTrafiaRywalaZaLiniePrawyRozny});
+		TreeAction celnyBroniPiastkuje=new TreeAction(0.1f, new TreeAction[]{celnyBroniPiastkujeDoNas, celnyBroniPiastkujeDoRywala}, false, "");
+		TreeAction celnyBroniOdbija=new TreeAction(0.25f, new TreeAction[]{celnyBroniOdbijaDoNas, celnyBroniOdbijaDoRywala}, false, "");
+		TreeAction celnyBroniZaLinie=new TreeAction(0.35f, new TreeAction[]{celnyBroniZaLinieRoznyLewy, celnyBroniZaLinieRoznyPrawy}, false, "");
+		TreeAction celnyTrafiaRywalaZaLinie=new TreeAction(0.6f, new TreeAction[]{celnyTrafiaRywalaZaLinieLewyRozny, celnyTrafiaRywalaZaLiniePrawyRozny}, false, "");
 
-		TreeAction celnyBroni=new TreeAction(0.25f, new TreeAction[]{celnyBroniChwyta, celnyBroniPiastkuje, celnyBroniOdbija, celnyBroniZaLinie});
-		TreeAction celnyTrafiaRywala=new TreeAction(0.15f, new TreeAction[]{celnyTrafiaRywalaZaLinie, celnyTrafiaRywalaOpanowuje, celnyTrafiaRywalaDoNas, celnyTrafiaRywalaOdbicieDoSektorowObok});
-		TreeAction celnyTrafiaNaszego=new TreeAction(0.05f, new TreeAction[]{celnyTrafiaNaszegoZaLinie, celnyTrafiaNaszegoDoRywala, celnyTrafiaNaszegoOpanowuje, celnyTrafiaNaszegoOdbicieDoSektorowObok});
+		TreeAction celnyBroni=new TreeAction(0.25f, new TreeAction[]{celnyBroniChwyta, celnyBroniPiastkuje, celnyBroniOdbija, celnyBroniZaLinie}, false, "");
+		TreeAction celnyTrafiaRywala=new TreeAction(0.15f, new TreeAction[]{celnyTrafiaRywalaZaLinie, celnyTrafiaRywalaOpanowuje, celnyTrafiaRywalaDoNas, celnyTrafiaRywalaOdbicieDoSektorowObok}, false, "");
+		TreeAction celnyTrafiaNaszego=new TreeAction(0.05f, new TreeAction[]{celnyTrafiaNaszegoZaLinie, celnyTrafiaNaszegoDoRywala, celnyTrafiaNaszegoOpanowuje, celnyTrafiaNaszegoOdbicieDoSektorowObok}, false, "");
 
-		TreeAction celny=new TreeAction(0.5f, new TreeAction[]{celnyGol, celnyBroni, celnyTrafiaRywala, celnyTrafiaNaszego});
+		TreeAction celny=new TreeAction(0.5f, new TreeAction[]{celnyGol, celnyBroni, celnyTrafiaRywala, celnyTrafiaNaszego}, false, "");
 		//celny end
 
 		//niecelny begin
@@ -333,218 +339,220 @@ public class ActionsList: MonoBehaviour
 		TreeAction nieCelnyPoprzeczkaOdbijaDoRywala=new TreeAction(0.1f, null, true, "Strzal byl niecelny, ale pilka odbila sie od poprzeczki do rywali", EnemyBall);
 		TreeAction nieCelnyPoprzeczkaOdbijaZaLinie=new TreeAction(0.8f, null, true, "Strzal byl niecelny, pilka odbila sie od poprzeczki i poleciala za linie", EnemyBall);
 
-		TreeAction nieCelnySlupekOdbija=new TreeAction(0.7f, new TreeAction[]{nieCelnySlupekOdbijaDoNas, nieCelnySlupekOdbijaDoRywala, nieCelnySlupekOdbijaZaLinie});
-		TreeAction nieCelnyPoprzeczkaOdbija=new TreeAction(0.8f, new TreeAction[]{nieCelnyPoprzeczkaOdbijaDoNas, nieCelnyPoprzeczkaOdbijaDoRywala, nieCelnyPoprzeczkaOdbijaZaLinie});
+		TreeAction nieCelnySlupekOdbija=new TreeAction(0.7f, new TreeAction[]{nieCelnySlupekOdbijaDoNas, nieCelnySlupekOdbijaDoRywala, nieCelnySlupekOdbijaZaLinie}, false, "");
+		TreeAction nieCelnyPoprzeczkaOdbija=new TreeAction(0.8f, new TreeAction[]{nieCelnyPoprzeczkaOdbijaDoNas, nieCelnyPoprzeczkaOdbijaDoRywala, nieCelnyPoprzeczkaOdbijaZaLinie}, false, "");
 
-		TreeAction nieCelnySlupek=new TreeAction(0.1f, new TreeAction[]{nieCelnySlupekOdbija, nieCelnySlupekDoBramki});
-		TreeAction nieCelnyPoprzeczka=new TreeAction(0.05f, new TreeAction[]{nieCelnyPoprzeczkaOdbija, nieCelnyPoprzeczkaDoBramki});
+		TreeAction nieCelnySlupek=new TreeAction(0.1f, new TreeAction[]{nieCelnySlupekOdbija, nieCelnySlupekDoBramki}, false, "");
+		TreeAction nieCelnyPoprzeczka=new TreeAction(0.05f, new TreeAction[]{nieCelnyPoprzeczkaOdbija, nieCelnyPoprzeczkaDoBramki}, false, "");
 
-		TreeAction nieCelny=new TreeAction(0.5f, new TreeAction[]{nieCelnyZaLinie, nieCelnySlupek, nieCelnyPoprzeczka});
+		TreeAction nieCelny=new TreeAction(0.5f, new TreeAction[]{nieCelnyZaLinie, nieCelnySlupek, nieCelnyPoprzeczka}, false, "");
 		//niecelny end
 
-		longShoot=new TreeAction(2f, new TreeAction[]{nieCelny, celny});
+		longShoot=new TreeAction(2f, new TreeAction[]{nieCelny, celny}, false, "");
 		//shoot end
 	}
 
-	public void EnemyBall()
-	{
-		GameManager.instance.noFightNextTurn=true;
-		GameManager.instance.ChangeBallPossession(Side.ENEMY);
-	}
 
-	public void OurBall()
-	{
-		GameManager.instance.noFightNextTurn=true;
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
-	}
+    #region resultFunctions
+    public void EnemyBall()
+    {
+        GameManager.instance.noFightNextTurn = true;
+        GameManager.instance.ChangeBallPossession(Side.ENEMY);
+    }
 
-	public void PlayerGoal()
-	{
-		EnemyBall();
-		GameManager.instance.Goal(true, Side.PLAYER);
-	}
+    public void OurBall()
+    {
+        GameManager.instance.noFightNextTurn = true;
+        GameManager.instance.ChangeBallPossession(Side.PLAYER);
+    }
 
-	public void Goal()
-	{
-		EnemyBall();
-		GameManager.instance.Goal(false, Side.PLAYER);
-	}
+    public void PlayerGoal()
+    {
+        EnemyBall();
+        GameManager.instance.Goal(true, Side.PLAYER);
+    }
 
-	public void GoalFreeKickPlayer()
-	{
-		GameManager.instance.playAnimation("free_kick_successful");
-		EnemyBall();
-		GameManager.instance.Goal(true, Side.PLAYER);
-	}
+    public void Goal()
+    {
+        EnemyBall();
+        GameManager.instance.Goal(false, Side.PLAYER);
+    }
 
-	public void RandomAdjacementField()
-	{
-		Vector2[] targets=new Vector2[]{new Vector2(1,1), Vector2.zero, new Vector2(1,-1)};
-		Vector2 target=targets[Random.Range(0,3)];
-		GameManager.instance.SetBallPosition(target);
-		GameManager.instance.noFightNextTurn=false;
-	}
+    public void GoalFreeKickPlayer()
+    {
+        GameManager.instance.playAnimation("free_kick_successful");
+        EnemyBall();
+        GameManager.instance.Goal(true, Side.PLAYER);
+    }
 
-	public void Miss()
-	{
-		GameManager.instance.Miss(true, Side.PLAYER);
-	}
+    public void RandomAdjacementField()
+    {
+        Vector2[] targets = new Vector2[] { new Vector2(1, 1), Vector2.zero, new Vector2(1, -1) };
+        Vector2 target = targets[Random.Range(0, 3)];
+        GameManager.instance.SetBallPosition(target);
+        GameManager.instance.noFightNextTurn = false;
+    }
 
-	public void LeftCorner()
-	{
-		ActualLeftCorner();
-	}
+    public void Miss()
+    {
+        GameManager.instance.Miss(true, Side.PLAYER);
+    }
 
-	public void ActualLeftCorner()
-	{
-		GameManager.instance.stats.AddSetPiece(Side.PLAYER, RestartActionType.CORNER);
-		GameManager.instance.SetSelectedMove("Corner");
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
-		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
-		GameManager.instance.nextAction=new RestartAction(RestartActionType.CORNER, Side.PLAYER, isPlayerPerforming, new Vector2(1,1));
-		GameManager.instance.PrepareForRestartMove();
-	}
+    public void LeftCorner()
+    {
+        ActualLeftCorner();
+    }
 
-	public void RightCorner()
-	{
-		ActualRightCorner();
-	}
+    public void ActualLeftCorner()
+    {
+        GameManager.instance.stats.AddSetPiece(Side.PLAYER, RestartActionType.CORNER);
+        GameManager.instance.SetSelectedMove("Corner");
+        GameManager.instance.ChangeBallPossession(Side.PLAYER);
+        bool isPlayerPerforming = GameManager.instance.player.position == Vector2.up || GameManager.instance.player.position == Vector2.down ? true : false;
+        GameManager.instance.nextAction = new RestartAction(RestartActionType.CORNER, Side.PLAYER, isPlayerPerforming, new Vector2(1, 1));
+        GameManager.instance.PrepareForRestartMove();
+    }
 
-	public void ActualRightCorner()
-	{
-		GameManager.instance.stats.AddSetPiece(Side.PLAYER, RestartActionType.CORNER);
-		GameManager.instance.SetSelectedMove("Corner");
-		GameManager.instance.ChangeBallPossession(Side.PLAYER);
-		bool isPlayerPerforming=GameManager.instance.player.position==Vector2.up||GameManager.instance.player.position==Vector2.down?true: false;
-		GameManager.instance.nextAction=new RestartAction(RestartActionType.CORNER, Side.PLAYER, isPlayerPerforming, new Vector2(1,-1));
-		GameManager.instance.PrepareForRestartMove();
-	}
+    public void RightCorner()
+    {
+        ActualRightCorner();
+    }
 
-	public void PlayerFinishingShot()
-	{
-		GameManager.instance.MakeMove("Shoot", Vector2.right);
-	}
+    public void ActualRightCorner()
+    {
+        GameManager.instance.stats.AddSetPiece(Side.PLAYER, RestartActionType.CORNER);
+        GameManager.instance.SetSelectedMove("Corner");
+        GameManager.instance.ChangeBallPossession(Side.PLAYER);
+        bool isPlayerPerforming = GameManager.instance.player.position == Vector2.up || GameManager.instance.player.position == Vector2.down ? true : false;
+        GameManager.instance.nextAction = new RestartAction(RestartActionType.CORNER, Side.PLAYER, isPlayerPerforming, new Vector2(1, -1));
+        GameManager.instance.PrepareForRestartMove();
+    }
 
-	public void ComputerShoot()
-	{
-		GameManager.instance.ComputerShoot();
-	}
+    public void PlayerFinishingShot()
+    {
+        GameManager.instance.MakeMove("Shoot", Vector2.right);
+    }
 
-	public void Out()
-	{
-		GameManager.instance.stats.AddSetPiece(Side.PLAYER, RestartActionType.OUT);
-		if(!CalculationsManager.IsPositionOnTheEdge(GameManager.instance.ballPosition))
-			return;
-		bool isPlayerPerforming=GameManager.instance.ballPosition==GameManager.instance.player.position;
-		GameManager.instance.nextAction=new RestartAction(RestartActionType.OUT, Side.PLAYER, isPlayerPerforming, GameManager.instance.ballPosition);
-		GameManager.instance.PrepareForRestartMove();
-			
-	}
+    public void ComputerShoot()
+    {
+        GameManager.instance.ComputerShoot();
+    }
 
-	public void Head()
-	{
-		if(!CalculationsManager.IsPlayerStandingOnBall())
-			return;
-		GameManager.instance.nextAction=new RestartAction(RestartActionType.HEAD, Side.PLAYER, true, GameManager.instance.ballPosition);
-		GameManager.instance.PrepareForRestartMove();
-	}
+    public void Out()
+    {
+        GameManager.instance.stats.AddSetPiece(Side.PLAYER, RestartActionType.OUT);
+        if (!CalculationsManager.IsPositionOnTheEdge(GameManager.instance.ballPosition))
+            return;
+        bool isPlayerPerforming = GameManager.instance.ballPosition == GameManager.instance.player.position;
+        GameManager.instance.nextAction = new RestartAction(RestartActionType.OUT, Side.PLAYER, isPlayerPerforming, GameManager.instance.ballPosition);
+        GameManager.instance.PrepareForRestartMove();
 
-	public void FreeKickAction()
-	{
-		GameManager.instance.stats.AddSetPiece(GameManager.instance.possession, RestartActionType.FREEKICK);
-		GameManager.instance.logs.FlushTheBuffer();
-		RestartActionType moveType=RestartActionType.FREEKICK;
-		string move="Freekick";
-		if(CalculationsManager.IsBallOnPenaltyArea()&&CalculationsManager.GetResultByPercent(0.5f))
-		{
-			moveType=RestartActionType.PENALTY;
-			move="Penalty";
-		}
-		if(CalculationsManager.IsPlayerStandingOnBall()&&GameManager.instance.player.contusion==null&&!GameManager.instance.player.IsEnergyDepleted())
-			GameManager.instance.nextAction=new RestartAction(moveType, Side.PLAYER, true, GameManager.instance.ballPosition);
-		else
-			GameManager.instance.nextAction=new RestartAction(moveType, CalculationsManager.OtherSide(GameManager.instance.possession), false, GameManager.instance.ballPosition);
-		GameManager.instance.SetSelectedMove(move);
-		GameManager.instance.PrepareForRestartMove();
-	}
+    }
 
-	public void DribbleSuccessful()
-	{
-		GameManager.instance.player.MoveYourself(GameManager.instance.player.dribblingTarget);
-		GameManager.instance.SetBallPosition(GameManager.instance.player.dribblingTarget);
-	}
+    public void Head()
+    {
+        if (!CalculationsManager.IsPlayerStandingOnBall())
+            return;
+        GameManager.instance.nextAction = new RestartAction(RestartActionType.HEAD, Side.PLAYER, true, GameManager.instance.ballPosition);
+        GameManager.instance.PrepareForRestartMove();
+    }
 
-	public void Foul()
-	{
-		GameManager.instance.stats.AddFoul(Side.ENEMY);
-		FreeKickAction();
-	}
+    public void FreeKickAction()
+    {
+        GameManager.instance.stats.AddSetPiece(GameManager.instance.possession, RestartActionType.FREEKICK);
+        GameManager.instance.logs.FlushTheBuffer();
+        RestartActionType moveType = RestartActionType.FREEKICK;
+        string move = "Freekick";
+        if (CalculationsManager.IsBallOnPenaltyArea() && CalculationsManager.GetResultByPercent(0.5f))
+        {
+            moveType = RestartActionType.PENALTY;
+            move = "Penalty";
+        }
+        if (CalculationsManager.IsPlayerStandingOnBall() && GameManager.instance.player.contusion == null && !GameManager.instance.player.IsEnergyDepleted())
+            GameManager.instance.nextAction = new RestartAction(moveType, Side.PLAYER, true, GameManager.instance.ballPosition);
+        else
+            GameManager.instance.nextAction = new RestartAction(moveType, CalculationsManager.OtherSide(GameManager.instance.possession), false, GameManager.instance.ballPosition);
+        GameManager.instance.SetSelectedMove(move);
+        GameManager.instance.PrepareForRestartMove();
+    }
 
-	public void FoulContusion()
-	{
-		GameManager.instance.stats.AddFoul(Side.ENEMY);
-		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
-		FreeKickAction();
-	}
+    public void DribbleSuccessful()
+    {
+        GameManager.instance.player.MoveYourself(GameManager.instance.player.dribblingTarget);
+        GameManager.instance.SetBallPosition(GameManager.instance.player.dribblingTarget);
+    }
 
-	public void FoulContusionYellow()
-	{
-		GameManager.instance.stats.AddFoul(Side.ENEMY);
-		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
-		GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "yellow");
-		FreeKickAction();
-	}
+    public void Foul()
+    {
+        GameManager.instance.stats.AddFoul(Side.ENEMY);
+        FreeKickAction();
+    }
 
-	public void FoulContusionRed()
-	{
-		GameManager.instance.stats.AddFoul(Side.ENEMY);
-		GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
-		GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "red");
-		FreeKickAction();
-	}
+    public void FoulContusion()
+    {
+        GameManager.instance.stats.AddFoul(Side.ENEMY);
+        GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
+        FreeKickAction();
+    }
 
-	public void FoulYellow()
-	{
-		GameManager.instance.stats.AddFoul(Side.ENEMY);
-		GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "yellow");
-		FreeKickAction();
-	}
+    public void FoulContusionYellow()
+    {
+        GameManager.instance.stats.AddFoul(Side.ENEMY);
+        GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
+        GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "yellow");
+        FreeKickAction();
+    }
 
-	public void FoulRed()
-	{
-		GameManager.instance.stats.AddFoul(Side.ENEMY);
-		GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "red");
-		FreeKickAction();
-	}
+    public void FoulContusionRed()
+    {
+        GameManager.instance.stats.AddFoul(Side.ENEMY);
+        GameManager.instance.player.GetContusion(CalculationsManager.GetRandomContusion());
+        GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "red");
+        FreeKickAction();
+    }
 
-	public void PlayerYellow()
-	{
-		GameManager.instance.stats.AddFoul(Side.PLAYER);
-		GameManager.instance.player.DoFoul();
-		GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "yellow");
-		FreeKickAction();
-	}
+    public void FoulYellow()
+    {
+        GameManager.instance.stats.AddFoul(Side.ENEMY);
+        GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "yellow");
+        FreeKickAction();
+    }
 
-	public void PlayerRed()
-	{
-		GameManager.instance.stats.AddFoul(Side.PLAYER);
-		GameManager.instance.player.DoFoul();
-		GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "red");
-		FreeKickAction();
-	}
+    public void FoulRed()
+    {
+        GameManager.instance.stats.AddFoul(Side.ENEMY);
+        GameManager.instance.Card(false, Side.ENEMY, GameManager.instance.ballPosition, "red");
+        FreeKickAction();
+    }
 
-	public void PlayerFoul()
-	{
-		GameManager.instance.player.DoFoul();
-		GameManager.instance.stats.AddFoul(Side.PLAYER);
-		FreeKickAction();
-	}
+    public void PlayerYellow()
+    {
+        GameManager.instance.stats.AddFoul(Side.PLAYER);
+        GameManager.instance.player.DoFoul();
+        GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "yellow");
+        FreeKickAction();
+    }
 
-	public void CelnyGol()
-	{
-		GameManager.instance.playAnimation("celny_gol");
-		PlayerGoal();
-	}
+    public void PlayerRed()
+    {
+        GameManager.instance.stats.AddFoul(Side.PLAYER);
+        GameManager.instance.player.DoFoul();
+        GameManager.instance.Card(true, Side.PLAYER, Vector2.zero, "red");
+        FreeKickAction();
+    }
+
+    public void PlayerFoul()
+    {
+        GameManager.instance.player.DoFoul();
+        GameManager.instance.stats.AddFoul(Side.PLAYER);
+        FreeKickAction();
+    }
+
+    public void CelnyGol()
+    {
+        GameManager.instance.playAnimation("celny_gol");
+        PlayerGoal();
+    }
 
     public void CelnyKarny()
     {
@@ -563,4 +571,6 @@ public class ActionsList: MonoBehaviour
         GameManager.instance.playAnimation("foul_normal");
         Foul();
     }
+    #endregion
 }
+

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class TreeAction
 {
@@ -12,19 +13,31 @@ public class TreeAction
 	public event Action run;
 	public checkTypes checkType;
 	public float probabilityWithCheckedType;
+    public List<string> messages;
 
-	public TreeAction(float probability ,TreeAction[] subActions=null, bool isLast=false, string message="", Action action=null, checkTypes checkType=checkTypes.NONE, float probabilityWithCheckedType=0f)
-	{
-		this.probability=probability;
-		this.subActions=subActions;
-		this.isLast=isLast;
-		this.message=message;
-		run=action;
-		this.checkType=checkType;
-		this.probabilityWithCheckedType=probabilityWithCheckedType;
+    public TreeAction(float probability, TreeAction[] subActions = null, bool isLast = false, List<string> messages = default(List<string>), Action action = null, checkTypes checkType = checkTypes.NONE, float probabilityWithCheckedType = 0f)
+    {
+        this.messages = messages;
+        this.probability = probability;
+        this.subActions = subActions;
+        this.isLast = isLast;
+        this.message = messages[0];
+        run = action;
+        this.checkType = checkType;
+        this.probabilityWithCheckedType = probabilityWithCheckedType;
+    }
+
+    public TreeAction(float probability ,TreeAction[] subActions=null, bool isLast=false, string message="", Action action=null, checkTypes checkType=checkTypes.NONE, float probabilityWithCheckedType=0f)
+        :this(probability, subActions, isLast, new List<string> { message }, action, checkType, probabilityWithCheckedType)
+	{  
 	}
 
-	public void MakeAction()
+    public TreeAction(float probability, TreeAction[] subActions = null, bool isLast = false, string[] messages=default(string[]), Action action = null, checkTypes checkType = checkTypes.NONE, float probabilityWithCheckedType = 0f)
+        : this(probability, subActions, isLast, messages.ToList<string>(), action, checkType, probabilityWithCheckedType)
+    {
+    }
+
+    public void MakeAction()
 	{
 		if(!isLast)
 		{
@@ -35,7 +48,8 @@ public class TreeAction
 		if(message!=null&&!message.Equals(""))
 		{
 			Debug.Log(message);
-			GameManager.instance.logs.QueueText(message);
+            Comments.Log(this);
+			//GameManager.instance.logs.QueueText(message);
 		}
 
 		if(run!=null)

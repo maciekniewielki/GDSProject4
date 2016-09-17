@@ -21,7 +21,6 @@ public class DesignToolManager : MonoBehaviour {
 	void Start () 
 	{
 		GameManager g=GameManager.instance;
-		Player p=g.player;
 		g.onCornerBegin+=Corner;
 		//g.onPlayerTeamGoal+=PlayerTeamGoal;
 		//g.onPlayerTeamMiss+=PlayerTeamMiss;
@@ -104,8 +103,8 @@ public class DesignToolManager : MonoBehaviour {
 
 	public void FlushTheBuffer()
 	{
-		Debug.Log("Flushing");
-		AddText(buffer);
+		//Debug.Log("Flushing");
+		//AddText(buffer);
 	}
 
 	public void QueueText(string what)

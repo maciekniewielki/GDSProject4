@@ -82,6 +82,12 @@ public static class Comments
         GameManager.instance.logs.AddText(randomString);
     }
 
+    public static void Log(TreeAction action)
+    {
+        string randomString = GetRandomStringFromList(action.messages);
+        GameManager.instance.logs.AddText(randomString);
+    }
+
     private static string GetRandomStringFromList(List<string> list)
     {
         string[] s = list.ToArray();

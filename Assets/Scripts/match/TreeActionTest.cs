@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TreeActionTest : MonoBehaviour {
-
+public class TreeActionTest : MonoBehaviour
+{
+    /*
 	TreeAction strzal;
 	TreeAction ruch;
 	TreeAction cornerCPU;
@@ -46,5 +47,5 @@ public class TreeActionTest : MonoBehaviour {
 
 		if(Input.GetKeyDown("space"))
 			cornerCPU.MakeAction();
-	}
+	}*/
 }
