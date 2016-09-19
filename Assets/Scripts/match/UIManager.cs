@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
 	public Image awayTeamDisplay;
 	public Text timerDisplay;
 	public Slider energySlider;
+    public Text tempoButton;
 
 
 	private Dictionary<string, Text> attributes;
@@ -51,6 +52,7 @@ public class UIManager : MonoBehaviour
 		homeTeamTextDisplay.color=CareerManager.gameInfo.nextMatch.leftTeam.textColor;
 		awayTeamTextDisplay.color=CareerManager.gameInfo.nextMatch.rightTeam.textColor;
 		UpdateUI();
+        UpdateTempoIcon();
 	}
 
 	public void UpdateAttributes()
@@ -85,4 +87,17 @@ public class UIManager : MonoBehaviour
 		energySlider.value=GameManager.instance.player.GetEnergy();
 	}
 
+    public void SwitchGameSpeed()
+    {
+        GameManager.instance.SetCurrentGameSpeed((GameManager.instance.GetCurrentGameSpeedLevel() + 1) % GameManager.instance.levelsOfGameSpeed.Length);
+        UpdateTempoIcon();
+    }
+
+    void UpdateTempoIcon()
+    {
+        string s = "";
+        for (int ii = 0; ii < GameManager.instance.GetCurrentGameSpeedLevel()+1; ii++)
+            s += ">";
+        tempoButton.text = s;
+    }
 }

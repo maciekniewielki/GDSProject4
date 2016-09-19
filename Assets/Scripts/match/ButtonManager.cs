@@ -219,5 +219,4 @@ public class ButtonManager : MonoBehaviour
 	{
 		SetInteractable("startButton", false);
 	}
-
 }

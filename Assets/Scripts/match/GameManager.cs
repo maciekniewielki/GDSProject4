@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 	public RestartAction nextAction;
 	public bool playerRestartMoveRemaining;
 	public bool CPURestartMoveRemaining;
+    public int[] levelsOfGameSpeed;
 
 	public static GameManager instance;
 
@@ -67,17 +68,19 @@ public class GameManager : MonoBehaviour
 	private bool paused;
 	private bool hardPaused;
 	private bool playerRemoved;
+    private int _currentLevelOfGameSpeed;
 
 
 
-	//Debug
-	public int ReceiveChanceWhen1Heart=10;
+    //Debug
+    public int ReceiveChanceWhen1Heart=10;
 	public int ReceiveChanceWhen2Hearts=40;
 	public int ReceiveChanceWhen3Hearts=70;
 
 	void Awake()
 	{
-		gameSpeed=20;
+        _currentLevelOfGameSpeed = 1;
+        gameSpeed = levelsOfGameSpeed[_currentLevelOfGameSpeed];
 		if(instance==null)
 			instance=this;
 		else if(instance!=this)
@@ -765,5 +768,16 @@ public class GameManager : MonoBehaviour
 		if(onActionTreeNormalActionEnd!=null)
 			onActionTreeNormalActionEnd();
 	}
+
+    public int GetCurrentGameSpeedLevel()
+    {
+        return _currentLevelOfGameSpeed;
+    }
+
+    public void SetCurrentGameSpeed(int level)
+    {
+        _currentLevelOfGameSpeed = Mathf.Clamp(level, 0, levelsOfGameSpeed.Length - 1);
+        gameSpeed = levelsOfGameSpeed[_currentLevelOfGameSpeed];
+    }
 }
 	
