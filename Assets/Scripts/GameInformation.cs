@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable]
 public class GameInformation 
@@ -12,7 +14,16 @@ public class GameInformation
 	public PlayerInfo playerStats;
 	public LeagueCalendar calendar;
 	public MatchResultContainer nextMatch;
-    public CareerStatistics careerStatistics;
+    public List<CareerStatistics> allCareerStatistics;
+
+    public CareerStatistics currentCareerStatistics
+    {
+        get
+        {
+            Debug.Log("Length: "+allCareerStatistics.Count);
+            return allCareerStatistics.Last();
+        }
+    }
 
 
 	public GameInformation (int currentSeason=1, int currentRound=1, int currentWeekDay=0, PlayerInfo playerStats=default(PlayerInfo), bool wentToIndividualTraining=false, bool wentToClubTraining=false)
@@ -23,8 +34,14 @@ public class GameInformation
 		this.currentRound = currentRound;
 		this.currentWeekDay = currentWeekDay;
 		this.playerStats = playerStats;
-        this.careerStatistics = new CareerStatistics();
+        this.allCareerStatistics = new List<CareerStatistics>();
+        this.allCareerStatistics.Add(new CareerStatistics());
 	}
+
+    public void UpdateCurrentCareerStatistics(MatchStatistics stats)
+    {
+        allCareerStatistics.Last().UpdateInformation(stats);
+    }
 
 	override
 	public string ToString()
@@ -38,4 +55,44 @@ public class GameInformation
 
 		return s;
 	}
+
+    public Table ToDataTable()
+    {
+        Table data = new Table(19, currentSeason+1);
+        string[] headers = new string[]
+        {
+            "Season",
+            "Club",
+            "League",
+            "Minutes",
+            "Matches",
+            "Goals",
+            "Shots",
+            "Long Shots",
+            "Passes",
+            "Dribbles",
+            "Tackles",
+            "Corners",
+            "Free Kicks",
+            "Throw-ins",
+            "Headers",
+            "Fouls",
+            "Yellow Cards",
+            "Red Cards",
+            "Avg. Rating"
+        };
+        data.SetHeader(headers);
+        int count = allCareerStatistics.Count;
+        int seasonCount = 0;
+        foreach (CareerStatistics c in allCareerStatistics)
+        {
+            seasonCount++;
+            data.SetRow(count, c.ToTableRow(seasonCount, playerStats.currentTeam.name, "English"));
+            count--;
+        }
+        Debug.Log(data);
+
+        return data;
+        
+    }
 }

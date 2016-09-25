@@ -38,7 +38,7 @@ public class StatisticsManager : MonoBehaviour
 		else
 			CareerManager.gameInfo.nextMatch.result=new Vector2(endStatistics.enemyTeamGoals, endStatistics.playerTeamGoals);
 
-        CareerManager.gameInfo.careerStatistics.UpdateInformation(endStatistics);
+        CareerManager.gameInfo.UpdateCurrentCareerStatistics(endStatistics);
 	}
 
 	void Save()

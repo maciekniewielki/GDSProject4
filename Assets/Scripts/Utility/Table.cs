@@ -43,4 +43,16 @@
         data[rowNumber] = rowData;
     }
 
+    public override string ToString()
+    {
+        string s = "";
+        for (int ii = 0; ii < height; ii++)
+        {
+            for (int jj = 0; jj < width; jj++)
+                s += data[ii][jj] + " ";
+            s += "\n";
+        }
+        return s;
+    }
+
 }

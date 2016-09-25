@@ -19,6 +19,7 @@ public class SeasonStatisticsViewer : MonoBehaviour
 		CareerManager.gameInfo.currentSeason++;
 		CareerManager.gameInfo.currentRound = 1;
 		CareerManager.gameInfo.currentWeekDay = 0;
+        CareerManager.gameInfo.allCareerStatistics.Add(new CareerStatistics());
 		LeaveToPlayerMenu();
 	}
 

@@ -19,7 +19,7 @@ public class UITableCreator : MonoBehaviour
         t.SetHeader(new string[] { "ID", "Goals", "Tackles", "ID", "Goals", "Tackles", "ID", "Goals", "Tackles", "ID", "Goals", "Tackles", "ID", "Goals", "Tackles", "ID", "Goals" });
         t.SetRow(1,new string[]{"1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2"});
         t.SetRow(2, new string[]{ "2", "5", "15", "2", "5", "15", "2", "5", "15", "2", "5", "15", "2", "5", "15", "2", "5"});
-        CreateTableWithData(t, tableParent);
+        CreateTableWithData(CareerManager.gameInfo.ToDataTable(), tableParent);
     }
 
     public void CreateTableWithRect(Table table, GridLayoutGroup parent)
@@ -57,7 +57,7 @@ public class UITableCreator : MonoBehaviour
         GameObject row = Instantiate(tableRowPrefab) as GameObject;
         row.transform.SetParent(parent.transform);
         RectTransform rowTransform = row.GetComponent<RectTransform>();
-        rowTransform.anchoredPosition = new Vector2(0f, -tableRowPrefab.GetComponent<RectTransform>().rect.height * rowNumber);
+        rowTransform.anchoredPosition = new Vector2(0f, (-tableRowPrefab.GetComponent<RectTransform>().rect.height+7f) * rowNumber);
         rowTransform.localScale = Vector3.one;
         foreach (Text field in rowTransform.GetComponentsInChildren<Text>())
         {

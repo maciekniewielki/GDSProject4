@@ -28,7 +28,7 @@ public class CareerStatisticsViewer : MonoBehaviour
 
 	void Start () 
 	{
-        stats = CareerManager.gameInfo.careerStatistics;
+        stats = CareerManager.gameInfo.currentCareerStatistics;
         ViewStatistics(stats);
     }
 

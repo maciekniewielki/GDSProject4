@@ -35,4 +35,32 @@ public class CareerStatistics
         playerFouls += m.playerFouls;
         playerTurnsOnPitch += m.playerTurnsOnPitch;
     }
+
+    public string[] ToTableRow(int seasonNumber, string teamName, string leagueName)
+    {
+        string[] row = new string[]
+        {
+            seasonNumber+"",
+            teamName,
+            leagueName,
+            playerTurnsOnPitch+"",
+            matchesPlayed+"",
+            playerGoals+"",
+            CalculationsManager.StripVector2(playerMoves["Shoot"]),
+            CalculationsManager.StripVector2(playerMoves["LongShot"]),
+            CalculationsManager.StripVector2(playerMoves["Pass"]),
+            CalculationsManager.StripVector2(playerMoves["Dribble"]),
+            CalculationsManager.StripVector2(playerMoves["Tackle"]),
+            CalculationsManager.StripVector2(playerMoves["Corner"]),
+            CalculationsManager.StripVector2(playerMoves["FreeKick"]),
+            CalculationsManager.StripVector2(playerMoves["Out"]),
+            CalculationsManager.StripVector2(playerMoves["Head"]),
+            playerFouls+"",
+            playerYellows+"",
+            playerReds+"",
+            "5"
+        };
+
+        return row;
+    }
 }
