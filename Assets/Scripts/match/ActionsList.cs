@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 //dupa
 public class ActionsList: MonoBehaviour
@@ -231,32 +231,164 @@ public class ActionsList: MonoBehaviour
     }
 
     void ShootInit()
-	{
-		//shoot begin
-		//celny begin
-		TreeAction celnyGol=new TreeAction(0.55f, null, true, new string[] 
+    {
+        //shoot begin
+        //celny begin
+        TreeAction celnyGol = new TreeAction(0.55f, null, true, new string[]
         {
-            "Bramkarz nie wybronil, gooool!",
-            "Goooool!",
-            "Gol!",
-            "Pilka w siatce!"
+            "The keeper couldn't reach it! GOAL!",
+            "GOOOOOOOAAAAAAL!",
+            "GOAL!",
+            "Hits the back of the net!",
+            "Finds it's way to the net!",
+            "What a goal! Lewandowski couldn't have done it better himself!",
+            "Scores!",
+            "He scores! That surely ain't no material for a stormtrooper!",
+            "Perfect shot! Adds his name to the board!",
+            "That's a goal!",
+            "No chance for the keeper! That's a goal!",
+            "Curled it right at the back of the net!",
+            "And that's one more goal to his account!",
+            "GOAL! He surely knows how to nail it!",
+            "Goal! He didn't have any mercy for his opponents there!"
         }, CelnyGol);
-		TreeAction celnyBroniChwyta=new TreeAction(0.3f, null, true, "Strzal celny, ale bramkarz lapie pilke", EnemyBall);
-		TreeAction celnyBroniPiastkujeDoRywala=new TreeAction(0.15f, null, true, "Strzal celny, ale bramkarz wypiastkowal do swojego", EnemyBall);
-		TreeAction celnyBroniPiastkujeDoNas=new TreeAction(0.85f, null, true, "Strzal celny, ale bramkarz wypiastkowal do nas", OurBall);
-		TreeAction celnyBroniOdbijaDoRywala=new TreeAction(0.4f, null, true, "Strzal celny, ale bramkarz odbil do swojego", EnemyBall);
-		TreeAction celnyBroniOdbijaDoNas=new TreeAction(0.6f, null, true, "Strzal celny, ale bramkarz odbil do nas", OurBall);
-		TreeAction celnyBroniZaLinieRoznyPrawy=new TreeAction(0.5f, null, true, "Strzal celny, ale bramkarz wybil za linie. Prawy rozny", RightCorner);
-		TreeAction celnyBroniZaLinieRoznyLewy=new TreeAction(0.5f, null, true, "Strzal celny, ale bramkarz wybil za linie. Lewy rozny", LeftCorner);
-		TreeAction celnyTrafiaRywalaZaLiniePrawyRozny=new TreeAction(0.5f, null, true, "Strzal celny, ale pilka trafia rywala i leci za linie. Prawy rozny", RightCorner);
-		TreeAction celnyTrafiaRywalaZaLinieLewyRozny=new TreeAction(0.5f, null, true, "Strzal celny, ale pilka trafia rywala i leci za linie. Lewy rozny", LeftCorner);
-		TreeAction celnyTrafiaRywalaOpanowuje=new TreeAction(0.15f, null, true, "Strzal celny, ale pilka trafia rywala, ktory ja opanowuje", EnemyBall);
-		TreeAction celnyTrafiaRywalaDoNas=new TreeAction(0.15f, null, true, "Strzal celny, ale pilka trafia rywala i leci do nas", OurBall);
-		TreeAction celnyTrafiaRywalaOdbicieDoSektorowObok=new TreeAction(0.1f, null, true, "Strzal celny, ale pilka trafia rywala i leci na jedno z otaczajacych pol", RandomAdjacementField);
-		TreeAction celnyTrafiaNaszegoZaLinie=new TreeAction(0.6f, null, true, "Strzal celny, ale pilka trafia naszego i leci za linie", EnemyBall);
-		TreeAction celnyTrafiaNaszegoDoRywala=new TreeAction(0.15f, null, true, "Strzal celny, ale pilka trafia naszego i leci do rywala", EnemyBall);
-		TreeAction celnyTrafiaNaszegoOpanowuje=new TreeAction(0.15f, null, true, "Strzal celny, ale pilka trafia naszego, ktory ja opanowuje", OurBall);
-		TreeAction celnyTrafiaNaszegoOdbicieDoSektorowObok=new TreeAction(0.1f, null, true, "Strzal celny, ale pilka trafia naszego i leci na jedno z otaczajacych pol", RandomAdjacementField);
+        TreeAction celnyBroniChwyta = new TreeAction(0.3f, null, true, new string[]
+        {
+            "Here's the shot! Caught by the keeper!",
+            "The shot caught with ease by the keeper.",
+            "No goals from that shot...",
+            "They'll need more than that to beat this keeper.",
+            "Shot saved by the keeper!",
+            "Steady hands from the goalkeeper.",
+            "Saved! Ball in the keepers arms!",
+            "Oh, what a great save!"
+        }, EnemyBall);
+		TreeAction celnyBroniPiastkujeDoRywala=new TreeAction(0.15f, null, true, new string[]
+        {
+            "Keeper blocks the shot! The ball goes to the opponents.",
+            "Saved by the goalkeeper! Collected by the defender.",
+            "Wasted chance! The defender collects it thanks to the keeper.",
+            "Saved but still in play! But no follow-up shot...",
+            "The keeper had to use his fists to clear that!",
+            "Keeper stops it! Counterattack is possible!",
+            "Great reflex from the keeper! Defender secures the line!",
+            "No goal! The defender insured the goalkeeper."
+        }, EnemyBall);
+		TreeAction celnyBroniPiastkujeDoNas=new TreeAction(0.85f, null, true, new string[]
+        {
+            "Keeper saved it but there's still a chance!",
+            "Saved but still in play! Chance to repeat the shot!",
+            "The keeper didn't catch the ball! Chance to score!",
+            "Keeper saves the situation but he's still in danger!",
+            "One shot saved but can he take another?!",
+            "He saved it! Will he win again?!",
+            "Ball blocked by the keeper but the defence didn't get it!",
+            "Keeper somehow blocks it! Can they finish it?!"
+        }, OurBall);
+		TreeAction celnyBroniOdbijaDoRywala=new TreeAction(0.4f, null, true, new string[]
+        {
+            "Shot punched away by the keeper! The enemy strikes back!",
+            "He saves it! The defender gets to the ball first!",
+            "Brilliant save! Ball bounces to his teammates.",
+            "Shot deflected by the keeper! Defenders got it covered.",
+            "Great shot and even greater save! Defence in possession."
+        }, EnemyBall);
+		TreeAction celnyBroniOdbijaDoNas=new TreeAction(0.6f, null, true, new string[]
+        {
+            "Shot deflected but there's a chance for a rebound!",
+            "Keeper saves but loses the ball! Chance still alive!",
+            "Saved! Can he stop another?!",
+            "Ball deflected! Attackers still have a chance!",
+            "The goalkeeper manages to save! Will he be able to repeat it?"
+        }, OurBall);
+		TreeAction celnyBroniZaLinieRoznyPrawy=new TreeAction(0.5f, null, true, new string[]
+        {   
+            "Shot saved! Ball goes out for a corner!",
+            "No goal! Only a corner from the right side...",
+            "Keeper deflects it to his right! Corner kick!",
+            "Score doesn't change! Only a corner kick for the attackers.",
+            "Saves it! Ball out of play and the referee grants them a corner."
+        }, RightCorner);
+		TreeAction celnyBroniZaLinieRoznyLewy=new TreeAction(0.5f, null, true, new string[]
+        {
+            "No goal for now! The keeper punches it for a corner.",
+            "Save! Ball goes out for a corner!",
+            "The keeper made it! He deflected the ball and gave them only a corner.",
+            "Great shot and even better save! Corner kick from the left side.",
+            "Left corner kick after that attack."
+        }, LeftCorner);
+		TreeAction celnyTrafiaRywalaZaLiniePrawyRozny=new TreeAction(0.5f, null, true, new string[]
+        {
+            "Shot blocked by the defender! Ball goes out of for a corner!",
+            "Shot blocked by the opponents! Corner from the right side.",
+            "Nice shot! The defender does his job. Corner kick!",
+            "The ball hits the defender and goes out of play for a corner.",
+            "Shot deflected by the defence! The game will continue from the right corner."
+        }, RightCorner);
+		TreeAction celnyTrafiaRywalaZaLinieLewyRozny=new TreeAction(0.5f, null, true, new string[]
+        {
+            "The defender was standing in the way! Corner from the left side.",
+            "Great dedication from the defender! Ball deflected for a corner!",
+            "No goal! Defender in the way - ball goes out for a corner.",
+            "No goal! The defender was at his post. Corner after a block!",
+            "Example of sacrifice from the defence! Game starts from the left corner."
+        }, LeftCorner);
+		TreeAction celnyTrafiaRywalaOpanowuje=new TreeAction(0.15f, null, true, new string[]
+        {
+            "Shot looked good but the defender intercepted it.",
+            "He shoots! The defender got in the way! Counter-attack!",
+            "The shot hit the defender!",
+            "The ball hits the opponent! Opposite team looking to attack.",
+            "Defender in the way. The ball changes possession."
+        }, EnemyBall);
+		TreeAction celnyTrafiaRywalaDoNas=new TreeAction(0.15f, null, true, new string[]
+        {
+            "Shot deflected by the defender! Another chance!",
+            "The ball comes off the defender and lands at our feet!",
+            "Shot blocked by the opposite team! Can they do it right this time?!",
+            "Blocked in the nick of time! Will they save it again?",
+            "First shot blocked! Time to take another!"
+        }, OurBall);
+		TreeAction celnyTrafiaRywalaOdbicieDoSektorowObok=new TreeAction(0.1f, null, true, new string[]
+        {
+            "Shot blocked! Ball deflected to the side.",
+            "Powerful shot goes off the opponents!",
+            "The ball hit the defender and went down to the side.",
+            "The defender knew where to stand! Ball goes back...",
+            "That could've gone in if it hadn't been for the defender. Cleared it."
+        }, RandomAdjacementField);
+		TreeAction celnyTrafiaNaszegoZaLinie=new TreeAction(0.6f, null, true, new string[]
+        {
+            "Shot hit a teammate and went out of play.",
+            "Team member in the way! No goal this time. Ball for the keeper.",
+            "How unlucky! Teammate was in the way. Ball goes out.",
+            "Shot directly into a teammate. Ball for the opponents.",
+            "Ball for the rivals as the shot was unluckily blocked by a team member."
+        }, EnemyBall);
+		TreeAction celnyTrafiaNaszegoDoRywala=new TreeAction(0.15f, null, true, new string[]
+        {
+            "Shot hit a teammate! The defenders have the advantage.",
+            "Counterattack possible as the ball was deflected from a teammate.",
+            "Shot blocked by the team member. Defenders take possession.",
+            "Unlucky! The shot hit your team member. Opponents start the action.",
+            "The ball didn't find the net. It found the back of your teammate..."
+        }, EnemyBall);
+		TreeAction celnyTrafiaNaszegoOpanowuje=new TreeAction(0.15f, null, true, new string[]
+        {    
+            "Shoots for a goal but instead hits the teammate! Maybe he'll finish it!",
+            "Team member in the line of the shot. Manages to keep in control.",
+            "Ball goes into the box! Comes off a teammate! Will he finish?!",
+            "Shot blocked by a team member! Teammate comes with support!",
+            "Ball hits a teammate. Fortunately, he can continue the action!"
+        }, OurBall);
+		TreeAction celnyTrafiaNaszegoOdbicieDoSektorowObok=new TreeAction(0.1f, null, true, new string[]
+        {
+            "Powerful shot straight into the back of a teammate! Ball goes to the side.",
+            "Team member hit by the shot! Who will gain the possession?",
+            "Shot fatally deflected off a teammate. Will there be another chance?",
+            "Ball went straight into a team member. Deflected and out of possession.",
+            "No goal this time. The only thing you shot was your teammate..."
+        }, RandomAdjacementField);
 
 		TreeAction celnyBroniPiastkuje=new TreeAction(0.1f, new TreeAction[]{celnyBroniPiastkujeDoNas, celnyBroniPiastkujeDoRywala}, false, "");
 		TreeAction celnyBroniOdbija=new TreeAction(0.25f, new TreeAction[]{celnyBroniOdbijaDoNas, celnyBroniOdbijaDoRywala}, false, "");
@@ -271,8 +403,22 @@ public class ActionsList: MonoBehaviour
 		//celny end
 
 		//niecelny begin
-		TreeAction nieCelnyZaLinie=new TreeAction(0.85f, null, true, "Strzal byl niecelny, pilka poleciala za linie", EnemyBall);
-		TreeAction nieCelnySlupekDoBramki=new TreeAction(0.3f, null, true, "Strzal byl niecelny, ale pilka odbila sie od slupka do bramki", PlayerGoal);
+		TreeAction nieCelnyZaLinie=new TreeAction(0.85f, null, true, new string[]
+        {
+            "Missed! The shot's gone wide.",
+            "Terrible shot! Way off the target.",
+            "The shot was dangerous, but for the supporters, not the keeper...",
+            "The keeper didn't have to move. Missed it.",
+            "Not this time. The shot's gone wide."
+        }, EnemyBall);
+		TreeAction nieCelnySlupekDoBramki=new TreeAction(0.3f, null, true, new string[]
+        {
+            "It's in! It luckily came in off the post!",
+            "Goal! The ball found its way from the post!",
+            "GOAL! It came in off the post!",
+            "Score! The keeper had no chance! Came in off the post!",
+            "In off the post! Talking about lucky shots!"
+        }, PlayerGoal);
 		TreeAction nieCelnySlupekOdbijaDoNas=new TreeAction(0.25f, null, true, "Strzal byl niecelny, ale pilka odbila sie od slupka do nas", OurBall);
 		TreeAction nieCelnySlupekOdbijaDoRywala=new TreeAction(0.25f, null, true, "Strzal byl niecelny, ale pilka odbila sie od slupka do rywali", EnemyBall);
 		TreeAction nieCelnySlupekOdbijaZaLinie=new TreeAction(0.5f, null, true, "Strzal byl niecelny, pilka odbila sie od slupka i poleciala za linie", EnemyBall);
