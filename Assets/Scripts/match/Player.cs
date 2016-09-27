@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
 		if(GameManager.instance==null)
 			return;
 		GameManager.instance.onTurnStart+=ResetMove;
+        GameManager.instance.onTurnStart += UpdateTimeOnField;
 		GameManager.instance.onMatchStart+=InitPlayer;
 		GameManager.instance.onMatchEnd+=SetStartingPosition;
 		GameManager.instance.onMatchEnd+=SaveCardsAndFouls;
@@ -73,6 +74,12 @@ public class Player : MonoBehaviour
 		SetEnergy(maxEnergy);
 		energyDepleted=false;
 	}
+
+    void UpdateTimeOnField()
+    {
+        if (!energyDepleted)
+            GameManager.instance.stats.playerTurnsOnPitch = GameManager.instance.currentMinute;
+    }
 
 	void SaveCardsAndFouls()
 	{

@@ -178,6 +178,7 @@ public class StatisticsViewer : MonoBehaviour
 
 		Text text=Instantiate(expGainedPrefab).GetComponent<Text>();
 		text.transform.SetParent(GameObject.Find("Canvas").transform);
+        text.transform.localScale = Vector3.one;
 		text.transform.position=statText.transform.position+Vector3.right*230;
 		text.text="+"+expGained+" Exp";
 

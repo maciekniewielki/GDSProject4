@@ -51,7 +51,7 @@ public class MatchStatistics
 		this.enemyTeamPossessionTurns=0;
 		this.playerTeam=playerTeam;
 		this.enemyTeam=enemyTeam;
-        this.playerTurnsOnPitch = 90;
+        this.playerTurnsOnPitch = 0;
     }
 
     override

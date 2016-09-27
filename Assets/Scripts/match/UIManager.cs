@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
 	public Text timerDisplay;
 	public Slider energySlider;
     public Text tempoButton;
+    public Text currentPlayerRatingDisplay;
 
 
 	private Dictionary<string, Text> attributes;
