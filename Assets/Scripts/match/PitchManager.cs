@@ -24,6 +24,9 @@ public class PitchManager : MonoBehaviour
 	public GameObject rightMiddleOut;
 	public GameObject rightAttackOut;
 
+    public Sprite[] preferredPositionSprites;
+    public GameObject preferredPositionFrame;
+
 	void Awake()
 	{
 		
@@ -54,6 +57,10 @@ public class PitchManager : MonoBehaviour
     void InitPitch()
     {
 		UnHighlightEverything();
+        int index = Flatten(GameManager.instance.player.playerInfo.preferredPosition);
+        preferredPositionFrame.transform.position = fields[index].transform.position;
+        preferredPositionFrame.GetComponent<RectTransform>().sizeDelta = fields[index].GetComponent<RectTransform>().sizeDelta;
+        preferredPositionFrame.GetComponent<Image>().sprite = preferredPositionSprites[index];
     }
 		
 
