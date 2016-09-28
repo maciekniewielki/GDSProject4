@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 	public event Action onActionFail;
 	public event Action onActionSuccess;
 	public event Action onEnergySet;
-	public event Action onEnergyDeplete;
+	public event Action onPlayerWithdrawn;
 	public Vector2 dribblingTarget;
 	public Contusion contusion;
 	public string actionCompleted;
@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 	private bool hasRed;
 	private bool redBecauseYellow;
 	private int foulsCount;
+    private bool withdrawn;
 
 	void Awake()
 	{
@@ -63,7 +64,7 @@ public class Player : MonoBehaviour
         GameManager.instance.onTurnStart += UpdateTimeOnField;
 		GameManager.instance.onMatchStart+=InitPlayer;
 		GameManager.instance.onMatchEnd+=SetStartingPosition;
-		GameManager.instance.onMatchEnd+=SaveCardsAndFouls;
+        onPlayerWithdrawn += (() => withdrawn = true);
 		MoveYourself(playerInfo.preferredPosition);
 	}
 
@@ -419,8 +420,8 @@ public class Player : MonoBehaviour
 			energyDepleted=true;
             GameManager.instance.stats.playerTurnsOnPitch = GameManager.instance.currentMinute;
 			SetInvolvement(1);
-			if(onEnergyDeplete!=null)
-				onEnergyDeplete();
+			if(onPlayerWithdrawn!=null)
+				onPlayerWithdrawn();
 		}
 		else
 			energy=val;
@@ -478,15 +479,21 @@ public class Player : MonoBehaviour
 	public void GetRedCard()
 	{
 		hasRed=true;
-		if(onEnergyDeplete!=null)
-			onEnergyDeplete();
+		if(onPlayerWithdrawn!=null)
+			onPlayerWithdrawn();
 	}
+
+    public void GetWithdrawnByCoach()
+    {
+        if (onPlayerWithdrawn != null)
+            onPlayerWithdrawn();
+    }
 
 	public void GetContusion(Contusion cont)
 	{
 		contusion=cont;
-		if(onEnergyDeplete!=null)
-			onEnergyDeplete();
+		if(onPlayerWithdrawn!=null)
+			onPlayerWithdrawn();
 	}
 
 	public bool HasYellow()
@@ -525,5 +532,15 @@ public class Player : MonoBehaviour
             return 1;
         else
             return 0;
+    }
+
+    public bool IsOnPreferredPosition()
+    {
+        return position == playerInfo.preferredPosition;
+    }
+
+    public bool IsWithdrawn()
+    {
+        return withdrawn;
     }
 }

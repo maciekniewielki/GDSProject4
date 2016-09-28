@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
 	public event Action onActionTreeSetPieceEnd;
 	public event Action onActionTreeNormalActionEnd;
 	public event Action onInitVariablesEnd;
+    public Action<int> coachSatisfactionUpdate;
 	public delegate void animatorDelegate(string animationToPlay);
 	public animatorDelegate playAnimation;
 
@@ -69,15 +70,29 @@ public class GameManager : MonoBehaviour
 	private bool hardPaused;
 	private bool playerRemoved;
     private int _currentLevelOfGameSpeed;
+    private int coachSatisfaction;
 
+    public int CoachSatisfaction
+    {
+        get
+        {
+            return coachSatisfaction;
+        }
 
+        set
+        {
+            coachSatisfaction = Mathf.Clamp(value, 0, 7);
+        }
+    }
 
     //Debug
     public int ReceiveChanceWhen1Heart=10;
 	public int ReceiveChanceWhen2Hearts=40;
 	public int ReceiveChanceWhen3Hearts=70;
 
-	void Awake()
+    
+
+    void Awake()
 	{
         _currentLevelOfGameSpeed = 1;
         gameSpeed = levelsOfGameSpeed[_currentLevelOfGameSpeed];
@@ -90,7 +105,7 @@ public class GameManager : MonoBehaviour
 		onPlayerTurnEnd+=EndTurn;
 		onPlayerGoal+=onPlayerTeamGoal;
 		onPlayerMiss+=onPlayerTeamMiss;
-		player.onEnergyDeplete+=RemovePlayer;
+		player.onPlayerWithdrawn+=RemovePlayer;
 	}
 
 	void Start () 
@@ -104,6 +119,7 @@ public class GameManager : MonoBehaviour
 
 	void InitVariables()
 	{
+        CoachSatisfaction = 7;
 		hardPaused=false;
 		gameStarted=true;
 		playerTurn=false;
@@ -155,6 +171,10 @@ public class GameManager : MonoBehaviour
 		if(onTurnStart!=null)
 			onTurnStart();
 		turnStarted=true;
+
+        UpdateCoachSatisfaction(player.IsOnPreferredPosition());
+        if (coachSatisfactionUpdate != null)
+            coachSatisfactionUpdate(CoachSatisfaction);
 
 		if(CalculationsManager.CanPlayerStart())
 		{
@@ -778,6 +798,17 @@ public class GameManager : MonoBehaviour
     {
         _currentLevelOfGameSpeed = Mathf.Clamp(level, 0, levelsOfGameSpeed.Length - 1);
         gameSpeed = levelsOfGameSpeed[_currentLevelOfGameSpeed];
+    }
+
+    void UpdateCoachSatisfaction(bool isSatisfied)
+    {
+        if (isSatisfied)
+            CoachSatisfaction++;
+        else
+            CoachSatisfaction--;
+
+        if (CoachSatisfaction == 0)
+            player.GetWithdrawnByCoach();
     }
 }
 	

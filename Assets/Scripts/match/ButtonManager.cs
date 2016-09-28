@@ -116,7 +116,7 @@ public class ButtonManager : MonoBehaviour
 		if(GameManager.instance.IsGamePaused() || GameManager.instance.player.IsEnergyDepleted() || GameManager.instance.player.contusion != null || GameManager.instance.player.HasRed())
 			return;
 
-		if(!GameManager.instance.playerHasBall && !GameManager.instance.playerRestartMoveRemaining && !GameManager.instance.IsGamePaused() && !GameManager.instance.player.movedThisTurn)
+		if(!GameManager.instance.playerHasBall && !GameManager.instance.playerRestartMoveRemaining && !GameManager.instance.IsGamePaused() && !GameManager.instance.player.movedThisTurn && !GameManager.instance.player.IsWithdrawn())
 			SetInteractable("moveButton", true);
 
 		if(GameManager.instance.IsPlayerWaitingForRestart())

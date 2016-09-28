@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
 	public Slider energySlider;
     public Text tempoButton;
     public Text currentPlayerRatingDisplay;
+    public Slider coachBar;
 
 
 	private Dictionary<string, Text> attributes;
@@ -33,6 +34,7 @@ public class UIManager : MonoBehaviour
 		GameManager.instance.onEnemyTeamGoal+=UpdateUI;
 		GameManager.instance.player.onEnergySet+=UpdateEnergyBar;
 		GameManager.instance.onMatchStart+=SetStartingEnergy;
+        GameManager.instance.coachSatisfactionUpdate += SetCoachBar;
 	}
 
 	void InitConnections()
@@ -100,5 +102,10 @@ public class UIManager : MonoBehaviour
         for (int ii = 0; ii < GameManager.instance.GetCurrentGameSpeedLevel()+1; ii++)
             s += ">";
         tempoButton.text = s;
+    }
+
+    public void SetCoachBar(int value)
+    {
+        coachBar.value = value;
     }
 }

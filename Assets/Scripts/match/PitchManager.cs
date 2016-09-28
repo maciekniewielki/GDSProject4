@@ -47,7 +47,7 @@ public class PitchManager : MonoBehaviour
 		GameManager.instance.onMatchEnd+=SetPlayerVisibility;
 		GameManager.instance.onBallMove+=SetBallGraphicalPosition;
 		GameManager.instance.onPlayerTurnEnd+=UnHighlightEverything;
-		GameManager.instance.player.onEnergyDeplete+=RemovePlayerSprite;
+		GameManager.instance.player.onPlayerWithdrawn+=RemovePlayerSprite;
 		GameManager.instance.player.onActionFail+=UnHighlightEverything;
 		GameManager.instance.player.onActionSuccess+=UnHighlightEverything;
 	}
