@@ -46,6 +46,7 @@ public class UITableCreator : MonoBehaviour
 
     public void CreateTableWithData(Table data, RectTransform parent)
     {
+        parent.sizeDelta = new Vector2(parent.sizeDelta.x,  data.Height*tableRowPrefab.GetComponent<RectTransform>().rect.height - (data.Height+1)*7f);
         for (int ii = 0; ii < data.Height; ii++)
             AddRowInDynamicTable(parent, ii, data.data[ii]);
     }

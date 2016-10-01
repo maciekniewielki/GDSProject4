@@ -7,8 +7,6 @@ using System.Collections.Generic;
 public class CareerManager : MonoBehaviour 
 {
     public string[] week;
-	public int currentDay;
-	public int currentRound;
 	public static GameInformation gameInfo;
 	public GameObject clubTrainingPopUp;
 	public GameObject individualTrainingPopUp;
@@ -43,6 +41,7 @@ public class CareerManager : MonoBehaviour
 
 	void Start()
 	{
+        SaveGame();
 		Debug.Log("Start");
 		if(gameInfo==null)
 		{
@@ -50,15 +49,12 @@ public class CareerManager : MonoBehaviour
 			gameInfo=new GameInformation();
 		}
 		InitVariables();
-		CheckForDay();
 		Debug.Log(gameInfo.calendar);
 		playerName.text=CareerManager.gameInfo.playerStats.playerName+" "+CareerManager.gameInfo.playerStats.playerSurname;
 	}
 
 	void InitVariables()
-	{
-		currentDay=gameInfo.currentWeekDay;
-		currentRound=gameInfo.currentRound;
+    {
 		Debug.Log("Loading game info: ");
 		Debug.Log(gameInfo.ToString());
 
@@ -97,10 +93,10 @@ public class CareerManager : MonoBehaviour
 			attributeValues.Add(kvp.Key, value);
 			attributeExp.Add(kvp.Key, exp);
 		}
-		if(currentRound>1)
+		if(gameInfo.currentRound>1)
 		{
-			gameInfo.calendar.AddPointsForWeek(currentRound-1);
-			tableOfResults.text=gameInfo.calendar.GetWeekByNumber(currentRound-1).ToString();
+			gameInfo.calendar.AddPointsForWeek(gameInfo.currentRound -1);
+			tableOfResults.text=gameInfo.calendar.GetWeekByNumber(gameInfo.currentRound -1).ToString();
 			leagueTableDisplay.text=gameInfo.calendar.ConvertToLeagueTableString();
 		}
 		UpdateAttributeInfo();
@@ -115,9 +111,8 @@ public class CareerManager : MonoBehaviour
 		GameObject possibleStats=GameObject.Find("MatchStats");
 		if(possibleStats!=null)
 			Destroy(possibleStats);
-		gameInfo.calendar.CalculateScoreForWeek(currentRound-1, gameInfo.playerStats.currentTeam.name);
-		gameInfo.nextMatch=gameInfo.calendar.GetWeekByNumber(currentRound-1).GetPlayerMatch(gameInfo.playerStats.currentTeam.name);
-		SaveGame();
+		gameInfo.calendar.CalculateScoreForWeek(gameInfo.currentRound -1, gameInfo.playerStats.currentTeam.name);
+		gameInfo.nextMatch=gameInfo.calendar.GetWeekByNumber(gameInfo.currentRound -1).GetPlayerMatch(gameInfo.playerStats.currentTeam.name);
 		SceneManager.LoadScene("sampleGame");
 	}
 
@@ -125,13 +120,12 @@ public class CareerManager : MonoBehaviour
 	{
 		gameInfo.wentToClubTraining=false;
 		gameInfo.wentToIndividualTraining=false;
-		++currentDay;
-		currentDay%=7;
+		++gameInfo.currentWeekDay;
+		gameInfo.currentWeekDay%=7;
 
-		if(currentDay==0)
+		if(gameInfo.currentWeekDay==0)
 		{
-			currentRound++;
-			SaveGame();
+            gameInfo.currentRound++;
 			PlayMatch();
 			return;
 		}
@@ -143,10 +137,10 @@ public class CareerManager : MonoBehaviour
 	void CheckForDay()
 	{
 		SeasonDisplay.text = "Season " + gameInfo.currentSeason;
-		roundDisplay.text="Round " + currentRound;
-		dayDisplay.text=week[currentDay];
-        Debug.Log(week[currentDay]);
-		if(currentDay==6)
+		roundDisplay.text="Round " + gameInfo.currentRound;
+		dayDisplay.text=week[gameInfo.currentWeekDay];
+        Debug.Log(week[gameInfo.currentWeekDay]);
+		if(gameInfo.currentWeekDay==6)
 		{
 			individualTraining.interactable=false;
 			clubTraining.interactable=false;
@@ -205,8 +199,6 @@ public class CareerManager : MonoBehaviour
 
 	void SaveGame()
 	{
-		gameInfo.currentRound=currentRound;
-		gameInfo.currentWeekDay=currentDay;
 		SaveLoad.SaveGame();
 		Debug.Log("Saving game info:");
 		Debug.Log(gameInfo.ToString());

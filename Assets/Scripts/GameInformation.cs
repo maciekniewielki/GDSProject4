@@ -20,7 +20,6 @@ public class GameInformation
     {
         get
         {
-            Debug.Log("Length: "+allCareerStatistics.Count);
             return allCareerStatistics.Last();
         }
     }

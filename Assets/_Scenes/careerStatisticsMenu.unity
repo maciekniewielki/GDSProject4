@@ -240,8 +240,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 229463922}
   m_HandleRect: {fileID: 229463921}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.86261755
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1662,8 +1662,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 9.612526, y: 136.97}
-  m_SizeDelta: {x: 1901, y: 274.06}
+  m_AnchoredPosition: {x: 9.612526, y: 368}
+  m_SizeDelta: {x: 1901, y: 735}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1401302660
 MonoBehaviour:
@@ -1677,7 +1677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.542}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.184}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
