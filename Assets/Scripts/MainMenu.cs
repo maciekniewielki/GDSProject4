@@ -44,8 +44,9 @@ public class MainMenu : MonoBehaviour
 			profiles[ii].transform.Find("ProfileInfo").GetComponent<Text>().text = string.Format("{0}\n{1}\n{2}\n{3}",
 				data.playerStats.playerName+" "+data.playerStats.playerSurname,
 				data.playerStats.currentTeam.name,
-				"Round "+data.currentRound,
-				"Week "+data.currentWeekDay
+                "Season "+data.currentSeason,
+				"Round "+data.currentRound
+				//"Week "+data.currentWeekDay
 			);
 		}
 	}
