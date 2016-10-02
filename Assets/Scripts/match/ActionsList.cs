@@ -419,13 +419,62 @@ public class ActionsList: MonoBehaviour
             "Score! The keeper had no chance! Came in off the post!",
             "In off the post! Talking about lucky shots!"
         }, PlayerGoal);
-		TreeAction nieCelnySlupekOdbijaDoNas=new TreeAction(0.25f, null, true, "Strzal byl niecelny, ale pilka odbila sie od slupka do nas", OurBall);
-		TreeAction nieCelnySlupekOdbijaDoRywala=new TreeAction(0.25f, null, true, "Strzal byl niecelny, ale pilka odbila sie od slupka do rywali", EnemyBall);
-		TreeAction nieCelnySlupekOdbijaZaLinie=new TreeAction(0.5f, null, true, "Strzal byl niecelny, pilka odbila sie od slupka i poleciala za linie", EnemyBall);
-		TreeAction nieCelnyPoprzeczkaDoBramki=new TreeAction(0.2f, null, true, "Strzal byl niecelny, ale pilka odbila sie od poprzeczki do bramki", PlayerGoal);
-		TreeAction nieCelnyPoprzeczkaOdbijaDoNas=new TreeAction(0.1f, null, true, "Strzal byl niecelny, ale pilka odbila sie od poprzeczki do nas", OurBall);
-		TreeAction nieCelnyPoprzeczkaOdbijaDoRywala=new TreeAction(0.1f, null, true, "Strzal byl niecelny, ale pilka odbila sie od poprzeczki do rywali", EnemyBall);
-		TreeAction nieCelnyPoprzeczkaOdbijaZaLinie=new TreeAction(0.8f, null, true, "Strzal byl niecelny, pilka odbila sie od poprzeczki i poleciala za linie", EnemyBall);
+		TreeAction nieCelnySlupekOdbijaDoNas=new TreeAction(0.25f, null, true, new string[]
+        {
+            "Hit the post and gets back into play!",
+            "Hit the post but he's still able to finish it!",
+            "The post took the hit but here comes another shot!",
+            "The post didn't allow for the goal but here comes another try!",
+            "First shot ended on the post! The ball's again at his feet..."
+        }, OurBall);
+		TreeAction nieCelnySlupekOdbijaDoRywala=new TreeAction(0.25f, null, true, new string[]
+        {
+            "Hit the post! No goal! Opponents with the ball!",
+            "Off the post and to the opponent...",
+            "No goal! The shot was deflected by the post! Enemy team with the ball.",
+            "From the post and to the opposite team.",
+            "Hit the bar! No! It was the post! Anyway, ball given away."
+        }, EnemyBall);
+		TreeAction nieCelnySlupekOdbijaZaLinie=new TreeAction(0.5f, null, true, new string[]
+        {
+            "Shot came wide off the post. Ball for the keeper.",
+            "No goal! Only the post! Ball for the keeper.",
+            "Hit the post and wemt over the line. No goal this time.",
+            "Oooh! So close! Off the post and out of play.",
+            "That was a close one! Ball went out after skimming the post."
+        }, EnemyBall);
+		TreeAction nieCelnyPoprzeczkaDoBramki=new TreeAction(0.2f, null, true, new string[]
+        {
+            "Hit the crossbar and... It's in! Unbelievable!",
+            "It's in! It came in from the bar!",
+            "Oooooh yes! A lovely goal from the bar!",
+            "It's in! It's in! It is in! Lovely goal from the bar!",
+            "GOAL! Straight from the crossbar and into the net!"
+        }, PlayerGoal);
+		TreeAction nieCelnyPoprzeczkaOdbijaDoNas=new TreeAction(0.1f, null, true, new string[]
+        {
+            "Hit the crossbar and goes back into play! Gets another chance!",
+            "Hits the bar! There's still a chance to finish it!",
+            "Off the crossbar and back into play!",
+            "Oh that almost got in! Deflected by the bar! Still in possession!",
+            "Comes back off the crossbar! Will he finish it?!"
+        }, OurBall);
+		TreeAction nieCelnyPoprzeczkaOdbijaDoRywala=new TreeAction(0.1f, null, true, new string[]
+        {
+            "Hits the crossbar! Possession lost.",
+            "Almost got in from the bar! Almost... Possession lost.",
+            "Shot deflected by the crossbar! The opponents take over the ball.",
+            "Oh my! That nearly went in! Too bad it didn't. Rivals at the ball...",
+            "Hits the bar and goes back into play! The defenders take it into possession.",
+        }, EnemyBall);
+		TreeAction nieCelnyPoprzeczkaOdbijaZaLinie=new TreeAction(0.8f, null, true, new string[]
+        {
+            "Went out of play after skimming the crossbar! That was a close one...",
+            "Off the crossbar and out of play!",
+            "No goal despite hitting the crossbar! Out of play.",
+            "Hits the bar and went out of play! How unlucky!",
+            "Oh I thought that was going in! Off the bar and out of play."
+        }, EnemyBall);
 
 		TreeAction nieCelnySlupekOdbija=new TreeAction(0.7f, new TreeAction[]{nieCelnySlupekOdbijaDoNas, nieCelnySlupekOdbijaDoRywala, nieCelnySlupekOdbijaZaLinie}, false, "");
 		TreeAction nieCelnyPoprzeczkaOdbija=new TreeAction(0.8f, new TreeAction[]{nieCelnyPoprzeczkaOdbijaDoNas, nieCelnyPoprzeczkaOdbijaDoRywala, nieCelnyPoprzeczkaOdbijaZaLinie}, false, "");
