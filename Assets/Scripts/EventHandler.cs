@@ -114,6 +114,7 @@ public class EventHandler : MonoBehaviour {
 		CareerManager.gameInfo.calendar=new LeagueCalendar(new Team[]{teams[0], teams[1]});
 		playerInfo.playerAttributes=playerAttributes;
 		CareerManager.gameInfo.playerStats=playerInfo.Clone();
+        CareerManager.gameInfo.marketValue = CalculationsManager.GetStartingMarketValueByTeam(playerInfo.currentTeam);
 		Debug.Log("Saving statistics: ");
 		Debug.Log(playerInfo.ToString());
         SaveLoad.SaveGame();

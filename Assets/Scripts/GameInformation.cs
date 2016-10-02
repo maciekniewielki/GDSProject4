@@ -11,7 +11,8 @@ public class GameInformation
 	public int currentSeason;
 	public int currentRound;
 	public int currentWeekDay;
-	public PlayerInfo playerStats;
+    public int marketValue;
+    public PlayerInfo playerStats;
 	public LeagueCalendar calendar;
 	public MatchResultContainer nextMatch;
     public List<CareerStatistics> allCareerStatistics;

@@ -37,4 +37,9 @@ public class Team
 	{
 		pointsInLeague=0;
 	}
+
+    public int GetAddedAttributes()
+    {
+        return attack + midfield + defence;
+    }
 }

@@ -13,10 +13,12 @@ public class CareerStatistics
     public int playerReds;
     public int playerFouls;
     public int playerTurnsOnPitch;
+    public decimal playerSummedRating;
     public string[] possiblePlayerMoves;
 
     public CareerStatistics()
     {
+        this.playerSummedRating = 0m;
         this.matchesPlayed = 0;
         this.possiblePlayerMoves = new string[] { "Pass", "Dribble", "Tackle", "FinishHead", "Shoot", "LongShot", "Cross", "Corner", "Out", "Head", "FreeKick", "Penalty" };
         this.playerMoves = new Dictionary<string, SerializableVector2>();
@@ -34,6 +36,9 @@ public class CareerStatistics
         playerReds += m.playerReds;
         playerFouls += m.playerFouls;
         playerTurnsOnPitch += m.playerTurnsOnPitch;
+        decimal rating= CalculationsManager.CalculatePlayerRating(m);
+        playerSummedRating += rating;
+        CareerManager.gameInfo.marketValue += CalculationsManager.GetMarketValueChangeByRating(rating);
     }
 
     public string[] ToTableRow(int seasonNumber, string teamName, string leagueName)
@@ -58,9 +63,16 @@ public class CareerStatistics
             playerFouls+"",
             playerYellows+"",
             playerReds+"",
-            "5"
+            GetAverageRating().ToString()
         };
 
         return row;
+    }
+
+    public decimal GetAverageRating()
+    {
+        if (matchesPlayed == 0)
+            return 0m;
+        return decimal.Round(playerSummedRating / matchesPlayed, 1);
     }
 }

@@ -486,4 +486,45 @@ public class CalculationsManager
         return decimal.Round((decimal)baseScore/10, 1);
     }
 
+    public static int GetStartingMarketValueByTeam(Team t)
+    {
+        return t.GetAddedAttributes() * 100 * 1000;
+    }
+
+    public static string MarketValueToPrettyString(int value)
+    {
+        int mag = (int)(Mathf.Floor(Mathf.Log10(value)) / 3); // Truncates to 6, divides to 2
+        double divisor = Mathf.Pow(10, mag * 3);
+
+        double shortNumber = value / divisor;
+
+        string suffix;
+        switch (mag)
+        {
+            case 0:
+                suffix = string.Empty;
+                break;
+            case 1:
+                suffix = "k";
+                break;
+            case 2:
+                suffix = "m";
+                break;
+            case 3:
+                suffix = "b";
+                break;
+            default:
+                suffix = string.Empty;
+                break;
+        }
+        string result = shortNumber.ToString("N1") + suffix;
+        return result;
+    }
+
+    public static int GetMarketValueChangeByRating(decimal rating)
+    {
+        decimal rounded = decimal.Ceiling(rating * 2) / 2;
+        int change = (int)((rounded - 5m) * 20000);
+        return change;
+    }
 }

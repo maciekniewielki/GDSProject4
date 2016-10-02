@@ -23,6 +23,7 @@ public class CareerStatisticsViewer : MonoBehaviour
     public Text playerYellows;
     public Text playerReds;
     public Text playerTurnsOnPitch;
+    public Text marketValue;
 
     private CareerStatistics stats;
 
@@ -53,6 +54,7 @@ public class CareerStatisticsViewer : MonoBehaviour
         playerFouls.text = "Fouls: " + s.playerFouls.ToString();
         playerYellows.text = "Yellow cards: " + s.playerYellows.ToString();
         playerReds.text = "Red cards: " + s.playerReds.ToString();
+        marketValue.text = CalculationsManager.MarketValueToPrettyString(CareerManager.gameInfo.marketValue);
     }
 }
 
