@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
 
     void UpdateTimeOnField()
     {
-        if (!energyDepleted)
+        if (!withdrawn)
             GameManager.instance.stats.playerTurnsOnPitch = GameManager.instance.currentMinute;
     }
 
