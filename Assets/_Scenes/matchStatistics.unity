@@ -4672,8 +4672,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1660933936}
-        m_MethodName: SwitchSceneToPlayerMenuAndCheckForLeagueEnd
+      - m_Target: {fileID: 1524739536}
+        m_MethodName: LoadNextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4819,6 +4819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21598da30b23e5a4ebfd817253e9f1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimumRatingToViewNewspaper: 4.99
   playerTeamNameDisplay: {fileID: 1996757430}
   enemyTeamNameDisplay: {fileID: 252926704}
   score: {fileID: 1673291243}
@@ -5251,12 +5252,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3e2f39394e38cb49af0861a8a820566, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1660933936 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11450980, guid: e3e2f39394e38cb49af0861a8a820566,
-    type: 2}
-  m_PrefabInternal: {fileID: 1660933935}
-  m_Script: {fileID: 11500000, guid: 9ea234a6bc5532345bea9e7eb1d65783, type: 3}
 --- !u!1 &1673291241
 GameObject:
   m_ObjectHideFlags: 0

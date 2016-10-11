@@ -802,6 +802,9 @@ public class GameManager : MonoBehaviour
 
     void UpdateCoachSatisfaction(bool isSatisfied)
     {
+        if (player.IsWithdrawn())
+            return;
+
         if (isSatisfied)
             CoachSatisfaction++;
         else

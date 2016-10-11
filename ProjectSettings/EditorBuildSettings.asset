@@ -25,3 +25,5 @@ EditorBuildSettings:
     path: Assets/_Scenes/careerStatisticsMenu.unity
   - enabled: 1
     path: Assets/_Scenes/leagueEndStatistics.unity
+  - enabled: 1
+    path: Assets/_Scenes/newspaper.unity

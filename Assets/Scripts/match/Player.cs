@@ -412,7 +412,7 @@ public class Player : MonoBehaviour
 
 	public void SetEnergy(float val)
 	{
-        if (energyDepleted)
+        if (withdrawn)
             return;
 		if(val<=0)
 		{

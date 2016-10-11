@@ -2,9 +2,12 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class StatisticsViewer : MonoBehaviour 
 {
+    public float minimumRatingToViewNewspaper;
+
 	public Text playerTeamNameDisplay;
 	public Text enemyTeamNameDisplay;
 	public Text score;
@@ -57,6 +60,7 @@ public class StatisticsViewer : MonoBehaviour
 
 	private MatchStatistics statisticsToView;
     private Slider[] comparisonBars;
+    private decimal playerRating;
 
     void Start()
 	{
@@ -93,9 +97,15 @@ public class StatisticsViewer : MonoBehaviour
 		score.text=stats.playerTeamGoals+":"+stats.enemyTeamGoals;
         TeamNames.text = stats.playerTeam.name + " - " + stats.enemyTeam.name;
         if (stats.playerTurnsOnPitch <= 15)
+        {
             ratingText.text = "N/A";
+            playerRating = 0.0m;
+        }
         else
-            ratingText.text = CalculationsManager.CalculatePlayerRating(stats).ToString();
+        {
+            playerRating = CalculationsManager.CalculatePlayerRating(stats);
+            ratingText.text = playerRating.ToString();
+        }
 
         //Tabela statów drużyn
         TeamShots.value = CalculationsManager.GetPercentageOfFirstValue(stats.playerTeamShots,stats.enemyTeamShots);
@@ -185,4 +195,11 @@ public class StatisticsViewer : MonoBehaviour
 		CareerManager.gameInfo.playerStats.playerAttributes[CalculationsManager.MoveNameToSkillName(move)].AddExp(expGained);
 	}
 
+    public void LoadNextScene()
+    {
+        if ((float)playerRating >= minimumRatingToViewNewspaper)
+            SceneManager.LoadScene("newspaper");
+        else
+            GameObject.FindObjectOfType<SceneSwitcher>().SwitchSceneToPlayerMenuAndCheckForLeagueEnd();
+    }
 }

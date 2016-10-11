@@ -527,4 +527,5 @@ public class CalculationsManager
         int change = (int)((rounded - 5m) * 20000);
         return change;
     }
+
 }
