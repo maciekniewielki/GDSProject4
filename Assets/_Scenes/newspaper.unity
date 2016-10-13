@@ -121,40 +121,43 @@ MonoBehaviour:
   articleTitle: {fileID: 1890585295}
   articleText: {fileID: 400292996}
   ratingTiers:
-  - minimumRating: 5
+  - minimumRating: 7.5
     articleTitles:
-    - What a shitty player
-    - It's a disgrace!
-    - He really sucks
+    - Spark of genius
+    - Showing how it's done!
+    - Shines bright like diamond!
+    - Marvelous!
+    - Mastermind of success
     articleTexts:
-    - Sample article text for 5 rating number 1
-    - Sample article text for 5 rating number 2
-    - Sample article text for 5 rating number 3
-  - minimumRating: 7
+    - '"Can''t imagine this team without him", says fan.'
+    - '"Right man in the right place", says manager.'
+    - '"Starting to payoff", says chairman.'
+    - '"Tickets worth buying thanks to him", say fans.'
+    - '"No fear in play", says coach.'
+    - '"Has the potential to achieve great things", says manager.'
+  - minimumRating: 8.8
     articleTitles:
-    - What a good player
-    - It's pretty normal
-    - He is quite good
+    - What a show! Top league scorer title possible?
+    - Impossible to stop!
+    - Right foot of justice struck again!
+    - Pure gold!
+    - Veni, Vidi... Won!
+    - Hall of Fame awaits!
+    - New legend on the way?
     articleTexts:
-    - Sample article text for 7 rating number 1
-    - Sample article text for 7 rating number 2
-    - Sample article text for 7 rating number 3
-  - minimumRating: 9
-    articleTitles:
-    - What a great player
-    - We have a new legend
-    - He really knows how to kick the ball
-    articleTexts:
-    - Sample article text for 9 rating number 1
-    - Sample article text for 9 rating number 2
-    - Sample article text for 9 rating number 3
+    - '"His attitude can inspire others", says coach.'
+    - '"Chances to be the best", says manager.'
+    - '"World at his feet", says manager.'
+    - '"Best player in the world!", boasts fan.'
+    - '"Sooner or later, within the best", say experts.'
+    - '"As brave as Tom Cruise in The Last Samurai", say experts.'
   images:
-  - {fileID: 21300000, guid: cba5dff45c1cc914eaf558a9473e3258, type: 3}
-  - {fileID: 21300000, guid: 54c54be3da0a37447bcb0fa1eb6a4be3, type: 3}
-  - {fileID: 21300000, guid: 8bbae889685a0684090370a873ffc3ff, type: 3}
-  - {fileID: 21300000, guid: 434ad2f8e40a0884e8241a921aa012fa, type: 3}
-  - {fileID: 21300000, guid: 0c0cc818c2879c84eace06d4ebd2aed4, type: 3}
-  - {fileID: 21300000, guid: a49083f42979fb74cbc00c344ca53acf, type: 3}
+  - {fileID: 21300000, guid: 109c70ede7c0dce4d88400f0ec1d02dc, type: 3}
+  - {fileID: 21300000, guid: 09711dac2e157004f928dae767f69d82, type: 3}
+  - {fileID: 21300000, guid: 10a25ea4bba037546a33cdd28633f4a6, type: 3}
+  - {fileID: 21300000, guid: 7e5aed490642f32409b34f022f0973ad, type: 3}
+  - {fileID: 21300000, guid: af18b779c149256489f2f8cb066f8551, type: 3}
+  - {fileID: 21300000, guid: 9daf1e51eb14aeb47890a84f191a4bd4, type: 3}
 --- !u!4 &87029890
 Transform:
   m_ObjectHideFlags: 0
