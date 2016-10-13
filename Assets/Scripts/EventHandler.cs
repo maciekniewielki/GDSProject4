@@ -11,6 +11,8 @@ public class EventHandler : MonoBehaviour {
 	public string[] positionNames=new string[]{"LB", "LM", "LF", "CB", "CM", "CF", "RB", "RM", "RF"};
 	public Text selectedPositionText;
     public Text remainingPointsText;
+    public Slider ageSlider;
+    public Text ageSliderText;
     public GameObject attributesParent;
 	public Text teamsTextDropdown;
 	public Dropdown teamsDropdown;
@@ -18,6 +20,7 @@ public class EventHandler : MonoBehaviour {
     private int remainingPoints = 20;
 	private PlayerInfo playerInfo;
 	private Team[] teams;
+    private bool anyAttributeSet;
     public AudioSource kick;
 
     void Awake()
@@ -32,16 +35,7 @@ public class EventHandler : MonoBehaviour {
 		teamsDropdown.ClearOptions();
 		teamsDropdown.AddOptions(teams.Select(t => t.name).ToList<string>());
 		playerAttributes=new Dictionary<string, Attribute>();
-		foreach (Transform transform in attributesParent.GetComponentsInChildren<Transform>())
-        {
-			GameObject attribute=transform.gameObject;
-			Text text = attribute.GetComponent<Text>();
-			if(text==null)
-				continue;
-			SetAttribute(attribute.name, 5);
-			Debug.Log(attribute.name);
-            text.text= attribute.name + ": " + 5;
-        }
+        RestoreAttributesToDefault();
 		ClickedField(Vector2.zero);
 		StartingTeamChanged();
 
@@ -67,6 +61,7 @@ public class EventHandler : MonoBehaviour {
 
     public void IncrementAttribute(Text which)
     {
+        anyAttributeSet = true;
 		if(playerAttributes[which.name].value<playerAttributes[which.name].maxValue&&remainingPoints>0)
         {
 			playerAttributes[which.name].IncrementStartingAttributeValue();
@@ -88,16 +83,38 @@ public class EventHandler : MonoBehaviour {
 
     }
 
+    void RestoreAttributesToDefault()
+    {
+        foreach (Transform transform in attributesParent.GetComponentsInChildren<Transform>())
+        {
+			GameObject attribute=transform.gameObject;
+			Text text = attribute.GetComponent<Text>();
+			if(text==null)
+				continue;
+			SetAttribute(attribute.name, 5);
+			Debug.Log(attribute.name);
+            text.text= attribute.name + ": " + 5;
+        }
+    }
+
     public void SaveName(string name)
     {
         playerInfo.playerName = name;
         Debug.Log("Saved name: " + name);
     }
-	public void SaveAge(string a)
+	public void SaveAgeFromSlider()
 	{
-		int age=int.Parse(a);
+        if (anyAttributeSet)
+        {
+            RestoreAttributesToDefault();
+            anyAttributeSet = false;
+        }
+        int age = (int)ageSlider.value;
+        ageSliderText.text = age.ToString();
 		playerInfo.playerAge = age;
-		Debug.Log("Saved age: " + age);
+        remainingPoints = age;
+        remainingPointsText.text = "Remaining points: " + remainingPoints;
+        Debug.Log("Saved age: " + age);
 	}
     public void SaveSurname(string surname)
     {
