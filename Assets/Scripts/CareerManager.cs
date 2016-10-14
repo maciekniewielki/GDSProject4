@@ -18,6 +18,7 @@ public class CareerManager : MonoBehaviour
 	public Text leagueTableDisplay;
 	public Text playerName;
 	public Image playerNameBackground;
+    public Text ageDisplayNumber;
 
 	private Text dayDisplay;
 	private Text roundDisplay;
@@ -102,6 +103,7 @@ public class CareerManager : MonoBehaviour
 		UpdateAttributeInfo();
 		playerName.color=CareerManager.gameInfo.playerStats.currentTeam.textColor;
 		playerNameBackground.color=CareerManager.gameInfo.playerStats.currentTeam.bgColor;
+        ageDisplayNumber.text = gameInfo.playerStats.playerAge.ToString();
 		CheckForDay();
 	}
 

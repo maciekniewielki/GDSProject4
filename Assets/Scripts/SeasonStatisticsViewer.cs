@@ -6,16 +6,26 @@ using UnityEngine.SceneManagement;
 public class SeasonStatisticsViewer : MonoBehaviour 
 {
 	public Text leagueTableDisplay;
+    public Text nextSeasonButtonText;
 
 	void Start () 
 	{
-		CareerManager.gameInfo.calendar.AddPointsForWeek(CareerManager.gameInfo.calendar.weeks.Length);
+        CareerManager.gameInfo.playerStats.playerAge++;
+        if (CareerManager.gameInfo.playerStats.playerAge == 35)
+            nextSeasonButtonText.text = "End Game";
+        CareerManager.gameInfo.calendar.AddPointsForWeek(CareerManager.gameInfo.calendar.weeks.Length);
 		leagueTableDisplay.text = CareerManager.gameInfo.calendar.ConvertToLeagueTableString();
 	}
 	
 	public void ResetLeague()
 	{
-		CareerManager.gameInfo.calendar = new LeagueCalendar(CareerManager.gameInfo.calendar.teams);
+        if (CareerManager.gameInfo.playerStats.playerAge == 35)
+        {
+            LeaveToMainMenu();
+            return;
+        }
+
+        CareerManager.gameInfo.calendar = new LeagueCalendar(CareerManager.gameInfo.calendar.teams);
 		CareerManager.gameInfo.currentSeason++;
 		CareerManager.gameInfo.currentRound = 1;
 		CareerManager.gameInfo.currentWeekDay = 0;
@@ -27,5 +37,10 @@ public class SeasonStatisticsViewer : MonoBehaviour
 	{
 		SceneManager.LoadScene("playerMenu");
 	}
+
+    void LeaveToMainMenu()
+    {
+        SceneManager.LoadScene("mainMenu");
+    }
 }
 
