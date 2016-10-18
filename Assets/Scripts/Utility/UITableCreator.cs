@@ -56,10 +56,11 @@ public class UITableCreator : MonoBehaviour
     {
         Rect parentRect = parent.rect;
         GameObject row = Instantiate(tableRowPrefab) as GameObject;
-        row.transform.SetParent(parent.transform);
         RectTransform rowTransform = row.GetComponent<RectTransform>();
-        rowTransform.anchoredPosition = new Vector2(0f, (-tableRowPrefab.GetComponent<RectTransform>().rect.height+7f) * rowNumber);
+        
+        row.transform.SetParent(parent.transform);
         rowTransform.localScale = Vector3.one;
+        rowTransform.anchoredPosition = new Vector2(0f, (-tableRowPrefab.GetComponent<RectTransform>().rect.height + 7f) * rowNumber);
         foreach (Text field in rowTransform.GetComponentsInChildren<Text>())
         {
             int index = int.Parse(field.name.Substring(field.name.Length - 2, 2));

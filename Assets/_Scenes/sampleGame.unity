@@ -1719,7 +1719,6 @@ GameObject:
   - 114: {fileID: 177817794}
   - 222: {fileID: 177817797}
   - 114: {fileID: 177817795}
-  - 61: {fileID: 177817796}
   m_Layer: 5
   m_Name: 2
   m_TagString: Untagged
@@ -1785,20 +1784,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!61 &177817796
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177817792}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 90, y: 90}
 --- !u!222 &177817797
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1816,7 +1801,6 @@ GameObject:
   - 114: {fileID: 192679566}
   - 222: {fileID: 192679569}
   - 114: {fileID: 192679567}
-  - 61: {fileID: 192679568}
   m_Layer: 5
   m_Name: 1
   m_TagString: Untagged
@@ -1882,20 +1866,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!61 &192679568
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 192679564}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 90, y: 90}
 --- !u!222 &192679569
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4067,9 +4037,9 @@ RectTransform:
   - {fileID: 2042676286}
   m_Father: {fileID: 1475672802}
   m_RootOrder: 7
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1722, y: -172}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 762, y: 368}
   m_SizeDelta: {x: 198, y: 172}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &440135854
@@ -8719,7 +8689,6 @@ GameObject:
   - 114: {fileID: 969586242}
   - 222: {fileID: 969586245}
   - 114: {fileID: 969586243}
-  - 61: {fileID: 969586244}
   m_Layer: 5
   m_Name: 3
   m_TagString: Untagged
@@ -8785,20 +8754,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!61 &969586244
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 969586240}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 90, y: 90}
 --- !u!222 &969586245
 CanvasRenderer:
   m_ObjectHideFlags: 0

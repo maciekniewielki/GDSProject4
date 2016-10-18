@@ -123,12 +123,13 @@ public class EventHandler : MonoBehaviour {
     }
     public void SaveEverything()
     {
-		/*
+        /*
 		Team[] teams=new Team[teamsDropdown.options.Count];
 		string[] teamNames=teamsDropdown.options.Select(o => o.text).ToArray();
 		for (int ii = 0; ii < teamNames.Length; ii++)
 			teams[ii]=new Team(teamNames[ii]);*/
-		CareerManager.gameInfo.calendar=new LeagueCalendar(new Team[]{teams[0], teams[1]});
+        teams = GenerateTeamLevels();
+		CareerManager.gameInfo.calendar=new LeagueCalendar(teams);
 		playerInfo.playerAttributes=playerAttributes;
 		CareerManager.gameInfo.playerStats=playerInfo.Clone();
         CareerManager.gameInfo.marketValue = CalculationsManager.GetStartingMarketValueByTeam(playerInfo.currentTeam);
@@ -193,7 +194,7 @@ public class EventHandler : MonoBehaviour {
         teams.Add(new Team("West Ham", 4, 3, 3, new SerializableColor(0, 191, 255), new SerializableColor(178, 34, 34)));
         teams.Add(new Team("Burnley", 2, 2, 1, new SerializableColor(0, 255, 255), new SerializableColor(139, 0, 0)));
         teams.Add(new Team("Crystal Palace", 1, 1, 2, new SerializableColor(0, 0, 255), new SerializableColor(255, 0, 0)));
-        teams.Add(new Team("Bournemouth", 1, 2, 1, new SerializableColor(255, 69, 0), new SerializableColor(255, 0, 0)));
+        teams.Add(new Team("Bournemouth", 1, 2, 1, new SerializableColor(0, 0, 0), new SerializableColor(255, 0, 0)));
         return teams.ToArray();
 	}
 }
