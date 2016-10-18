@@ -13,8 +13,9 @@ public class UITableCreator : MonoBehaviour
     private Table tableToDisplay;
 
 
-    void Start()
+    void Awake()
     {
+        Canvas.ForceUpdateCanvases();
         Table t = new Table(17, 3);
         t.SetHeader(new string[] { "ID", "Goals", "Tackles", "ID", "Goals", "Tackles", "ID", "Goals", "Tackles", "ID", "Goals", "Tackles", "ID", "Goals", "Tackles", "ID", "Goals" });
         t.SetRow(1,new string[]{"1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2"});

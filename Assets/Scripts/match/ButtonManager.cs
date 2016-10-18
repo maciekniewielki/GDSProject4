@@ -8,7 +8,7 @@ public class ButtonManager : MonoBehaviour
 	//TODO add finishshoot implementation
 
 	public GameObject buttonParent;
-
+    public Button startButton;
 	private Dictionary<string, Button> buttons;
 	private string[] stageButtons = { "passButton", "crossButton", "dribbleButton", "moveButton", "outButton" };
 	private PitchManager pitch;
@@ -35,6 +35,7 @@ public class ButtonManager : MonoBehaviour
 		buttons = new Dictionary<string, Button>();
 		foreach(Button g in buttonParent.transform.GetComponentsInChildren<Button>())
 			buttons.Add(g.name, g);
+        buttons.Add("startButton", startButton);
 
 		InitButtons();
 	}
